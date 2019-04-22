@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+}
+
+allprojects {
+    group 'elements'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:$lombok_version"
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor:$spring_boot_version"
+
+        annotationProcessor "org.projectlombok:lombok:$lombok_version"
+
+        testImplementation "org.junit.jupiter:junit-jupiter"
+    }
+
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
+}
+
+wrapper {
+    gradleVersion = '5.4'
+}

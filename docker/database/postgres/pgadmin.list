@@ -1,0 +1,3 @@
+# Crunchy Container Env
+PGADMIN_SETUP_EMAIL=admin@admin.com
+PGADMIN_SETUP_PASSWORD=password
