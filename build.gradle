@@ -1,11 +1,21 @@
 buildscript {
+    ext { springBootVersion = spring_boot_version }
     repositories {
+        maven { url 'http://repo.spring.io/plugins-release' }
         mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
     }
 }
 
 plugins {
     id "io.spring.dependency-management" version "1.0.7.RELEASE"
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
 }
 
 allprojects {
@@ -20,21 +30,31 @@ subprojects {
         }
     }
 
+
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-idea'
     apply plugin: 'java'
     apply plugin: 'groovy'
     apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
 
     repositories {
         mavenCentral()
     }
 
+    dependencyManagement {
+        imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+    }
+
     dependencies {
-        compileOnly "org.projectlombok:lombok:$lombok_version"
-        compileOnly "org.springframework.boot:spring-boot-configuration-processor:$spring_boot_version"
+        implementation "javax.servlet:javax.servlet-api:$javax_servlet_version"
+        implementation "javax.xml.bind:jaxb-api:$jaxb_api_version"
+        implementation "com.sun.xml.bind:jaxb-impl:$jaxb_impl_version"
+        implementation "com.sun.istack:istack-commons-runtime:$istack_version"
 
-        annotationProcessor "org.projectlombok:lombok:$lombok_version"
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-        testImplementation "org.junit.jupiter:junit-jupiter"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
     }
 
     sourceCompatibility = "11"

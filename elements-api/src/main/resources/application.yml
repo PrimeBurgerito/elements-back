@@ -1,0 +1,11 @@
+server:
+  port: 7777
+
+security:
+  oauth2:
+    resource:
+      token-info-uri: ${auth-server:http://localhost:8080}/oauth/check_token
+    client:
+      client-id: elements
+      client-secret: elements-secret
+

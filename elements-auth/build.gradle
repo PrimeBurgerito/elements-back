@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':elements-common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.security.oauth:spring-security-oauth2:$oauth2_version"
+}
