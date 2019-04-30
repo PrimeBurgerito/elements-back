@@ -1,19 +1,17 @@
 package com.elements.elementscommon.config;
 
-import com.elements.elementscommon.domain.user.UserRepository;
+import com.elements.elementscommon.domain.user.UserDetailsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserRepository userRepository;
-
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserDetailsRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {

@@ -6,22 +6,20 @@ import com.arangodb.springframework.annotation.EnableArangoAuditing;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 import com.elements.elementscommon.config.properties.DatabaseProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 
 @Configuration
+@RequiredArgsConstructor
 @ComponentScan(basePackageClasses = {DatabaseProperties.class})
 @EnableArangoAuditing
-@EnableArangoRepositories(basePackages = {"com.elements"})
+@EnableArangoRepositories(basePackages = {"com.elements.elementscommon"})
 public class DatabaseConfiguration implements ArangoConfiguration {
 
     private final DatabaseProperties db;
-
-    public DatabaseConfiguration(DatabaseProperties databaseProperties) {
-        this.db = databaseProperties;
-    }
 
     @Bean
     public AuditorAware<String> auditorProvider() {

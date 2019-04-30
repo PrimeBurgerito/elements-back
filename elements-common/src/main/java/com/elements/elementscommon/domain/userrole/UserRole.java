@@ -1,14 +1,12 @@
 package com.elements.elementscommon.domain.userrole;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
-@Getter
-@Setter
+@Data
 public class UserRole implements GrantedAuthority {
-    private RoleName name;
+    private RoleName name = RoleName.ROLE_USER;
 
     @JsonIgnore
     @Override

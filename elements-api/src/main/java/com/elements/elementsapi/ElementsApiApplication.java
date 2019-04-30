@@ -2,10 +2,8 @@ package com.elements.elementsapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan({"com.elements"})
+@SpringBootApplication(scanBasePackages = {"com.elements"})
 public class ElementsApiApplication {
 
     public static void main(String[] args) {

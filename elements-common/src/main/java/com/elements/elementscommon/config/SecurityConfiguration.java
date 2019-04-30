@@ -1,6 +1,7 @@
 package com.elements.elementscommon.config;
 
 import com.elements.elementscommon.config.properties.SecurityProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,17 +19,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Primary
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 @ComponentScan(basePackages = "com.elements.elementscommon.config")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final SecurityProperties securityProperties;
     private final UserDetailsServiceImpl userDetailsService;
-
-    public SecurityConfiguration(SecurityProperties securityProperties, UserDetailsServiceImpl userDetailsService) {
-        this.securityProperties = securityProperties;
-        this.userDetailsService = userDetailsService;
-    }
 
     @Bean
     @Override
@@ -42,12 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(securityProperties.getAllowedPatterns()).permitAll()
                 .anyRequest().fullyAuthenticated()
-                .and()
-                .csrf().disable()
+                .and().csrf().disable()
                 .httpBasic()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override

@@ -1,4 +1,7 @@
-arangodb:
+server:
+  port: 8080
+
+datasource:
   host: localhost
   port: 8529
   user: root
@@ -7,12 +10,12 @@ arangodb:
 
 spring:
   security:
-    allowed-patterns: /,/login**,/oauth/authorize
+    allowed-patterns: /, /login**, /oauth/authorize
     oauth2:
       client-id: elements-client
       client-secret: elements-secret
-      grant-types: password,authorization_code,refresh_token,implicit
+      grant-types: password, authorization_code, refresh_token, implicit
       refresh-token: refresh_token
       access-token-validity-seconds: 3600
       refresh-token-validity-seconds: 21600
-      scope: read,write,trust
+      scope: read, write, trust
