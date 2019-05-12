@@ -2,6 +2,7 @@ package com.elements.elementsauth.config;
 
 import com.elements.elementscommon.config.UserDetailsServiceImpl;
 import com.elements.elementscommon.config.properties.AuthProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,9 +16,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-
 
     @Bean
     public TokenStore tokenStore() {
@@ -28,18 +29,6 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsServiceImpl userDetailsService;
-
-    public OAuth2Config(
-            AuthenticationManager authenticationManager,
-            BCryptPasswordEncoder passwordEncoder,
-            UserDetailsServiceImpl userDetailsService,
-            AuthProperties authProperties
-    ) {
-        this.authenticationManager = authenticationManager;
-        this.passwordEncoder = passwordEncoder;
-        this.userDetailsService = userDetailsService;
-        this.authProperties = authProperties;
-    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer serverSecurityConfigurer) {

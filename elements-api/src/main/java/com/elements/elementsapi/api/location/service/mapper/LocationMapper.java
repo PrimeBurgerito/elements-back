@@ -1,7 +1,7 @@
 package com.elements.elementsapi.api.location.service.mapper;
 
 import com.elements.elementsapi.api.location.service.resource.LocationDto;
-import com.elements.elementsapi.api.location.domain.Location;
+import com.elements.elementsdomain.location.Location;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;

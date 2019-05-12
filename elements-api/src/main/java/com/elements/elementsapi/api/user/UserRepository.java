@@ -1,9 +1,9 @@
 package com.elements.elementsapi.api.user;
 
-import com.arangodb.springframework.repository.ArangoRepository;
 import com.elements.elementscommon.domain.user.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends ArangoRepository<User, String> {
+public interface UserRepository extends MongoRepository<User, String> {
 }

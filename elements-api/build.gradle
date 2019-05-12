@@ -12,19 +12,20 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     implementation project(':elements-common')
+    implementation project(':elements-domain')
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation "org.springframework.security.oauth:spring-security-oauth2:$oauth2_version"
-    
+
     implementation "org.mapstruct:mapstruct:$mapstruct_version"
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstruct_version"
 
     implementation "io.springfox:springfox-swagger2:$swagger_version"
     implementation "io.springfox:springfox-swagger-ui:$swagger_version"
 
-    implementation "com.arangodb:arangodb-spring-data:$arangodb_spring_version"
+    implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
 
     compileOnly "org.projectlombok:lombok"
     annotationProcessor "org.projectlombok:lombok"

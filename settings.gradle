@@ -4,4 +4,6 @@ include 'elements-api'
 include 'elements-domain'
 include 'elements-common'
 include 'elements-auth'
+include 'elements-database'
+include 'game-session'
 

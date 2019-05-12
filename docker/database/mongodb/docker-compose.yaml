@@ -2,25 +2,50 @@ version: '3.7'
 
 services:
 
-  mongo:
-    container_name: mongo
-    image: mongo:4.1.10
-    restart: always
+  mongo1:
+    image: mongo-start
+    build: ./mongo1
     ports:
       - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo1_db:/data
+    depends_on:
+      - mongo2
+      - mongo3
+
+  mongo2:
+    image: mongo:4.1.10-bionic
+    command: --replSet rs0 --oplogSize 128
+    ports:
+      - 27018:27017
+    volumes:
+      - mongo2_db:/data
+
+  mongo3:
+    image: mongo:4.1.10-bionic
+    command: --replSet rs0 --oplogSize 128
+    ports:
+      - 27019:27017
+    volumes:
+      - mongo3_db:/data
+
+  setup-rs:
+    image: setup-rs
+    build: ./setup
+    depends_on:
+      - mongo1
 
   mongo-express:
     depends_on:
-      - mongo
+      - setup-rs
     image: mongo-express
     restart: always
     ports:
       - 8079:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_MONGODB_SERVER: mongo
+    env_file:
+      - mexpress_env
+
+volumes:
+  mongo1_db:
+  mongo2_db:
+  mongo3_db:

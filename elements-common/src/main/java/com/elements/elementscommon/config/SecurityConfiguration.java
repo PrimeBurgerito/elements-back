@@ -1,12 +1,13 @@
 package com.elements.elementscommon.config;
 
+import com.elements.elementscommon.ModuleWebSecurityConfigurer;
 import com.elements.elementscommon.config.properties.SecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Primary
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -26,6 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final SecurityProperties securityProperties;
     private final UserDetailsServiceImpl userDetailsService;
+    @Nullable
+    private final ModuleWebSecurityConfigurer moduleWebSecurityConfigurer;
 
     @Bean
     @Override
@@ -38,10 +40,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(securityProperties.getAllowedPatterns()).permitAll()
-                .anyRequest().fullyAuthenticated()
-                .and().csrf().disable()
-                .httpBasic()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .anyRequest().fullyAuthenticated();
+        if (moduleWebSecurityConfigurer != null) {
+            moduleWebSecurityConfigurer.configure(http);
+        } else {
+            http.csrf().disable().httpBasic()
+                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        }
     }
 
     @Override

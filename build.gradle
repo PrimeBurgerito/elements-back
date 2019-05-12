@@ -11,6 +11,7 @@ buildscript {
 
 plugins {
     id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id "base"
 }
 
 dependencyManagement {

@@ -1,3 +1,9 @@
 dependencies {
     compile project(':elements-common')
+
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+    implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
+
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
 }

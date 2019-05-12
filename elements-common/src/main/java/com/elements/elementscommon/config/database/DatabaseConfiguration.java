@@ -1,23 +1,25 @@
 package com.elements.elementscommon.config.database;
 
-import com.arangodb.ArangoDB;
-import com.arangodb.entity.LoadBalancingStrategy;
-import com.arangodb.springframework.annotation.EnableArangoAuditing;
-import com.arangodb.springframework.annotation.EnableArangoRepositories;
-import com.arangodb.springframework.config.ArangoConfiguration;
-import com.elements.elementscommon.config.properties.DatabaseProperties;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
+@EnableMongoAuditing
+@EnableMongoRepositories(basePackages = {"com.elements"})
 @RequiredArgsConstructor
 @ComponentScan(basePackageClasses = {DatabaseProperties.class})
-@EnableArangoAuditing
-@EnableArangoRepositories(basePackages = {"com.elements.elementscommon"})
-public class DatabaseConfiguration implements ArangoConfiguration {
+public class DatabaseConfiguration extends AbstractMongoConfiguration {
 
     private final DatabaseProperties db;
 
@@ -26,17 +28,26 @@ public class DatabaseConfiguration implements ArangoConfiguration {
         return new AuditorProvider();
     }
 
-    @Override
-    public ArangoDB.Builder arango() {
-        return new ArangoDB.Builder()
-                .host(db.getHost(), db.getPort())
-                .user(db.getUser())
-                .password(db.getPassword())
-                .loadBalancingStrategy(LoadBalancingStrategy.ROUND_ROBIN);
+    @Bean
+    MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
+        return new MongoTransactionManager(dbFactory);
+    }
+
+    private MongoCredential getMongoCredentials() {
+        String authDb = db.getAuthenticationDatabase();
+        char[] password = db.getPassword().toCharArray();
+        return MongoCredential.createScramSha1Credential(db.getUsername(), authDb, password);
     }
 
     @Override
-    public String database() {
+    public MongoClient mongoClient() {
+        ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
+        //MongoClientOptions options = MongoClientOptions.builder().build();
+        return new MongoClient(address);
+    }
+
+    @Override
+    protected String getDatabaseName() {
         return db.getDatabase();
     }
 }

@@ -1,0 +1,27 @@
+buildscript {
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    implementation project(":elements-common")
+    implementation project(":elements-domain")
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
+
+    implementation "org.springframework.session:spring-session-hazelcast"
+    implementation "com.hazelcast:hazelcast:$hazelcast_version"
+
+    implementation "org.springframework.security:spring-security-web"
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}

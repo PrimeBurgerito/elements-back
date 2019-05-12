@@ -1,13 +1,17 @@
 server:
   port: 7777
 
-datasource:
-  host: localhost
-  port: 8529
-  user: root
-  password: admin
-  database: dev
-
 spring:
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      username: root
+      password: example
+      database: dev
+      authentication-database: admin
+      repositories:
+        type: auto
+
   security:
-    allowed-patterns: /, /user/create
+    allowed-patterns: /, /user/create, /swagger-ui.html, /v2/api-docs, /swagger-resources/**, /webjars/**, /csrf
