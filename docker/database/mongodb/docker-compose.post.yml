@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  mongo-express:
+    image: mongo-express
+    restart: 'no'
+    ports:
+      - 8079:8081
+    env_file:
+      - post_install/mexpress.env
+    networks:
+      - mongodb_mongo
+
+networks:
+  mongodb_mongo:
+    external: true

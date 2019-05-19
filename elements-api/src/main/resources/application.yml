@@ -9,9 +9,34 @@ spring:
       username: root
       password: example
       database: dev
-      authentication-database: admin
+      #      authentication-database: admin
       repositories:
         type: auto
 
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 4MB
+      max-request-size: 10MB
+
   security:
-    allowed-patterns: /, /user/create, /swagger-ui.html, /v2/api-docs, /swagger-resources/**, /webjars/**, /csrf
+    token-service:
+      server-uri: http://localhost:8080/oauth
+      client-id: elements-client
+      client-secret: elements-secret
+      client-id-swagger: elements-swagger
+      client-secret-swagger: elements-swagger
+      check-token-endpoint: ${spring.security.token-service.server-uri}/check_token
+
+    allowed-patterns:
+      - /swagger-ui.html
+      - /v2/api-docs
+      - /swagger-resources/**
+      - /webjars/**
+      - /configuration/ui
+      - /configuration/security
+      - /user/create
+
+file:
+  upload-dir: /uploads

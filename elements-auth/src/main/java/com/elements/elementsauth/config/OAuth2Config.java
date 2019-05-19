@@ -1,12 +1,11 @@
 package com.elements.elementsauth.config;
 
 import com.elements.elementscommon.config.UserDetailsServiceImpl;
-import com.elements.elementscommon.config.properties.AuthProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -25,16 +24,17 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
         return new InMemoryTokenStore();
     }
 
-    private final AuthProperties authProperties;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private static final String RESOURCE_ID = "resource_id";
+    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final AuthProperties authProperties;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer serverSecurityConfigurer) {
         serverSecurityConfigurer
                 .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                .checkTokenAccess("permitAll()");
     }
 
     @Override
@@ -47,12 +47,31 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
+        clients.inMemory();
+        configureDefaultClient(clients);
+        configureSwaggerClient(clients);
+    }
+
+    private void configureDefaultClient(ClientDetailsServiceConfigurer clients) {
+        clients.and()
                 .withClient(authProperties.getClientId())
                 .secret(passwordEncoder.encode(authProperties.getClientSecret()))
                 .accessTokenValiditySeconds(authProperties.getAccessTokenValiditySeconds())
                 .refreshTokenValiditySeconds(authProperties.getRefreshTokenValiditySeconds())
                 .scopes(authProperties.getScope())
+                .resourceIds(RESOURCE_ID)
                 .authorizedGrantTypes(authProperties.getGrantTypes());
+    }
+
+    private void configureSwaggerClient(ClientDetailsServiceConfigurer clients) {
+        clients.and()
+                .withClient(authProperties.getClientIdSwagger())
+                .secret(passwordEncoder.encode(authProperties.getClientSecretSwagger()))
+                .accessTokenValiditySeconds(authProperties.getAccessTokenValiditySeconds())
+                .refreshTokenValiditySeconds(authProperties.getRefreshTokenValiditySeconds())
+                .scopes(authProperties.getScope())
+                .authorizedGrantTypes(authProperties.getGrantTypes())
+                .resourceIds(RESOURCE_ID)
+                .redirectUris("http://localhost:7777/webjars/springfox-swagger-ui/oauth2-redirect.html");
     }
 }

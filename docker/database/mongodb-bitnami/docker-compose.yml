@@ -1,0 +1,34 @@
+version: '3.7'
+
+networks:
+  mongo_network:
+    driver: bridge
+
+services:
+  mongo1:
+    image: bitnami/mongodb:latest
+    user: root
+    volumes:
+      - /data:/bitnami
+    networks:
+      - mongo_network
+    env_file:
+      - mongo_prim.env
+
+  mongo2:
+    image: bitnami/mongodb:latest
+    networks:
+      - mongo_network
+    env_file:
+      - mongo_sec.env
+    depends_on:
+      - mongo1
+
+  mongo3:
+    image: bitnami/mongodb:latest
+    networks:
+      - mongo_network
+    env_file:
+      - mongo_sec.env
+    depends_on:
+      - mongo1

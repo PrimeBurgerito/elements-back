@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  setup-rs:
+    image: setup-rs
+    build: ./setup
+    networks:
+      - mongodb_mongo
+
+networks:
+  mongodb_mongo:
+    external: true

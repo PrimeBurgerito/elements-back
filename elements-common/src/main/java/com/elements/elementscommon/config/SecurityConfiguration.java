@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 @ComponentScan(basePackages = "com.elements.elementscommon.config")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -36,16 +36,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(securityProperties.getAllowedPatterns()).permitAll()
                 .anyRequest().fullyAuthenticated();
+
         if (moduleWebSecurityConfigurer != null) {
-            moduleWebSecurityConfigurer.configure(http);
+            moduleWebSecurityConfigurer.configure(httpSecurity);
         } else {
-            http.csrf().disable().httpBasic()
-                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            httpSecurity.csrf().disable()
+                    .httpBasic()
+                    .and()
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         }
     }
 

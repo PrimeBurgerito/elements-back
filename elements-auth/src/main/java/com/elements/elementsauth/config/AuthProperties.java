@@ -1,4 +1,4 @@
-package com.elements.elementscommon.config.properties;
+package com.elements.elementsauth.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 public class AuthProperties {
     private String clientId;
     private String clientSecret;
+    private String clientIdSwagger;
+    private String clientSecretSwagger;
     private String refreshToken;
     private String[] grantTypes;
     private String[] scope;

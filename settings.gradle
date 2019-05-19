@@ -3,7 +3,6 @@ rootProject.name = 'elements-back'
 include 'elements-api'
 include 'elements-domain'
 include 'elements-common'
-include 'elements-auth'
+include 'elements-auth', 'elements-auth:token-store'
 include 'elements-database'
 include 'game-session'
-
