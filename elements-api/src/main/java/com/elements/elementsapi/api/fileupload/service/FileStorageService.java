@@ -3,6 +3,7 @@ package com.elements.elementsapi.api.fileupload.service;
 import com.elements.elementsapi.api.fileupload.service.resource.FileStorageException;
 import com.elements.elementsapi.api.fileupload.service.resource.MyFileNotFoundException;
 import com.elements.elementsapi.config.properties.FileStorageProperties;
+import com.elements.elementsdomain.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -31,6 +32,13 @@ public class FileStorageService {
         } catch (Exception ex) {
             throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
         }
+    }
+
+    public Image storeImage(MultipartFile file) {
+        String fileName = storeFile(file);
+        return Image.builder()
+                .fileName(fileName)
+                .build();
     }
 
     public String storeFile(MultipartFile file) {
