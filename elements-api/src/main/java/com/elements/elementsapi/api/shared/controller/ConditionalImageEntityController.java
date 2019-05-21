@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.shared.controller;
 import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
 import com.elements.elementsapi.api.shared.service.resource.ConditionalImageDto;
 import com.elements.elementscommon.domain.DocumentBase;
-import com.elements.elementsdomain.image.Image;
+import com.elements.elementsdomain.image.ConditionalImage;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,7 +18,7 @@ public abstract class ConditionalImageEntityController<D, T extends DocumentBase
     protected abstract ConditionalImageEntityService<D, T> getService();
 
     @PutMapping(value = "/image/{entityId}/{imageKey}")
-    Image addImage(@Valid ConditionalImageDto imageDto, @RequestParam MultipartFile file) {
+    ConditionalImage addImage(@Valid ConditionalImageDto imageDto, @RequestParam MultipartFile file) {
         return getService().addImage(imageDto, file);
     }
 

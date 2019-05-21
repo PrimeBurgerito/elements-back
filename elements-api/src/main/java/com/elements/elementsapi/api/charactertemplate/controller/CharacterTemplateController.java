@@ -3,7 +3,6 @@ package com.elements.elementsapi.api.charactertemplate.controller;
 import com.elements.elementsapi.api.charactertemplate.service.CharacterTemplateService;
 import com.elements.elementsapi.api.charactertemplate.service.resource.CharacterTemplateDto;
 import com.elements.elementsapi.api.shared.controller.ImageEntityController;
-import com.elements.elementsapi.api.shared.service.ImageEntityService;
 import com.elements.elementsdomain.character.CharacterTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ public class CharacterTemplateController extends ImageEntityController<Character
     private final CharacterTemplateService service;
 
     @Override
-    protected ImageEntityService<CharacterTemplateDto, CharacterTemplate> getService() {
+    protected CharacterTemplateService getService() {
         return service;
     }
 }

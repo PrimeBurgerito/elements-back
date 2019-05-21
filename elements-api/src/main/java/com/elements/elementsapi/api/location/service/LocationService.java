@@ -49,7 +49,7 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
     @Override
     protected void addImageToEntity(Location entity, ConditionalImage conditionalImage) {
         entity.getImages().stream()
-                .filter((ConditionalImage img) -> img.getKey().equals(conditionalImage.getKey()))
+                .filter((ConditionalImage img) -> img.getImage().getKey().equals(conditionalImage.getImage().getKey()))
                 .findFirst()
                 .ifPresentOrElse(
                         (ConditionalImage img) -> img = conditionalImage,
@@ -59,6 +59,6 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
 
     @Override
     protected boolean removeImageFromEntity(Location entity, String imageKey) {
-        return entity.getImages().removeIf(image -> imageKey.equals(image.getKey()));
+        return entity.getImages().removeIf(image -> imageKey.equals(image.getImage().getKey()));
     }
 }

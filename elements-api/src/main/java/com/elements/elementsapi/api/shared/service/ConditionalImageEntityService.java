@@ -16,7 +16,13 @@ public abstract class ConditionalImageEntityService<D, T extends DocumentBase> e
     public ConditionalImage addImage(ConditionalImageDto imageDto, MultipartFile file) {
         T entity = findById(imageDto.getEntityId());
         Image image = fileStorageService.storeImage(file);
-        ConditionalImage conditionalImage = mapConditionalImage(imageDto, image);
+        image.setKey(imageDto.getImageKey());
+
+        ConditionalImage conditionalImage = ConditionalImage.builder()
+                .requirement(imageDto.getRequirement())
+                .image(image)
+                .build();
+
         addImageToEntity(entity, conditionalImage);
         getRepository().save(entity);
         return conditionalImage;
@@ -27,16 +33,6 @@ public abstract class ConditionalImageEntityService<D, T extends DocumentBase> e
         boolean removed = removeImageFromEntity(entity, imageKey);
         getRepository().save(entity);
         return removed;
-    }
-
-    private static ConditionalImage mapConditionalImage(ConditionalImageDto imageDto, Image image) {
-        ConditionalImage conditionalImage = ConditionalImage.builder()
-                .fileName(image.getFileName())
-                .key(imageDto.getImageKey())
-                .uri(image.getUri())
-                .build();
-        conditionalImage.setRequirement(imageDto.getRequirement());
-        return conditionalImage;
     }
 
     protected abstract void addImageToEntity(T entity, ConditionalImage conditionalImage);

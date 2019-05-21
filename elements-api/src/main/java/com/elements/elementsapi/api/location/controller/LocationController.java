@@ -2,10 +2,7 @@ package com.elements.elementsapi.api.location.controller;
 
 import com.elements.elementsapi.api.location.service.LocationService;
 import com.elements.elementsapi.api.location.service.resource.LocationDto;
-import com.elements.elementsapi.api.shared.controller.BaseController;
 import com.elements.elementsapi.api.shared.controller.ConditionalImageEntityController;
-import com.elements.elementsapi.api.shared.service.BaseService;
-import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
 import com.elements.elementsdomain.location.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/location")
 public class LocationController extends ConditionalImageEntityController<LocationDto, Location> {
 
-    private final LocationService locationService;
+    private final LocationService service;
 
     @Override
-    protected ConditionalImageEntityService<LocationDto, Location> getService() {
-        return locationService;
+    protected LocationService getService() {
+        return service;
     }
 }
