@@ -40,12 +40,6 @@ public class CharacterTemplateService extends ImageEntityService<CharacterTempla
     }
 
     @Override
-    public CharacterTemplateDto create(CharacterTemplateDto characterTemplateDto) {
-        CharacterTemplate characterTemplate = mapper.map(characterTemplateDto);
-        return mapper.map(repository.save(characterTemplate));
-    }
-
-    @Override
     public CharacterTemplateDto update(String characterTemplateId, CharacterTemplateDto characterTemplateDto) {
         CharacterTemplate characterTemplate = repository.findById(characterTemplateId)
                 .orElseThrow(() -> new RuntimeException("Character template not found"));

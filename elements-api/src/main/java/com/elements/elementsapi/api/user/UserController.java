@@ -23,4 +23,14 @@ public class UserController {
     public List<UserDto> find() {
         return userService.find();
     }
+
+    @GetMapping(value = "/{username}")
+    public UserDto get(@PathVariable String username) {
+        return userService.get(username);
+    }
+
+    @GetMapping(value = "/me")
+    public UserDto me() {
+        return userService.me();
+    }
 }
