@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 @Builder
 public class ConditionalImage {
-
     private Image image;
     private Requirement requirement;
 }

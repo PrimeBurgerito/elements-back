@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @Document
 @EqualsAndHashCode(callSuper = true)
 public class Event extends DocumentBase {
     private Requirement requirement;
-    private AbstractScene[] scenes;
+    private List<AbstractScene> scenes;
 }

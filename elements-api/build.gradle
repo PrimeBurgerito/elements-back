@@ -19,6 +19,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation "org.springframework.security.oauth:spring-security-oauth2:$oauth2_version"
 
+    implementation "org.apache.commons:commons-collections4:$commons_collections4_version"
+
     implementation "org.mapstruct:mapstruct:$mapstruct_version"
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstruct_version"
 
