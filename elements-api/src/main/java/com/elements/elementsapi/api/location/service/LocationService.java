@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.apache.commons.collections4.CollectionUtils.*;
@@ -82,6 +83,9 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
 
     @Override
     protected void addImageToEntity(Location entity, ConditionalImage conditionalImage) {
+        if (entity.getImages() == null) {
+            entity.setImages(new HashSet<>());
+        }
         entity.getImages().stream()
                 .filter((ConditionalImage img) -> img.getImage().getKey().equals(conditionalImage.getImage().getKey()))
                 .findFirst()
