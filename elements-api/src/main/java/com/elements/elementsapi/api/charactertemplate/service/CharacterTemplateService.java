@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+
 @Service
 @Transactional
 public class CharacterTemplateService extends ImageEntityService<CharacterTemplateDto, CharacterTemplate> {
@@ -50,6 +52,9 @@ public class CharacterTemplateService extends ImageEntityService<CharacterTempla
 
     @Override
     protected void addImageToEntity(CharacterTemplate entity, String imageKey, Image image) {
+        if (entity.getImages() == null) {
+            entity.setImages(new HashMap<>());
+        }
         entity.getImages().put(imageKey, image);
     }
 

@@ -20,7 +20,7 @@ public abstract class ConditionalImageEntityController<D, T extends DocumentBase
     protected abstract ConditionalImageEntityService<D, T> getService();
 
     @PutMapping(value = "/image", consumes = {"multipart/form-data"})
-    ConditionalImage addImage(
+    public ConditionalImage addImage(
             @RequestPart("imageDto") @Valid ConditionalImageDto imageDto,
             @RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file
     ) {
@@ -28,7 +28,7 @@ public abstract class ConditionalImageEntityController<D, T extends DocumentBase
     }
 
     @DeleteMapping(value = "/image/{entityId}/{imageKey}")
-    boolean removeImage(@PathVariable String entityId, @PathVariable String imageKey) {
+    public boolean removeImage(@PathVariable String entityId, @PathVariable String imageKey) {
         return getService().removeImage(entityId, imageKey);
     }
 }

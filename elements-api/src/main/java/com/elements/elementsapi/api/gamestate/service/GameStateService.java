@@ -32,6 +32,7 @@ public class GameStateService {
         CharacterStatistics characterStatistics = CharacterStatistics.builder()
                 .attributes(characterTemplate.getAttributes())
                 .properties(characterTemplate.getProperties())
+                .images(characterTemplate.getImages())
                 .build();
         gameState.setCharacterStatistics(characterStatistics);
 

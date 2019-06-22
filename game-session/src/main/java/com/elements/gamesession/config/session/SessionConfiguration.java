@@ -25,7 +25,6 @@ public class SessionConfiguration {
                 .setExtractor(PrincipalNameExtractor.class.getName());
 
         Config config = new Config();
-
         config.getMapConfig(DEFAULT_SESSION_MAP_NAME)
                 .addMapAttributeConfig(attributeConfig)
                 .addMapIndexConfig(new MapIndexConfig(PRINCIPAL_NAME_ATTRIBUTE, false));

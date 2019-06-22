@@ -15,12 +15,12 @@ public abstract class ImageEntityController<D, T extends DocumentBase> extends B
     protected abstract ImageEntityService<D, T> getService();
 
     @PutMapping(value = "/image/{entityId}/{imageKey}")
-    Image addImage(@PathVariable String entityId, @PathVariable String imageKey, @RequestParam MultipartFile file) {
+    public Image addImage(@PathVariable String entityId, @PathVariable String imageKey, @RequestParam MultipartFile file) {
         return getService().addImage(entityId, imageKey, file);
     }
 
     @DeleteMapping(value = "/image/{entityId}/{imageKey}")
-    boolean removeImage(@PathVariable String entityId, @PathVariable String imageKey) {
+    public boolean removeImage(@PathVariable String entityId, @PathVariable String imageKey) {
         return getService().removeImage(entityId, imageKey);
     }
 }
