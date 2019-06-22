@@ -4,6 +4,7 @@ import com.elements.elementsapi.api.gamestate.service.GameStateService;
 import com.elements.elementsapi.api.gamestate.service.resource.GameStateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class GameStateController {
     private final GameStateService gameStateService;
 
     @PostMapping
-    public boolean create(GameStateDto gameStateDto) {
+    public boolean create(@RequestBody GameStateDto gameStateDto) {
         return gameStateService.create(gameStateDto);
     }
 }
