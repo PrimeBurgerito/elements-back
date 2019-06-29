@@ -28,12 +28,6 @@ spring:
     allowed-patterns:
       - /csrf
       - /start-session
-      - /swagger-ui.html
-      - /v2/api-docs
-      - /swagger-resources/**
-      - /webjars/**
-      - /configuration/ui
-      - /configuration/security
 
 server:
   port: 7778

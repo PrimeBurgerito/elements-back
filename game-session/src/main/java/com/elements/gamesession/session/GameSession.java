@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Data
 @Slf4j
@@ -19,12 +20,15 @@ public class GameSession {
     private GameState gameState;
     private Location location;
 
+    private ClientGameState clientGameState;
+
     @PostConstruct
     public void init() {
-        if (gameState != null) {
-            log.info("New websocket session created with gamestate: {}", gameState.getUserId());
-        } else {
-            log.info("New websocket session created without gamestate.");
-        }
+        log.info("Websocket session constructed [{}]", getClass());
+    }
+
+    @PreDestroy
+    public void destroy() {
+        log.info("Websocket session going to be destroyed [{}]", getClass());
     }
 }
