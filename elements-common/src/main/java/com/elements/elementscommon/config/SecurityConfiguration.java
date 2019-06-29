@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(securityProperties.getAllowedPatterns()).permitAll()
-                .anyRequest().fullyAuthenticated();
+                .anyRequest().authenticated();
 
         if (moduleWebSecurityConfigurer != null) {
             moduleWebSecurityConfigurer.configure(httpSecurity);
@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             httpSecurity.csrf().disable()
                     .httpBasic()
                     .and()
-                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
         }
     }
 

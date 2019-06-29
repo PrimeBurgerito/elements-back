@@ -5,15 +5,17 @@ import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.elementsdomain.location.Location;
 import com.elements.gamesession.session.GameSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class SessionCreatedListener implements ApplicationListener<SessionConnectedEvent> {
@@ -23,10 +25,16 @@ public class SessionCreatedListener implements ApplicationListener<SessionConnec
 
     @Override
     public void onApplicationEvent(SessionConnectedEvent event) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        GameState gameState = mongoTemplate.findOne(query(where("userId").is(user.getId())), GameState.class);
-        Location location = mongoTemplate.findById(gameState.getLocationId(), Location.class);
-        gameSession.setGameState(gameState);
-        gameSession.setLocation(location);
+        StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
+        log.info("WebSocket Session Connected: {}", event.getMessage());
+        log.info("Connect event [sessionId: {} ]", sha.getSessionId());
+        if (event.getUser() != null) {
+            String username = event.getUser().getName();
+            User user = mongoTemplate.findOne(query(where("username").is(username)), User.class);
+            GameState gameState = mongoTemplate.findOne(query(where("userId").is(user.getId())), GameState.class);
+            Location location = mongoTemplate.findById(gameState.getLocationId(), Location.class);
+            gameSession.setGameState(gameState);
+            gameSession.setLocation(location);
+        }
     }
 }

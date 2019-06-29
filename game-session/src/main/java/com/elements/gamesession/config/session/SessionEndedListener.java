@@ -1,27 +1,21 @@
 package com.elements.gamesession.config.session;
 
-import com.elements.elementscommon.domain.user.User;
-import com.elements.gamesession.session.GameSession;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.session.SessionDestroyedEvent;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+@Slf4j
 @Component
 @NoArgsConstructor
-public class SessionEndedListener implements ApplicationListener<SessionDestroyedEvent> {
-
-    private GameSession gameSession;
+public class SessionEndedListener implements ApplicationListener<SessionDisconnectEvent> {
 
     @Override
-    public void onApplicationEvent(SessionDestroyedEvent event) {
-        for (SecurityContext securityContext : event.getSecurityContexts()) {
-            Authentication authentication = securityContext.getAuthentication();
-            User user = (User) authentication.getPrincipal();
-            // do something
-        }
+    public void onApplicationEvent(SessionDisconnectEvent event) {
+        StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
+        log.info("WebSocket Session Disconnected: {}", event.getMessage());
+        log.info("Disconnect event [sessionId: {}]", sha.getSessionId());
     }
-
 }

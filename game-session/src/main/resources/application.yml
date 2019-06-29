@@ -11,7 +11,29 @@ spring:
         type: auto
 
   session:
-    store-type: hazelcast
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6379
+
+  security:
+    token-service:
+      server-uri: http://localhost:8080/oauth
+      client-id: elements-client
+      client-secret: elements-secret
+      client-id-swagger: elements-swagger
+      client-secret-swagger: elements-swagger
+      check-token-endpoint: ${spring.security.token-service.server-uri}/check_token
+
+    allowed-patterns:
+      - /csrf
+      - /start-session
+      - /swagger-ui.html
+      - /v2/api-docs
+      - /swagger-resources/**
+      - /webjars/**
+      - /configuration/ui
+      - /configuration/security
 
 server:
   port: 7778
