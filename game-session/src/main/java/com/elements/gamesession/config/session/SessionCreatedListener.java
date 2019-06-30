@@ -2,9 +2,9 @@ package com.elements.gamesession.config.session;
 
 import com.elements.elementscommon.domain.user.User;
 import com.elements.elementsdomain.gamestate.GameState;
-import com.elements.elementsdomain.location.Location;
-import com.elements.gamesession.session.ClientGameState;
 import com.elements.gamesession.session.GameSession;
+import com.elements.gamesession.session.clientgamestate.service.ClientGameStateService;
+import com.elements.gamesession.session.gamestate.service.GameStateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -24,6 +24,8 @@ public class SessionCreatedListener implements ApplicationListener<SessionConnec
 
     private final GameSession gameSession;
     private final MongoTemplate mongoTemplate;
+    private final GameStateService gameStateService;
+    private final ClientGameStateService clientGameStateService;
 
     @Override
     public void onApplicationEvent(SessionConnectedEvent event) {
@@ -33,19 +35,10 @@ public class SessionCreatedListener implements ApplicationListener<SessionConnec
         if (event.getUser() != null) {
             String username = event.getUser().getName();
             User user = mongoTemplate.findOne(query(where("username").is(username)), User.class);
-            GameState gameState = mongoTemplate.findOne(query(where("userId").is(user.getId())), GameState.class);
-            Location location = mongoTemplate.findById(requireNonNull(gameState).getLocationId(), Location.class);
+            GameState gameState = gameStateService.get(requireNonNull(user).getId());
+
             gameSession.setGameState(gameState);
-            gameSession.setLocation(location);
-            gameSession.setClientGameState(getNewClientGameState());
+            gameSession.setClientGameState(clientGameStateService.get(gameState));
         }
-    }
-
-    private ClientGameState getNewClientGameState() {
-        ClientGameState clientGameState = new ClientGameState();
-        GameState gameState = gameSession.getGameState();
-        clientGameState.setCharacterStatistics(gameState.getCharacterStatistics());
-
-        return clientGameState;
     }
 }

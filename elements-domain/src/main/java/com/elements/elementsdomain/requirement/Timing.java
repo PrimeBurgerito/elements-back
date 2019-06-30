@@ -6,7 +6,7 @@ import java.time.Month;
 import java.util.Set;
 
 @Data
-class Timing {
+public class Timing {
     private int[] weekDays;
     private int[] monthDays;
     private Set<Month> months;
