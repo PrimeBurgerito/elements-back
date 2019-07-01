@@ -6,8 +6,9 @@ import com.elements.elementsapi.api.gamestate.service.resource.GameStateDto;
 import com.elements.elementsapi.api.user.UserRepository;
 import com.elements.elementscommon.domain.user.User;
 import com.elements.elementsdomain.character.CharacterTemplate;
-import com.elements.elementsdomain.gamestate.CharacterStatistics;
 import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.gamestate.character.Character;
+import com.elements.elementsdomain.gamestate.character.CharacterStatistics;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,12 +35,18 @@ public class GameStateService {
         GameState gameState = new GameState();
         gameState.setUserId(user.getId());
         gameState.setCharacterTemplateId(gameStateDto.getCharacterTemplateId());
+
         CharacterStatistics characterStatistics = CharacterStatistics.builder()
                 .attributes(characterTemplate.getAttributes())
                 .properties(characterTemplate.getProperties())
+                .build();
+        Character character = Character.builder()
+                .name(gameStateDto.getCharacterName())
+                .statistics(characterStatistics)
                 .images(characterTemplate.getImages())
                 .build();
-        gameState.setCharacterStatistics(characterStatistics);
+
+        gameState.setCharacter(character);
 
         gameStateRepository.save(gameState);
         return true;

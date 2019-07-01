@@ -17,12 +17,12 @@ public class SessionLocationService {
 
     public SessionLocation getByGameState(GameState gameState) {
         Location location = repository.get(gameState.getLocationId());
-        return mapper.map(location, gameState.getCharacterStatistics());
+        return mapper.map(location, gameState.getCharacter().getStatistics());
     }
 
     public SessionLocation getChangedLocation(String locationName, GameState gameState) {
         Location location = repository.getByName(locationName);
         gameState.setLocationId(location.getId());
-        return mapper.map(location, gameState.getCharacterStatistics());
+        return mapper.map(location, gameState.getCharacter().getStatistics());
     }
 }

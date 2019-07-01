@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.location.domain;
 
-import com.elements.elementsdomain.gamestate.CharacterStatistics;
+import com.elements.elementsdomain.gamestate.character.CharacterStatistics;
 import com.elements.elementsdomain.image.ConditionalImage;
 import com.elements.elementsdomain.image.Image;
 import com.elements.elementsdomain.location.Location;

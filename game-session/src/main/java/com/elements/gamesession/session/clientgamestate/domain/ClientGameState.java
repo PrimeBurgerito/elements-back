@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.clientgamestate.domain;
 
-import com.elements.elementsdomain.gamestate.CharacterStatistics;
+import com.elements.elementsdomain.gamestate.character.Character;
 import com.elements.gamesession.session.location.domain.SessionLocation;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 @Builder
 public class ClientGameState {
-    private CharacterStatistics characterStatistics;
+    private Character character;
     private SessionLocation location;
 }

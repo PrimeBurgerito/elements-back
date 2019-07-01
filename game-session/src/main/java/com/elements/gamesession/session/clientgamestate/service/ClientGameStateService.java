@@ -16,7 +16,7 @@ public class ClientGameStateService {
     public ClientGameState get(GameState gameState) {
         SessionLocation location = locationService.getByGameState(gameState);
         return ClientGameState.builder()
-                .characterStatistics(gameState.getCharacterStatistics())
+                .character(gameState.getCharacter())
                 .location(location)
                 .build();
     }
