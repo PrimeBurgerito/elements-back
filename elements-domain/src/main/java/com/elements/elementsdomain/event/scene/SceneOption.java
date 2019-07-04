@@ -4,8 +4,8 @@ import com.elements.elementsdomain.requirement.Requirement;
 import lombok.Data;
 
 @Data
-class Option {
+class SceneOption {
+    private int next;
     private String text;
     private Requirement requirement;
-    private int nextScene;
 }

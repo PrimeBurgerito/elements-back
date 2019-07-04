@@ -1,7 +1,7 @@
 package com.elements.elementsdomain.event;
 
 import com.elements.elementscommon.domain.DocumentBase;
-import com.elements.elementsdomain.event.scene.AbstractScene;
+import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.requirement.Requirement;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,5 +14,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Event extends DocumentBase {
     private Requirement requirement;
-    private List<AbstractScene> scenes;
+    private List<Scene> scenes;
 }

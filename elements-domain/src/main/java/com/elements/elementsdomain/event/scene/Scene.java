@@ -1,10 +1,15 @@
 package com.elements.elementsdomain.event.scene;
 
+import com.elements.elementsdomain.image.Image;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Set;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Scene extends AbstractScene {
-    private int nextScene;
+public class Scene {
+    private int next;
+    private String text;
+    private Image image;
+    private SceneType type;
+    private Set<SceneOption> options;
 }
