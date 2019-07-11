@@ -13,6 +13,7 @@ import java.util.List;
 @Document
 @EqualsAndHashCode(callSuper = true)
 public class Event extends DocumentBase {
+    private String name;
     private Requirement requirement;
     private List<Scene> scenes;
 }
