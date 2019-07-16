@@ -6,12 +6,14 @@ import com.elements.elementsdomain.image.Image;
 import com.elements.elementsdomain.location.Location;
 import com.elements.gamesession.requirementengine.RequirementTester;
 import com.elements.gamesession.requirementengine.RequirementTesterUserInfo;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
+@Component
 public class SessionLocationMapper {
 
     public SessionLocation map(Location location, CharacterStatistics statistics) {

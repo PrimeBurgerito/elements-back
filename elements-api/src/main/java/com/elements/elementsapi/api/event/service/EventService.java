@@ -9,6 +9,9 @@ import com.elements.elementsapi.api.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.BaseService;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
 import com.elements.elementsdomain.event.Event;
+import com.elements.elementsdomain.event.scene.Scene;
+import com.elements.elementsdomain.event.scene.SceneOption;
+import com.elements.elementsdomain.event.scene.SceneType;
 import com.elements.elementsdomain.image.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -53,6 +56,24 @@ public class EventService extends BaseService<EventDto, Event> {
             Image image = fileStorageService.storeImage(imageFile);
             eventDto.getScenes().get(toSceneMap.getSceneIndex()).setImage(image);
         });
-        return super.create(eventDto);
+        Event event = mapper.map(eventDto);
+        event.getScenes().replaceAll(scene -> mapNextSceneKey(scene, event.getScenes()));
+        return event;
+    }
+
+    private Scene mapNextSceneKey(Scene currentScene, List<Scene> scenes) {
+        if (currentScene.getType() == SceneType.DEFAULT) {
+            String nextKey = scenes.get(currentScene.getNext()).getKey();
+            currentScene.setNextKey(nextKey);
+        } else if (currentScene.getType() == SceneType.OPTION) {
+            currentScene.getOptions().replaceAll(option -> mapOptionsNextSceneKey(option, scenes));
+        }
+        return currentScene;
+    }
+
+    private SceneOption mapOptionsNextSceneKey(SceneOption option, List<Scene> scenes) {
+        String nextKey = scenes.get(option.getNext()).getKey();
+        option.setNextKey(nextKey);
+        return option;
     }
 }

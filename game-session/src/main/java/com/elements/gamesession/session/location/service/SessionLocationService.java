@@ -2,6 +2,7 @@ package com.elements.gamesession.session.location.service;
 
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.elementsdomain.location.Location;
+import com.elements.gamesession.session.GameSession;
 import com.elements.gamesession.session.location.domain.SessionLocation;
 import com.elements.gamesession.session.location.domain.SessionLocationMapper;
 import com.elements.gamesession.session.location.repository.SessionLocationRepository;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SessionLocationService {
 
-    private final SessionLocationMapper mapper = new SessionLocationMapper();
+    private final SessionLocationMapper mapper;
     private final SessionLocationRepository repository;
 
     public SessionLocation getByGameState(GameState gameState) {
@@ -20,9 +21,12 @@ public class SessionLocationService {
         return mapper.map(location, gameState.getCharacter().getStatistics());
     }
 
-    public SessionLocation getChangedLocation(String locationName, GameState gameState) {
+    public void update(String locationName, GameSession gameSession) {
+        GameState gameState = gameSession.getGameState();
         Location location = repository.getByName(locationName);
+
         gameState.setLocationId(location.getId());
-        return mapper.map(location, gameState.getCharacter().getStatistics());
+        SessionLocation newLocation = mapper.map(location, gameState.getCharacter().getStatistics());
+        gameSession.getClientGameState().setLocation(newLocation);
     }
 }
