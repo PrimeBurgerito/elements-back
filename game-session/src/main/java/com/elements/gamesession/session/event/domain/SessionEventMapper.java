@@ -1,12 +1,13 @@
 package com.elements.gamesession.session.event.domain;
 
-import com.elements.elementsdomain.event.Event;
 import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.event.scene.SceneOption;
 import com.elements.elementsdomain.event.scene.SceneType;
 import com.elements.elementsdomain.gamestate.character.CharacterStatistics;
 import com.elements.gamesession.requirementengine.RequirementTester;
 import com.elements.gamesession.requirementengine.RequirementTesterUserInfo;
+
+import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -15,33 +16,24 @@ public class SessionEventMapper {
     private SessionEventMapper() {
     }
 
-    public static SessionEvent map(Event event, CharacterStatistics statistics, String key) {
-        if (event == null) {
+    public static SessionEvent map(Scene scene, CharacterStatistics statistics) {
+        if (scene == null) {
             return null;
         }
-        Scene scene = getScene(event, key);
-        SessionEvent sessionEvent = SessionEvent.builder()
-                .text(scene.getText())
-                .image(scene.getImage())
-                .type(scene.getType())
-                .build();
-
+        SessionEvent sessionEvent = getNewSessionEvent(scene);
         if (scene.getType() == SceneType.OPTION) {
             RequirementTester tester = getOptionRequirementTester(statistics);
-            sessionEvent.setOptions(scene.getOptions().stream().map(o -> map(o, tester)).collect(toSet()));
-        } else if (scene.getType() == SceneType.DEFAULT) {
-            sessionEvent.setNextKey(scene.getNextKey());
+            sessionEvent.setOptions(mapSceneOptions(scene, tester));
         }
         return sessionEvent;
     }
 
-    private static Scene getScene(Event event, String key) {
-        if (key == null) {
-            return event.getScenes().get(0);
-        }
-        return event.getScenes().stream().filter(s -> s.getKey().equals(key))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("No scene with key: " + key));
+    private static SessionEvent getNewSessionEvent(Scene scene) {
+        return SessionEvent.builder()
+                .text(scene.getText())
+                .image(scene.getImage())
+                .type(scene.getType())
+                .build();
     }
 
     private static RequirementTester getOptionRequirementTester(CharacterStatistics statistics) {
@@ -55,11 +47,14 @@ public class SessionEventMapper {
         return tester;
     }
 
+    private static Set<SessionOption> mapSceneOptions(Scene scene, RequirementTester tester) {
+        return scene.getOptions().stream().map(o -> map(o, tester)).collect(toSet());
+    }
+
     private static SessionOption map(SceneOption option, RequirementTester tester) {
         tester.setRequirement(option.getRequirement());
         return SessionOption.builder()
                 .text(option.getText())
-                .nextKey(option.getNextKey())
                 .disabled(!tester.isSatisfied())
                 .build();
     }

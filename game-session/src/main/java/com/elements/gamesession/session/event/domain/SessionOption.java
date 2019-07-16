@@ -7,6 +7,5 @@ import lombok.Data;
 @Builder
 class SessionOption {
     private String text;
-    private String nextKey;
     private boolean disabled;
 }

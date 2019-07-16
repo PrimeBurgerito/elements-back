@@ -6,5 +6,5 @@ import com.elements.elementsdomain.gamestate.GameState;
 import java.util.List;
 
 public interface SessionEventRepository {
-    List<Event> getByGameState(GameState gameState);
+    List<Event> findByGameState(GameState gameState);
 }

@@ -2,6 +2,7 @@ package com.elements.gamesession.session;
 
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
+import com.elements.gamesession.session.event.domain.EventState;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
@@ -18,6 +19,7 @@ import javax.annotation.PreDestroy;
 public class GameSession {
 
     private GameState gameState;
+    private EventState eventState;
     private ClientGameState clientGameState;
 
     @PostConstruct

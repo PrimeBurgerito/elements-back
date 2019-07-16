@@ -26,13 +26,13 @@ public class SessionController {
     @MessageMapping(value = "/change-location")
     public ClientGameState changeLocation(@Payload String locationName) {
         locationService.update(locationName, session);
-        eventService.update(session, null);
+        eventService.setNewEvent(session);
         return session.getClientGameState();
     }
 
     @MessageMapping(value = "/update-event")
-    public ClientGameState updateEvent(@Payload String nextKey) {
-        eventService.update(session, nextKey);
+    public ClientGameState updateEvent(@Payload Integer option) {
+        eventService.update(session, option);
         return session.getClientGameState();
     }
 }

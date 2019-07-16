@@ -15,7 +15,6 @@ public class SessionEvent {
     private String text;
     private Image image;
     private SceneType type;
-    private String nextKey;
     private Set<SessionOption> options;
 
     @JsonIgnore
