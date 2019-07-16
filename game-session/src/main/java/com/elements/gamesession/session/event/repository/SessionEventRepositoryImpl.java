@@ -22,7 +22,7 @@ public class SessionEventRepositoryImpl implements SessionEventRepository {
     private final MongoTemplate template;
 
     @Override
-    public List<Event> getByGameState(GameState gameState) {
+    public List<Event> findByGameState(GameState gameState) {
         return template.find(eventQuery(gameState), Event.class);
     }
 

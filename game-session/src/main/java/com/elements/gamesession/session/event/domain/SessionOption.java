@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-class SessionOption {
+public class SessionOption {
     private String text;
     private boolean disabled;
 }

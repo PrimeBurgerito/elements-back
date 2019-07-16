@@ -4,6 +4,7 @@ import com.elements.elementsdomain.event.Event;
 import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.gamesession.session.GameSession;
+import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
 import com.elements.gamesession.session.event.domain.EventState;
 import com.elements.gamesession.session.event.domain.SessionEvent;
 import com.elements.gamesession.session.event.domain.SessionEventValidation;
@@ -61,15 +62,17 @@ public class SessionEventService {
 
     }
 
-    private void setNextScene(GameSession session, Integer option) {
+    private void setNextScene(GameSession session, Integer selectedOption) {
+        ClientGameState clientGameState = session.getClientGameState();
         GameState gameState = session.getGameState();
-        Event event = session.getEventState().getEvent();
-        if (option != null && option < event.getScenes().size()) {
-            session.getEventState().setCurrentScene(option);
-            SessionEvent sessionEvent = map(event.getScenes().get(option), gameState.getCharacter().getStatistics());
-            session.getClientGameState().setCurrentEvent(sessionEvent);
+        EventState eventState = session.getEventState();
+        SessionEventValidation validation = validationService
+                .validate(clientGameState.getCurrentEvent().getOptions(), selectedOption);
+        if (validation.isCorrect()) {
+            eventState.setCurrentScene(selectedOption);
+            SessionEvent sessionEvent = map(eventState.getEvent().getScenes().get(selectedOption), gameState.getCharacter().getStatistics());
+            clientGameState.setCurrentEvent(sessionEvent);
         } else {
-            log.error("Option can't be null or index out of bounds");
             removeEvent(session);
         }
     }

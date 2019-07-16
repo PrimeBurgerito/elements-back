@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,7 +15,7 @@ public class SessionEvent {
     private String text;
     private Image image;
     private SceneType type;
-    private Set<SessionOption> options;
+    private List<SessionOption> options;
 
     @JsonIgnore
     private Event currentEvent;

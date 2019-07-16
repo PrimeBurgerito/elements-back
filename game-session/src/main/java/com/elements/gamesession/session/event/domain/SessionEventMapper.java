@@ -7,9 +7,9 @@ import com.elements.elementsdomain.gamestate.character.CharacterStatistics;
 import com.elements.gamesession.requirementengine.RequirementTester;
 import com.elements.gamesession.requirementengine.RequirementTesterUserInfo;
 
-import java.util.Set;
+import java.util.List;
 
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.toList;
 
 public class SessionEventMapper {
 
@@ -47,8 +47,8 @@ public class SessionEventMapper {
         return tester;
     }
 
-    private static Set<SessionOption> mapSceneOptions(Scene scene, RequirementTester tester) {
-        return scene.getOptions().stream().map(o -> map(o, tester)).collect(toSet());
+    private static List<SessionOption> mapSceneOptions(Scene scene, RequirementTester tester) {
+        return scene.getOptions().stream().map(o -> map(o, tester)).collect(toList());
     }
 
     private static SessionOption map(SceneOption option, RequirementTester tester) {
