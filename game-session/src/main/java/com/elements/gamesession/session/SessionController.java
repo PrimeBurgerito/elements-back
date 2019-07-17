@@ -31,7 +31,7 @@ public class SessionController {
     }
 
     @MessageMapping(value = "/update-event")
-    public ClientGameState updateEvent(@Payload Integer option) {
+    public ClientGameState updateEvent(@Payload(required = false) Integer option) {
         eventService.update(session, option);
         return session.getClientGameState();
     }
