@@ -1,5 +1,7 @@
 package com.elements.gamesession.session;
 
+import com.elements.elementsdomain.event.Event;
+import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
 import com.elements.gamesession.session.event.domain.EventState;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+
+import static java.util.Objects.requireNonNull;
 
 @Data
 @Slf4j
@@ -30,5 +34,34 @@ public class GameSession {
     @PreDestroy
     public void destroy() {
         log.info("Websocket session going to be destroyed [{}]", getClass());
+    }
+
+    public void setNewEvent(Event event) {
+        eventState = new EventState(event);
+        Scene scene = requireNonNull(event).getScenes().get(0);
+        clientGameState.updateCurrentEvent(scene);
+    }
+
+    public void nextScene() {
+        eventState.nextScene();
+        changeScene();
+    }
+
+    public void nextScene(int option) {
+        eventState.setCurrentScene(eventState.getCurrentScene().getOptions().get(option).getNext());
+        changeScene();
+    }
+
+    private void changeScene() {
+        if (eventState.isScenePossible()) {
+            clientGameState.updateCurrentEvent(eventState.getCurrentScene());
+        } else {
+            clearEvent();
+        }
+    }
+
+    public void clearEvent() {
+        clientGameState.setCurrentEvent(null);
+        eventState = null;
     }
 }

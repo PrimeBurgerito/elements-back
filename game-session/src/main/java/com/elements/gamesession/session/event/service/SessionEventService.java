@@ -1,12 +1,8 @@
 package com.elements.gamesession.session.event.service;
 
 import com.elements.elementsdomain.event.Event;
-import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.gamesession.session.GameSession;
-import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
-import com.elements.gamesession.session.event.domain.EventState;
-import com.elements.gamesession.session.event.domain.SessionEvent;
 import com.elements.gamesession.session.event.domain.SessionEventValidation;
 import com.elements.gamesession.session.event.repository.SessionEventRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static com.elements.gamesession.session.event.domain.SessionEventMapper.map;
-import static java.util.Objects.requireNonNull;
 
 @Slf4j
 @Service
@@ -27,14 +20,14 @@ public class SessionEventService {
     private final SessionEventValidationService validationService;
 
     public void setNewEvent(GameSession session) {
-        GameState gameState = session.getGameState();
-        Event event = findByGameState(gameState);
+        if (session.getEventState() != null) {
+            log.info("Clearing old event - Id: {}", session.getEventState().getEvent().getId());
+            session.clearEvent();
+        }
+        Event event = findByGameState(session.getGameState());
         SessionEventValidation validation = validationService.validate(event);
         if (validation.isCorrect()) {
-            session.setEventState(new EventState(event));
-            Scene scene = requireNonNull(event).getScenes().get(0);
-            SessionEvent sessionEvent = map(scene, gameState.getCharacter().getStatistics());
-            session.getClientGameState().setCurrentEvent(sessionEvent);
+            session.setNewEvent(event);
         }
     }
 
@@ -42,44 +35,20 @@ public class SessionEventService {
         if (session.getEventState() == null) {
             throw new RuntimeException("Event state can't be null with option!");
         } else if (option == null) {
-            setNextScene(session);
+            session.nextScene();
         } else {
             setNextScene(session, option);
         }
     }
 
-    private void setNextScene(GameSession session) {
-        GameState gameState = session.getGameState();
-        Event event = session.getEventState().getEvent();
-        int nextScene = session.getEventState().getCurrentScene() + 1;
-        if (nextScene < event.getScenes().size()) {
-            session.getEventState().setCurrentScene(nextScene);
-            SessionEvent sessionEvent = map(event.getScenes().get(nextScene), gameState.getCharacter().getStatistics());
-            session.getClientGameState().setCurrentEvent(sessionEvent);
-        } else {
-            removeEvent(session);
-        }
-
-    }
-
     private void setNextScene(GameSession session, Integer selectedOption) {
-        ClientGameState clientGameState = session.getClientGameState();
-        GameState gameState = session.getGameState();
-        EventState eventState = session.getEventState();
         SessionEventValidation validation = validationService
-                .validate(clientGameState.getCurrentEvent().getOptions(), selectedOption);
+                .validate(session.getClientGameState().getCurrentEvent().getOptions(), selectedOption);
         if (validation.isCorrect()) {
-            eventState.setCurrentScene(selectedOption);
-            SessionEvent sessionEvent = map(eventState.getEvent().getScenes().get(selectedOption), gameState.getCharacter().getStatistics());
-            clientGameState.setCurrentEvent(sessionEvent);
+            session.nextScene(selectedOption);
         } else {
-            removeEvent(session);
+            session.clearEvent();
         }
-    }
-
-    private void removeEvent(GameSession session) {
-        session.getClientGameState().setCurrentEvent(null);
-        session.setEventState(null);
     }
 
     private Event findByGameState(GameState gameState) {

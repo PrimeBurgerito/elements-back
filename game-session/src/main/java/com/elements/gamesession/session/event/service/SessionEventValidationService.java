@@ -39,7 +39,7 @@ public class SessionEventValidationService {
         }
 
         if (!validation.isCorrect()) {
-            log.error("SessionEvent validation failed - Field: {}, Reason: {}", validation.getField(), validation.getReason());
+            log.error("SessionOption validation failed - Field: {}, Reason: {}", validation.getField(), validation.getReason());
         }
         return validation;
     }
