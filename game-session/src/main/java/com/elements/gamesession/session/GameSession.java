@@ -47,8 +47,8 @@ public class GameSession {
         changeScene();
     }
 
-    public void nextScene(int option) {
-        eventState.setCurrentScene(eventState.getCurrentScene().getOptions().get(option).getNext());
+    public void chooseSceneOption(int option) {
+        eventState.chooseOption(option);
         changeScene();
     }
 

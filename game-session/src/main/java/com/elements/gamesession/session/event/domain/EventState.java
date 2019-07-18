@@ -5,6 +5,8 @@ import com.elements.elementsdomain.event.scene.Scene;
 import lombok.Getter;
 import lombok.Setter;
 
+import static java.util.Optional.ofNullable;
+
 @Setter
 @Getter
 public class EventState {
@@ -17,7 +19,11 @@ public class EventState {
     }
 
     public void nextScene() {
-        setCurrentScene(currentScene + 1);
+        setCurrentScene(ofNullable(getCurrentScene().getNext()).orElse(-1));
+    }
+
+    public void chooseOption(int index) {
+        setCurrentScene(getCurrentScene().getOptions().get(index).getNext());
     }
 
     public Scene getCurrentScene() {
@@ -25,6 +31,6 @@ public class EventState {
     }
 
     public boolean isScenePossible() {
-        return currentScene < event.getScenes().size();
+        return currentScene >= 0 && currentScene < event.getScenes().size();
     }
 }

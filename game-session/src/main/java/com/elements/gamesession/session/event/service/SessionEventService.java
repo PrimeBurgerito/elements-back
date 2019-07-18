@@ -45,7 +45,7 @@ public class SessionEventService {
         SessionEventValidation validation = validationService
                 .validate(session.getClientGameState().getCurrentEvent().getOptions(), selectedOption);
         if (validation.isCorrect()) {
-            session.nextScene(selectedOption);
+            session.chooseSceneOption(selectedOption);
         } else {
             session.clearEvent();
         }

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class Scene {
-    private int next;
+    private Integer next;
     private String text;
     private Image image;
     private SceneType type;
