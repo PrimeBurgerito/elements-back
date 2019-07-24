@@ -9,6 +9,8 @@ import com.elements.elementsapi.api.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.BaseService;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
 import com.elements.elementsdomain.event.Event;
+import com.elements.elementsdomain.event.scene.SceneBase;
+import com.elements.elementsdomain.event.scene.SceneImage;
 import com.elements.elementsdomain.image.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -46,12 +48,17 @@ public class EventService extends BaseService<EventDto, Event> {
         }
         EventValidation validation = validationService.validate(eventDto);
         if (!validation.isAccepted()) {
-            throw new RuntimeException(format("Validation failed - Field: %s, Reason: %s", validation.getField(), validation.getReason()));
+            throw new RuntimeException(
+                    format("Validation failed - Field: %s, Reason: %s", validation.getField(), validation.getReason())
+            );
         }
         imageToSceneMap.forEach(toSceneMap -> {
             MultipartFile imageFile = images[toSceneMap.getImageIndex()];
             Image image = fileStorageService.storeImage(imageFile);
-            eventDto.getScenes().get(toSceneMap.getSceneIndex()).setImage(image);
+            SceneBase scene = eventDto.getScenes().get(toSceneMap.getSceneIndex());
+            if (scene instanceof SceneImage) {
+                ((SceneImage) scene).setImage(image);
+            }
         });
         return super.create(eventDto);
     }

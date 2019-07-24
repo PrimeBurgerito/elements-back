@@ -1,7 +1,6 @@
 package com.elements.gamesession.session;
 
 import com.elements.elementsdomain.event.Event;
-import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
 import com.elements.gamesession.session.event.domain.EventState;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-
-import static java.util.Objects.requireNonNull;
 
 @Data
 @Slf4j
@@ -37,9 +34,8 @@ public class GameSession {
     }
 
     public void setNewEvent(Event event) {
-        eventState = new EventState(event);
-        Scene scene = requireNonNull(event).getScenes().get(0);
-        clientGameState.updateCurrentEvent(scene);
+        eventState = new EventState(event, gameState.getCharacter().getStatistics());
+        clientGameState.setCurrentEvent(eventState.getCurrentSessionEvent());
     }
 
     public void nextScene() {
@@ -53,8 +49,8 @@ public class GameSession {
     }
 
     private void changeScene() {
-        if (eventState.isScenePossible()) {
-            clientGameState.updateCurrentEvent(eventState.getCurrentScene());
+        if (eventState.getCurrentSessionEvent() != null) {
+            clientGameState.setCurrentEvent(eventState.getCurrentSessionEvent());
         } else {
             clearEvent();
         }

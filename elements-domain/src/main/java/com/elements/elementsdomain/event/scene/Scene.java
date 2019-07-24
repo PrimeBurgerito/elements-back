@@ -1,15 +1,25 @@
 package com.elements.elementsdomain.event.scene;
 
-import com.elements.elementsdomain.image.Image;
 import lombok.Data;
-
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Scene {
+@EqualsAndHashCode(callSuper = true)
+public class Scene extends SceneImage {
     private Integer next;
-    private String text;
-    private Image image;
-    private SceneType type;
-    private List<SceneOption> options;
+
+    @Override
+    public void nextScene(SceneProcessor processor) {
+        processor.setNextScene(this);
+    }
+
+    @Override
+    public void convert(SceneProcessor processor) {
+        processor.convert(this);
+    }
+
+    @Override
+    public SceneType getType() {
+        return SceneType.DEFAULT;
+    }
 }

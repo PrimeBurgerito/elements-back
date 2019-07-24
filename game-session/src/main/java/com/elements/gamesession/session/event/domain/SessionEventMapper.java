@@ -1,9 +1,10 @@
 package com.elements.gamesession.session.event.domain;
 
+import com.elements.elementsdomain.character.CharacterStatistics;
 import com.elements.elementsdomain.event.scene.Scene;
-import com.elements.elementsdomain.event.scene.SceneOption;
-import com.elements.elementsdomain.event.scene.SceneType;
-import com.elements.elementsdomain.gamestate.character.CharacterStatistics;
+import com.elements.elementsdomain.event.scene.SceneImage;
+import com.elements.elementsdomain.event.scene.option.Option;
+import com.elements.elementsdomain.event.scene.option.SceneOption;
 import com.elements.gamesession.requirementengine.RequirementTester;
 import com.elements.gamesession.requirementengine.RequirementTesterUserInfo;
 
@@ -16,19 +17,24 @@ public class SessionEventMapper {
     private SessionEventMapper() {
     }
 
-    public static SessionEvent map(Scene scene, CharacterStatistics statistics) {
+    public static SessionEvent map(Scene scene) {
+        if (scene == null) {
+            return null;
+        }
+        return getNewSessionEvent(scene);
+    }
+
+    public static SessionEvent map(SceneOption scene, CharacterStatistics statistics) {
         if (scene == null) {
             return null;
         }
         SessionEvent sessionEvent = getNewSessionEvent(scene);
-        if (scene.getType() == SceneType.OPTION) {
-            RequirementTester tester = getOptionRequirementTester(statistics);
-            sessionEvent.setOptions(mapSceneOptions(scene, tester));
-        }
+        RequirementTester tester = getOptionRequirementTester(statistics);
+        sessionEvent.setOptions(mapSceneOptions(scene, tester));
         return sessionEvent;
     }
 
-    private static SessionEvent getNewSessionEvent(Scene scene) {
+    private static SessionEvent getNewSessionEvent(SceneImage scene) {
         return SessionEvent.builder()
                 .text(scene.getText())
                 .image(scene.getImage())
@@ -47,11 +53,11 @@ public class SessionEventMapper {
         return tester;
     }
 
-    private static List<SessionOption> mapSceneOptions(Scene scene, RequirementTester tester) {
+    private static List<SessionOption> mapSceneOptions(SceneOption scene, RequirementTester tester) {
         return scene.getOptions().stream().map(o -> map(o, tester)).collect(toList());
     }
 
-    private static SessionOption map(SceneOption option, RequirementTester tester) {
+    private static SessionOption map(Option option, RequirementTester tester) {
         tester.setRequirement(option.getRequirement());
         return SessionOption.builder()
                 .text(option.getText())

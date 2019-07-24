@@ -1,9 +1,9 @@
 package com.elements.gamesession.requirementengine;
 
-import com.elements.elementsdomain.statistic.ObjectiveValue;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -12,5 +12,5 @@ public class RequirementTesterUserInfo {
     private String locationId;
     private Map<String, Float> attributes;
     private Map<String, String> properties;
-    private Map<String, ObjectiveValue> objectives;
+    private List<String> objectives;
 }

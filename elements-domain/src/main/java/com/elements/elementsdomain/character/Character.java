@@ -1,4 +1,4 @@
-package com.elements.elementsdomain.gamestate.character;
+package com.elements.elementsdomain.character;
 
 import com.elements.elementsdomain.image.Image;
 import lombok.Builder;

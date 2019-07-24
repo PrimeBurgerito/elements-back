@@ -21,12 +21,18 @@ public class RequirementTester {
                 isCorrectLocation() &&
                         areAttributesSatisfied() &&
                         arePropertiesSatisfied() &&
+                        areObjectivesSatisfied() &&
                         isCorrectTiming()
         );
     }
 
     private boolean isCorrectLocation() {
         return requirement.getLocationId() == null || requirement.getLocationId().equals(userInfo.getLocationId());
+    }
+
+    private boolean areObjectivesSatisfied() {
+        return (userInfo.getObjectives() == null && requirement.getObjectives() == null) ||
+                userInfo.getObjectives().containsAll(requirement.getObjectives());
     }
 
     private boolean areAttributesSatisfied() {
