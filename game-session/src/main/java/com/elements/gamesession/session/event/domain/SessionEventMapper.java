@@ -12,19 +12,19 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class SessionEventMapper {
+class SessionEventMapper {
 
     private SessionEventMapper() {
     }
 
-    public static SessionEvent map(Scene scene) {
+    static SessionEvent map(Scene scene) {
         if (scene == null) {
             return null;
         }
         return getNewSessionEvent(scene);
     }
 
-    public static SessionEvent map(SceneOption scene, CharacterStatistics statistics) {
+    static SessionEvent map(SceneOption scene, CharacterStatistics statistics) {
         if (scene == null) {
             return null;
         }
