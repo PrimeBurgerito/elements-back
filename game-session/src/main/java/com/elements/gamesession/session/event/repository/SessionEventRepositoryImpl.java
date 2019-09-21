@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -34,7 +34,7 @@ public class SessionEventRepositoryImpl implements SessionEventRepository {
                 where(LOCATION_ID).is(gameState.getLocationId()),
                 AttributeCriteriaBuilder.build(statistics.getAttributes()),
                 PropertyCriteriaBuilder.build(statistics.getProperties()),
-                ObjectiveCriteriaBuilder.build(ofNullable(statistics.getObjectives()).orElse(emptyList()))
+                ObjectiveCriteriaBuilder.build(ofNullable(statistics.getObjectives()).orElse(emptySet()))
         ));
     }
 }

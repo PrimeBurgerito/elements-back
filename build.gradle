@@ -5,12 +5,12 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
     }
 }
 
 plugins {
-    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id "base"
 }
 
@@ -19,8 +19,8 @@ dependencyManagement {
 }
 
 allprojects {
-    group 'elements'
-    version '1.0-SNAPSHOT'
+    group "org.elements"
+    version "1.0-SNAPSHOT"
 }
 
 subprojects {
@@ -30,8 +30,8 @@ subprojects {
         }
     }
 
-    apply plugin: 'java'
-    apply plugin: 'idea'
+    apply plugin: JavaPlugin
+    apply plugin: IdeaPlugin
     apply plugin: 'io.spring.dependency-management'
 
     idea {
@@ -51,20 +51,20 @@ subprojects {
     }
 
     dependencies {
-        implementation "javax.servlet:javax.servlet-api:$javax_servlet_version"
-        implementation "javax.xml.bind:jaxb-api:$jaxb_api_version"
+        implementation "javax.servlet:javax.servlet-api"
+        implementation "javax.xml.bind:jaxb-api"
         implementation "com.sun.xml.bind:jaxb-impl:$jaxb_impl_version"
         implementation "com.sun.istack:istack-commons-runtime:$istack_version"
 
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
+        testImplementation "org.junit.jupiter:junit-jupiter-api"
     }
 
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
+    sourceCompatibility = JavaVersion.VERSION_12
+    targetCompatibility = JavaVersion.VERSION_12
 }
 
 wrapper {
-    gradleVersion = '5.4'
+    gradleVersion = '5.6.2'
 }

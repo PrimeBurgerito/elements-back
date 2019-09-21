@@ -18,9 +18,9 @@ import javax.annotation.PreDestroy;
 @Component
 @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GameSession {
-
     private GameState gameState;
     private EventState eventState;
+
     private ClientGameState clientGameState;
 
     @PostConstruct
@@ -38,26 +38,7 @@ public class GameSession {
         clientGameState.setCurrentEvent(eventState.getCurrentSessionEvent());
     }
 
-    public void nextScene() {
-        eventState.nextScene();
-        changeScene();
-    }
-
-    public void chooseSceneOption(int option) {
-        eventState.chooseOption(option);
-        changeScene();
-    }
-
-    private void changeScene() {
-        if (eventState.getCurrentSessionEvent() != null) {
-            clientGameState.setCurrentEvent(eventState.getCurrentSessionEvent());
-        } else {
-            clearEvent();
-        }
-    }
-
-    public void clearEvent() {
-        clientGameState.setCurrentEvent(null);
-        eventState = null;
+    public void updateClientCharacterStatistics() {
+        clientGameState.getCharacter().setStatistics(gameState.getCharacter().getStatistics());
     }
 }

@@ -1,4 +1,4 @@
-package com.elements.gamesession.requirementengine;
+package com.elements.gamesession.engine.requirement;
 
 import com.elements.elementsdomain.requirement.Requirement;
 import com.elements.elementsdomain.requirement.Timing;

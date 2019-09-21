@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SessionController {
 
     private final GameSession session;
-    private final SessionLocationService locationService;
-    private final SessionEventService eventService;
+    private final SessionLocationService sessionLocationService;
+    private final SessionEventService sessionEventService;
 
     @MessageMapping(value = "/game-state")
     public ClientGameState getClientGameState() {
@@ -25,14 +25,18 @@ public class SessionController {
 
     @MessageMapping(value = "/change-location")
     public ClientGameState changeLocation(@Payload String locationName) {
-        locationService.update(locationName, session);
-        eventService.setNewEvent(session);
+        sessionLocationService.update(locationName, session);
+        sessionEventService.setNewEvent(session);
         return session.getClientGameState();
     }
 
     @MessageMapping(value = "/update-event")
-    public ClientGameState updateEvent(@Payload(required = false) Integer option) {
-        eventService.update(session, option);
+    public ClientGameState updateEvent(@Payload(required = false) Integer selectedOption) {
+        if (selectedOption == null) {
+            sessionEventService.update(session);
+        } else {
+            sessionEventService.update(session, selectedOption);
+        }
         return session.getClientGameState();
     }
 }

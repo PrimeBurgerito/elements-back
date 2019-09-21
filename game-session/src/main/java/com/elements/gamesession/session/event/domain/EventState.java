@@ -39,16 +39,16 @@ public class EventState implements SceneProcessor {
         getCurrentScene().nextScene(this);
     }
 
-    private SceneBase getCurrentScene() {
+    public SceneBase getCurrentScene() {
         return event.getScenes().get(currentSceneIndex);
     }
 
-    private boolean isScenePossible() {
+    private boolean isSceneInRange() {
         return currentSceneIndex >= 0 && currentSceneIndex < event.getScenes().size();
     }
 
     private void updateSessionEvent() {
-        if (isScenePossible()) {
+        if (isSceneInRange()) {
             getCurrentScene().convert(this);
         } else {
             currentSessionEvent = null;
@@ -56,13 +56,13 @@ public class EventState implements SceneProcessor {
     }
 
     @Override
-    public void setNextScene(Scene scene) {
+    public void setNextSceneAfter(Scene scene) {
         setCurrentSceneIndex(ofNullable(scene.getNext()).orElse(-1));
         updateSessionEvent();
     }
 
     @Override
-    public void setNextScene(SceneOption sceneOption) {
+    public void setNextSceneAfter(SceneOption sceneOption) {
         if (currentSessionEvent.getOptions().get(chosenOptionIndex).isDisabled()) {
             setCurrentSceneIndex(-1);
         } else {
@@ -73,22 +73,23 @@ public class EventState implements SceneProcessor {
     }
 
     @Override
-    public void setNextScene(SceneReward sceneReward) {
-
+    public void setNextSceneAfter(SceneReward sceneReward) {
+        setCurrentSceneIndex(ofNullable(sceneReward.getNext()).orElse(-1));
+        updateSessionEvent();
     }
 
     @Override
-    public void convert(Scene sceneBase) {
-        currentSessionEvent = SessionEventMapper.map(sceneBase);
+    public void convert(Scene scene) {
+        currentSessionEvent = SessionEventMapper.map(scene);
     }
 
     @Override
-    public void convert(SceneOption sceneBase) {
-        currentSessionEvent = SessionEventMapper.map(sceneBase, characterStatistics);
+    public void convert(SceneOption scene) {
+        currentSessionEvent = SessionEventMapper.map(scene, characterStatistics);
     }
 
     @Override
-    public void convert(SceneReward sceneBase) {
+    public void convert(SceneReward reward) {
         currentSessionEvent = null;
     }
 }

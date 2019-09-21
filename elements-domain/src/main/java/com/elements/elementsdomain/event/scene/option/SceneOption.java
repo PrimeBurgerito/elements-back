@@ -15,7 +15,7 @@ public class SceneOption extends SceneImage {
 
     @Override
     public void nextScene(SceneProcessor processor) {
-        processor.setNextScene(this);
+        processor.setNextSceneAfter(this);
     }
 
     @Override

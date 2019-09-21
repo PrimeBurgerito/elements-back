@@ -1,9 +1,14 @@
 package com.elements.gamesession.session.event.service;
 
 import com.elements.elementsdomain.event.Event;
+import com.elements.elementsdomain.event.scene.SceneType;
+import com.elements.elementsdomain.event.scene.reward.SceneReward;
 import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.reward.Reward;
+import com.elements.gamesession.engine.reward.RewardEngine;
 import com.elements.gamesession.session.GameSession;
 import com.elements.gamesession.session.event.domain.SessionEventValidation;
+import com.elements.gamesession.session.event.domain.SessionOption;
 import com.elements.gamesession.session.event.repository.SessionEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +27,7 @@ public class SessionEventService {
     public void setNewEvent(GameSession session) {
         if (session.getEventState() != null) {
             log.info("Clearing old event - Id: {}", session.getEventState().getEvent().getId());
-            session.clearEvent();
+            SessionEventEngine.clearEvent(session);
         }
         Event event = findByGameState(session.getGameState());
         SessionEventValidation validation = validationService.validate(event);
@@ -31,23 +36,28 @@ public class SessionEventService {
         }
     }
 
-    public void update(GameSession session, Integer option) {
+    public void update(GameSession session) {
         if (session.getEventState() == null) {
-            throw new RuntimeException("Event state can't be null with option!");
-        } else if (option == null) {
-            session.nextScene();
-        } else {
-            setNextScene(session, option);
+            throw new RuntimeException("No event started!");
+        }
+        SceneType newSceneType = SessionEventEngine.nextScene(session);
+        if (newSceneType.equals(SceneType.REWARD)) {
+            Reward reward = ((SceneReward) session.getEventState().getCurrentScene()).getReward();
+            RewardEngine.collectRewards(session, reward);
+            update(session);
         }
     }
 
-    private void setNextScene(GameSession session, Integer selectedOption) {
-        SessionEventValidation validation = validationService
-                .validate(session.getClientGameState().getCurrentEvent().getOptions(), selectedOption);
+    public void update(GameSession session, Integer selectedOption) {
+        if (session.getEventState() == null) {
+            throw new RuntimeException("No event started!");
+        }
+        List<SessionOption> eventOptions = session.getClientGameState().getCurrentEvent().getOptions();
+        SessionEventValidation validation = validationService.validate(eventOptions, selectedOption);
         if (validation.isCorrect()) {
-            session.chooseSceneOption(selectedOption);
+            SessionEventEngine.chooseSceneOption(session, selectedOption);
         } else {
-            session.clearEvent();
+            SessionEventEngine.clearEvent(session);
         }
     }
 

@@ -5,8 +5,8 @@ import com.elements.elementsdomain.event.scene.Scene;
 import com.elements.elementsdomain.event.scene.SceneImage;
 import com.elements.elementsdomain.event.scene.option.Option;
 import com.elements.elementsdomain.event.scene.option.SceneOption;
-import com.elements.gamesession.requirementengine.RequirementTester;
-import com.elements.gamesession.requirementengine.RequirementTesterUserInfo;
+import com.elements.gamesession.engine.requirement.RequirementTester;
+import com.elements.gamesession.engine.requirement.RequirementTesterUserInfo;
 
 import java.util.List;
 

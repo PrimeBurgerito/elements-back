@@ -9,10 +9,11 @@ import lombok.Data;
 @Data
 public class SceneReward implements SceneBase {
     private Reward reward;
+    private Integer next;
 
     @Override
     public void nextScene(SceneProcessor processor) {
-        processor.setNextScene(this);
+        processor.setNextSceneAfter(this);
     }
 
     @Override

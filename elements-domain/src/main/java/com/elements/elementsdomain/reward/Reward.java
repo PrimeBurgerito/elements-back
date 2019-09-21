@@ -3,10 +3,11 @@ package com.elements.elementsdomain.reward;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class Reward {
-    private List<PropertyReward> properties;
-    private List<AttributeReward> attributes;
-    private List<ObjectiveReward> objectives;
+    private Set<PropertyReward> properties;
+    private Set<AttributeReward> attributes;
+    private Set<ObjectiveReward> objectives;
 }

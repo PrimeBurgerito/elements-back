@@ -3,7 +3,7 @@ package com.elements.elementsdomain.reward;
 import lombok.Data;
 
 @Data
-class ObjectiveReward {
+public class ObjectiveReward {
     private String objectiveId;
     private RewardType type;
 }
