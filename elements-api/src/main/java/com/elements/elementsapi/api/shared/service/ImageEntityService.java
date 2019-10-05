@@ -1,21 +1,25 @@
 package com.elements.elementsapi.api.shared.service;
 
 import com.elements.elementsapi.api.fileupload.service.FileStorageService;
+import com.elements.elementsapi.api.shared.service.resource.ImageDto;
 import com.elements.elementscommon.domain.DocumentBase;
 import com.elements.elementsdomain.image.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+
+import static java.util.Optional.ofNullable;
 
 @RequiredArgsConstructor
 public abstract class ImageEntityService<D, T extends DocumentBase> extends BaseService<D, T> {
 
     private final FileStorageService fileStorageService;
 
-    public Image addImage(String entityId, String imageKey, MultipartFile file) {
-        T entity = findById(entityId);
+    public Image addImage(ImageDto imageDto, MultipartFile file) {
+        T entity = findById(imageDto.getEntityId());
         Image image = fileStorageService.storeImage(file);
-        image.setKey(imageKey);
-        addImageToEntity(entity, imageKey, image);
+        image.setKey(imageDto.getImageKey());
+        image.setCrops(ofNullable(imageDto.getCrops()).orElse(null));
+        addImageToEntity(entity, imageDto.getImageKey(), image);
         getRepository().save(entity);
         return image;
     }

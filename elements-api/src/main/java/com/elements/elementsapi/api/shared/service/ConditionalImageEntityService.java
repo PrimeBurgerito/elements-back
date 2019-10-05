@@ -8,6 +8,8 @@ import com.elements.elementsdomain.image.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import static java.util.Optional.ofNullable;
+
 @RequiredArgsConstructor
 public abstract class ConditionalImageEntityService<D, T extends DocumentBase> extends BaseService<D, T> {
 
@@ -17,6 +19,7 @@ public abstract class ConditionalImageEntityService<D, T extends DocumentBase> e
         T entity = findById(imageDto.getEntityId());
         Image image = fileStorageService.storeImage(file);
         image.setKey(imageDto.getImageKey());
+        image.setCrops(ofNullable(imageDto.getCrops()).orElse(null));
 
         ConditionalImage conditionalImage = ConditionalImage.builder()
                 .requirement(imageDto.getRequirement())

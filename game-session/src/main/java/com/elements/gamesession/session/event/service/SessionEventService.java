@@ -41,11 +41,7 @@ public class SessionEventService {
             throw new RuntimeException("No event started!");
         }
         SceneType newSceneType = SessionEventEngine.nextScene(session);
-        if (newSceneType.equals(SceneType.REWARD)) {
-            Reward reward = ((SceneReward) session.getEventState().getCurrentScene()).getReward();
-            RewardEngine.collectRewards(session, reward);
-            update(session);
-        }
+        processRewardScene(session, newSceneType);
     }
 
     public void update(GameSession session, Integer selectedOption) {
@@ -55,9 +51,18 @@ public class SessionEventService {
         List<SessionOption> eventOptions = session.getClientGameState().getCurrentEvent().getOptions();
         SessionEventValidation validation = validationService.validate(eventOptions, selectedOption);
         if (validation.isCorrect()) {
-            SessionEventEngine.chooseSceneOption(session, selectedOption);
+            SceneType newSceneType = SessionEventEngine.chooseSceneOption(session, selectedOption);
+            processRewardScene(session, newSceneType);
         } else {
             SessionEventEngine.clearEvent(session);
+        }
+    }
+
+    private void processRewardScene(GameSession session, SceneType sceneType) {
+        if (sceneType != null && sceneType.equals(SceneType.REWARD)) {
+            Reward reward = ((SceneReward) session.getEventState().getCurrentScene()).getReward();
+            RewardEngine.collectRewards(session, reward);
+            update(session);
         }
     }
 

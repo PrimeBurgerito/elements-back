@@ -15,8 +15,7 @@ class SessionEventEngine {
 
     static SceneType chooseSceneOption(GameSession session, int option) {
         session.getEventState().chooseOption(option);
-        changeScene(session);
-        return SceneType.OPTION;
+        return changeScene(session);
     }
 
     private static SceneType changeScene(GameSession session) {

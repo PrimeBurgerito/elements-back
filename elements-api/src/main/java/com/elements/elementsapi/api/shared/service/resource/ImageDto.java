@@ -15,13 +15,11 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConditionalImageDto {
+public class ImageDto {
     @NotBlank
     private String entityId;
     @NotBlank
     private String imageKey;
-    @Nullable
-    private Requirement requirement;
     @Nullable
     private Map<String, ImageCrop> crops;
 }
