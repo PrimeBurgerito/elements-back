@@ -4,7 +4,7 @@ import com.elements.elementsapi.api.shared.service.BaseService;
 import com.elements.elementsapi.api.statistic.repository.PropertyRepository;
 import com.elements.elementsapi.api.statistic.service.mapper.PropertyMapper;
 import com.elements.elementsapi.api.statistic.service.resource.PropertyDto;
-import com.elements.elementsdomain.statistic.Property;
+import com.elements.elementsdomain.aggregate.statistic.Property;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,10 @@
 package com.elements.gamesession.session.event.domain;
 
-import com.elements.elementsdomain.character.CharacterStatistics;
-import com.elements.elementsdomain.event.scene.Scene;
-import com.elements.elementsdomain.event.scene.SceneImage;
-import com.elements.elementsdomain.event.scene.option.Option;
-import com.elements.elementsdomain.event.scene.option.SceneOption;
+import com.elements.elementsdomain.composite.character.CharacterStatistics;
+import com.elements.elementsdomain.aggregate.event.scene.Scene;
+import com.elements.elementsdomain.aggregate.event.scene.SceneImage;
+import com.elements.elementsdomain.aggregate.event.scene.option.Option;
+import com.elements.elementsdomain.aggregate.event.scene.option.SceneOption;
 import com.elements.gamesession.engine.requirement.RequirementTester;
 import com.elements.gamesession.engine.requirement.RequirementTesterUserInfo;
 

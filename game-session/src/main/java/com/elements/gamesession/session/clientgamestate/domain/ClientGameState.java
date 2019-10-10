@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.clientgamestate.domain;
 
-import com.elements.elementsdomain.character.Character;
+import com.elements.elementsdomain.composite.character.Character;
 import com.elements.gamesession.session.event.domain.SessionEvent;
 import com.elements.gamesession.session.location.domain.SessionLocation;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.gamestate.service;
 
-import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
 import com.elements.gamesession.session.gamestate.repository.GameStateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

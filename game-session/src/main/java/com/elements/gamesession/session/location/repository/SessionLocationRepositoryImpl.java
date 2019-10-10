@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.location.repository;
 
-import com.elements.elementsdomain.location.Location;
+import com.elements.elementsdomain.aggregate.location.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;

@@ -2,7 +2,7 @@ package com.elements.elementsapi.api.location.service.mapper;
 
 import com.elements.elementsapi.api.location.service.resource.LocationDto;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
-import com.elements.elementsdomain.location.Location;
+import com.elements.elementsdomain.aggregate.location.Location;
 import org.mapstruct.Mapper;
 
 import static org.mapstruct.MappingInheritanceStrategy.AUTO_INHERIT_FROM_CONFIG;

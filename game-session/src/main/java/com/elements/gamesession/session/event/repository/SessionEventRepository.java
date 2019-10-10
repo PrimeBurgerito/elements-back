@@ -1,7 +1,7 @@
 package com.elements.gamesession.session.event.repository;
 
-import com.elements.elementsdomain.event.Event;
-import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.aggregate.event.Event;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
 
 import java.util.List;
 

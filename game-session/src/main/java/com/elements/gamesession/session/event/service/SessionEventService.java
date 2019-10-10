@@ -1,10 +1,10 @@
 package com.elements.gamesession.session.event.service;
 
-import com.elements.elementsdomain.event.Event;
-import com.elements.elementsdomain.event.scene.SceneType;
-import com.elements.elementsdomain.event.scene.reward.SceneReward;
-import com.elements.elementsdomain.gamestate.GameState;
-import com.elements.elementsdomain.reward.Reward;
+import com.elements.elementsdomain.aggregate.event.Event;
+import com.elements.elementsdomain.aggregate.event.scene.SceneType;
+import com.elements.elementsdomain.aggregate.event.scene.reward.SceneReward;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
+import com.elements.elementsdomain.composite.reward.Reward;
 import com.elements.gamesession.engine.reward.RewardEngine;
 import com.elements.gamesession.session.GameSession;
 import com.elements.gamesession.session.event.domain.SessionEventValidation;

@@ -1,7 +1,7 @@
 package com.elements.gamesession.config.session;
 
 import com.elements.elementscommon.domain.user.User;
-import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
 import com.elements.gamesession.session.GameSession;
 import com.elements.gamesession.session.clientgamestate.service.ClientGameStateService;
 import com.elements.gamesession.session.gamestate.service.GameStateService;

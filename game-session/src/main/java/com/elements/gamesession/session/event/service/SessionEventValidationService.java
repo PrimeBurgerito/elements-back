@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.event.service;
 
-import com.elements.elementsdomain.event.Event;
+import com.elements.elementsdomain.aggregate.event.Event;
 import com.elements.gamesession.session.event.domain.SessionEventValidation;
 import com.elements.gamesession.session.event.domain.SessionOption;
 import lombok.extern.slf4j.Slf4j;

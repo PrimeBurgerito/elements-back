@@ -1,8 +1,8 @@
 package com.elements.gamesession.session.event.repository;
 
-import com.elements.elementsdomain.character.CharacterStatistics;
-import com.elements.elementsdomain.event.Event;
-import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.composite.character.CharacterStatistics;
+import com.elements.elementsdomain.aggregate.event.Event;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

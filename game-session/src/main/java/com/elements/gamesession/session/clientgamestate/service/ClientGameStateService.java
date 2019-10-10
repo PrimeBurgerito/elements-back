@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.clientgamestate.service;
 
-import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
 import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
 import com.elements.gamesession.session.location.domain.SessionLocation;
 import com.elements.gamesession.session.location.service.SessionLocationService;

@@ -1,9 +1,9 @@
 package com.elements.gamesession.session.location.domain;
 
-import com.elements.elementsdomain.character.CharacterStatistics;
-import com.elements.elementsdomain.image.ConditionalImage;
-import com.elements.elementsdomain.image.Image;
-import com.elements.elementsdomain.location.Location;
+import com.elements.elementsdomain.composite.character.CharacterStatistics;
+import com.elements.elementsdomain.composite.image.ConditionalImage;
+import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.aggregate.location.Location;
 import com.elements.gamesession.engine.requirement.RequirementTester;
 import com.elements.gamesession.engine.requirement.RequirementTesterUserInfo;
 import org.springframework.stereotype.Component;

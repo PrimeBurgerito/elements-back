@@ -1,6 +1,6 @@
 package com.elements.elementsapi.api.event.repository;
 
-import com.elements.elementsdomain.event.Event;
+import com.elements.elementsdomain.aggregate.event.Event;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

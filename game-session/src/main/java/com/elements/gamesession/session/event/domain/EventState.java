@@ -1,13 +1,13 @@
 package com.elements.gamesession.session.event.domain;
 
-import com.elements.elementsdomain.character.CharacterStatistics;
-import com.elements.elementsdomain.event.Event;
-import com.elements.elementsdomain.event.scene.Scene;
-import com.elements.elementsdomain.event.scene.SceneBase;
-import com.elements.elementsdomain.event.scene.SceneProcessor;
-import com.elements.elementsdomain.event.scene.option.Option;
-import com.elements.elementsdomain.event.scene.option.SceneOption;
-import com.elements.elementsdomain.event.scene.reward.SceneReward;
+import com.elements.elementsdomain.composite.character.CharacterStatistics;
+import com.elements.elementsdomain.aggregate.event.Event;
+import com.elements.elementsdomain.aggregate.event.scene.Scene;
+import com.elements.elementsdomain.aggregate.event.scene.SceneBase;
+import com.elements.elementsdomain.aggregate.event.scene.SceneProcessor;
+import com.elements.elementsdomain.aggregate.event.scene.option.Option;
+import com.elements.elementsdomain.aggregate.event.scene.option.SceneOption;
+import com.elements.elementsdomain.aggregate.event.scene.reward.SceneReward;
 import lombok.Getter;
 import lombok.Setter;
 

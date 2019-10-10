@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.shared.controller;
 import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
 import com.elements.elementsapi.api.shared.service.resource.ConditionalImageDto;
 import com.elements.elementscommon.domain.DocumentBase;
-import com.elements.elementsdomain.image.ConditionalImage;
+import com.elements.elementsdomain.composite.image.ConditionalImage;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;

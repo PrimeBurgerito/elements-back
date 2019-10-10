@@ -1,7 +1,7 @@
 package com.elements.gamesession.session.location.service;
 
-import com.elements.elementsdomain.gamestate.GameState;
-import com.elements.elementsdomain.location.Location;
+import com.elements.elementsdomain.aggregate.gamestate.GameState;
+import com.elements.elementsdomain.aggregate.location.Location;
 import com.elements.gamesession.session.GameSession;
 import com.elements.gamesession.session.location.domain.SessionLocation;
 import com.elements.gamesession.session.location.domain.SessionLocationMapper;

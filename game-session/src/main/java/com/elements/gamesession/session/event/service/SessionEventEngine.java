@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.event.service;
 
-import com.elements.elementsdomain.event.scene.SceneType;
+import com.elements.elementsdomain.aggregate.event.scene.SceneType;
 import com.elements.gamesession.session.GameSession;
 
 class SessionEventEngine {

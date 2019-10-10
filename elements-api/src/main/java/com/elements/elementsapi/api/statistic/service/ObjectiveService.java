@@ -4,7 +4,7 @@ import com.elements.elementsapi.api.shared.service.BaseService;
 import com.elements.elementsapi.api.statistic.repository.ObjectiveRepository;
 import com.elements.elementsapi.api.statistic.service.mapper.ObjectiveMapper;
 import com.elements.elementsapi.api.statistic.service.resource.ObjectiveDto;
-import com.elements.elementsdomain.statistic.Objective;
+import com.elements.elementsdomain.aggregate.statistic.Objective;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

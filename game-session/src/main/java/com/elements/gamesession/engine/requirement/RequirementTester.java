@@ -1,7 +1,7 @@
 package com.elements.gamesession.engine.requirement;
 
-import com.elements.elementsdomain.requirement.Requirement;
-import com.elements.elementsdomain.requirement.Timing;
+import com.elements.elementsdomain.composite.requirement.Requirement;
+import com.elements.elementsdomain.composite.requirement.Timing;
 import lombok.Data;
 import org.springframework.data.util.Pair;
 

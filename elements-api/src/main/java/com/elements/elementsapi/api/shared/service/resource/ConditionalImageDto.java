@@ -1,7 +1,7 @@
 package com.elements.elementsapi.api.shared.service.resource;
 
-import com.elements.elementsdomain.image.ImageCrop;
-import com.elements.elementsdomain.requirement.Requirement;
+import com.elements.elementsdomain.composite.image.ImageCrop;
+import com.elements.elementsdomain.composite.requirement.Requirement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.elements.elementsapi.api.event.service.resource;
 
-import com.elements.elementsdomain.event.scene.SceneBase;
-import com.elements.elementsdomain.requirement.Requirement;
+import com.elements.elementsdomain.aggregate.event.scene.SceneBase;
+import com.elements.elementsdomain.composite.requirement.Requirement;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

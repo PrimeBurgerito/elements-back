@@ -1,6 +1,6 @@
 package com.elements.gamesession.session.location.domain;
 
-import com.elements.elementsdomain.image.Image;
+import com.elements.elementsdomain.composite.image.Image;
 import lombok.Builder;
 import lombok.Data;
 

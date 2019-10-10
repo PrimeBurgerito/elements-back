@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.charactertemplate.controller;
 import com.elements.elementsapi.api.charactertemplate.service.CharacterTemplateService;
 import com.elements.elementsapi.api.charactertemplate.service.resource.CharacterTemplateDto;
 import com.elements.elementsapi.api.shared.controller.ImageEntityController;
-import com.elements.elementsdomain.character.CharacterTemplate;
+import com.elements.elementsdomain.aggregate.charactertemplate.CharacterTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

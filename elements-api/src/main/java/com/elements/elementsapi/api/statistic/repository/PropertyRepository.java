@@ -1,6 +1,6 @@
 package com.elements.elementsapi.api.statistic.repository;
 
-import com.elements.elementsdomain.statistic.Property;
+import com.elements.elementsdomain.aggregate.statistic.Property;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

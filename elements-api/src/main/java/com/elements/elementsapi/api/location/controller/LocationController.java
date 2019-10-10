@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.location.controller;
 import com.elements.elementsapi.api.location.service.LocationService;
 import com.elements.elementsapi.api.location.service.resource.LocationDto;
 import com.elements.elementsapi.api.shared.controller.ConditionalImageEntityController;
-import com.elements.elementsdomain.location.Location;
+import com.elements.elementsdomain.aggregate.location.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
