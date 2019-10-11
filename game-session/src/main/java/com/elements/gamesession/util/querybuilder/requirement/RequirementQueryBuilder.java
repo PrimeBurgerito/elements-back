@@ -13,6 +13,9 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 public class RequirementQueryBuilder {
     private static final String LOCATION_ID = "requirement.locationId";
 
+    private RequirementQueryBuilder() {
+    }
+
     public static Query build(GameState gameState) {
         CharacterStatistics statistics = gameState.getCharacter().getStatistics();
         return query(new Criteria().andOperator(

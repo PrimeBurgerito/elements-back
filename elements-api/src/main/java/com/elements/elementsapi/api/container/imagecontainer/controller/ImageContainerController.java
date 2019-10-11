@@ -23,12 +23,12 @@ public class ImageContainerController extends ImageEntityController<ImageContain
     }
 
     @GetMapping(value = "/key/{key}")
-    public ImageContainerDto getByKey(@PathVariable String key) {
+    public ImageContainer getByKey(@PathVariable String key) {
         return service.findByKey(key);
     }
 
-    @GetMapping(value = "/key/{keys}")
-    public List<ImageContainerDto> getByKeys(@PathVariable Set<String> keys) {
+    @GetMapping(value = "/keys/{keys}")
+    public List<ImageContainer> getByKeys(@PathVariable Set<String> keys) {
         return service.findByKeys(keys);
     }
 }

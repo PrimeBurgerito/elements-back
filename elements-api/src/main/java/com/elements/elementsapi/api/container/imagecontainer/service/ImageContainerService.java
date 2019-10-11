@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,8 +45,8 @@ public class ImageContainerService extends ImageEntityService<ImageContainerDto,
 
     @Override
     protected void addImageToEntity(ImageContainer entity, String imageKey, Image image) {
-        if (entity.getImages().isEmpty()) {
-            throw new RuntimeException("Image list can't be empty!");
+        if (entity.getImages() == null) {
+            entity.setImages(new HashSet<>());
         }
         removeImageFromEntity(entity, imageKey);
         entity.getImages().add(image);
@@ -57,12 +58,12 @@ public class ImageContainerService extends ImageEntityService<ImageContainerDto,
     }
 
     @Transactional(readOnly = true)
-    public ImageContainerDto findByKey(String entityKey) {
-        return mapper.map(repository.findByKey(entityKey));
+    public ImageContainer findByKey(String entityKey) {
+        return repository.findByKey(entityKey);
     }
 
     @Transactional(readOnly = true)
-    public List<ImageContainerDto> findByKeys(Set<String> keys) {
-        return mapper.map(repository.findByKeyIn(keys));
+    public List<ImageContainer> findByKeys(Set<String> keys) {
+        return repository.findByKeyIn(keys);
     }
 }
