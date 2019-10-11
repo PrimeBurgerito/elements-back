@@ -2,7 +2,6 @@ package com.elements.gamesession.engine.reward;
 
 import com.elements.elementsdomain.composite.character.CharacterStatistics;
 import com.elements.elementsdomain.composite.reward.*;
-import com.elements.elementsdomain.reward.*;
 import com.elements.gamesession.session.GameSession;
 
 import java.util.Map;

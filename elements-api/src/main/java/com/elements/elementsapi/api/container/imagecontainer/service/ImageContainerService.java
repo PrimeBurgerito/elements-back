@@ -22,6 +22,16 @@ public class ImageContainerService extends ImageEntityService<ImageContainerDto,
     private final ImageContainerRepository repository;
     private final ImageContainerMapper mapper;
 
+    @Override
+    public MongoRepository<ImageContainer, String> getRepository() {
+        return repository;
+    }
+
+    @Override
+    protected BaseMapper<ImageContainerDto, ImageContainer> getMapper() {
+        return mapper;
+    }
+
     public ImageContainerService(
             FileStorageService fileStorageService,
             ImageContainerRepository repository,
@@ -33,21 +43,11 @@ public class ImageContainerService extends ImageEntityService<ImageContainerDto,
     }
 
     @Override
-    public MongoRepository<ImageContainer, String> getRepository() {
-        return repository;
-    }
-
-    @Override
-    protected BaseMapper<ImageContainerDto, ImageContainer> getMapper() {
-        return mapper;
-    }
-
-    @Override
     protected void addImageToEntity(ImageContainer entity, String imageKey, Image image) {
         if (entity.getImages().isEmpty()) {
             throw new RuntimeException("Image list can't be empty!");
         }
-        entity.getImages().removeIf(img -> img.getKey().equals(imageKey));
+        removeImageFromEntity(entity, imageKey);
         entity.getImages().add(image);
     }
 

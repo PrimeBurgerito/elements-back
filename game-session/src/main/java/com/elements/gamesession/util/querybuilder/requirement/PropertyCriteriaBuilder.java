@@ -1,4 +1,4 @@
-package com.elements.gamesession.session.event.repository;
+package com.elements.gamesession.util.querybuilder.requirement;
 
 import org.springframework.data.mongodb.core.query.Criteria;
 

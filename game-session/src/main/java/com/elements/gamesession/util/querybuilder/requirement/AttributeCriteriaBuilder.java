@@ -1,4 +1,4 @@
-package com.elements.gamesession.session.event.repository;
+package com.elements.gamesession.util.querybuilder.requirement;
 
 import org.springframework.data.mongodb.core.query.Criteria;
 
@@ -10,13 +10,13 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 class AttributeCriteriaBuilder {
 
-    private static final String ATTRIBUTES_KEY = "requirement.attributes";
+    private static final String ATTRIBUTES = "requirement.attributes";
 
     private AttributeCriteriaBuilder() {
     }
 
     static Criteria build(Map<String, Float> attributes) {
-        return new Criteria().orOperator(where(ATTRIBUTES_KEY).is(null), buildAttributesCriteria(attributes));
+        return new Criteria().orOperator(where(ATTRIBUTES).is(null), buildAttributesCriteria(attributes));
     }
 
     private static Criteria buildAttributesCriteria(Map<String, Float> attributes) {
@@ -26,11 +26,11 @@ class AttributeCriteriaBuilder {
     }
 
     private static Criteria buildAttributeCriteria(Entry<String, Float> keyToValue) {
-        String attributeKey = format("%s.%s", ATTRIBUTES_KEY, keyToValue.getKey());
-        Criteria isAttributeBetween = where("first").lte(keyToValue.getValue()).and("second").gte(keyToValue.getValue());
+        String attributeKey = format("%s.%s", ATTRIBUTES, keyToValue.getKey());
+        Criteria inRangeCriteria = where("first").lte(keyToValue.getValue()).and("second").gte(keyToValue.getValue());
         return new Criteria().orOperator(
                 where(attributeKey).is(null),
-                where(attributeKey).elemMatch(isAttributeBetween)
+                where(attributeKey).elemMatch(inRangeCriteria)
         );
     }
 }

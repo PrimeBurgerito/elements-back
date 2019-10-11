@@ -21,7 +21,7 @@ public class SessionLocationService {
         return mapper.map(location, gameState.getCharacter().getStatistics());
     }
 
-    public void update(String locationName, GameSession gameSession) {
+    public void setNewLocation(String locationName, GameSession gameSession) {
         GameState gameState = gameSession.getGameState();
         Location location = repository.getByName(locationName);
 

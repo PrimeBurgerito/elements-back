@@ -25,7 +25,7 @@ public class SessionController {
 
     @MessageMapping(value = "/change-location")
     public ClientGameState changeLocation(@Payload String locationName) {
-        sessionLocationService.update(locationName, session);
+        sessionLocationService.setNewLocation(locationName, session);
         sessionEventService.setNewEvent(session);
         return session.getClientGameState();
     }

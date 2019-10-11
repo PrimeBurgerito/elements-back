@@ -1,11 +1,11 @@
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.data:spring-data-releasetrain:Lovelace-RELEASE")
+        mavenBom("org.springframework.data:spring-data-releasetrain:Moore-RELEASE")
     }
 }
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"

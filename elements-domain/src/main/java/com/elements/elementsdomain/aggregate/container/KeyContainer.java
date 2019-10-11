@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Data
@@ -14,5 +15,6 @@ import java.util.Set;
 public class KeyContainer extends DocumentBase {
     @Indexed(unique = true)
     private String key;
-    private Set<String> keys;
+    @NotEmpty
+    private Set<Key> keys;
 }
