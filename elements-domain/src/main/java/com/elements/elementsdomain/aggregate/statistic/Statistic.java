@@ -9,5 +9,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @EqualsAndHashCode(callSuper = true)
 abstract class Statistic extends DocumentBase {
     @Indexed(unique = true)
+    private String key;
+
     private String name;
 }

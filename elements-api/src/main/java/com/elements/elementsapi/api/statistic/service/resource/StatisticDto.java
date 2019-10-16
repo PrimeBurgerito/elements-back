@@ -12,6 +12,8 @@ import static org.springframework.util.StringUtils.capitalize;
 abstract class StatisticDto {
     @NotBlank
     private String name;
+    @NotBlank
+    private String key;
 
     @JsonSetter
     public void setName(String name) {
