@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class AttributeReward {
-    private String attributeId;
+    private String attributeKey;
     private float value;
 }

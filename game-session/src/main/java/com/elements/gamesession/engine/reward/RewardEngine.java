@@ -22,26 +22,26 @@ public class RewardEngine {
 
     private static void collectPropertyReward(Map<String, String> properties, PropertyReward reward) {
         if (reward.getType().equals(RewardType.ADD)) {
-            properties.put(reward.getPropertyId(), reward.getValue());
+            properties.put(reward.getPropertyKey(), reward.getValue());
         } else if (reward.getType().equals(RewardType.REMOVE)) {
-            properties.remove(reward.getPropertyId(), reward.getValue());
+            properties.remove(reward.getPropertyKey(), reward.getValue());
         }
     }
 
     private static void collectObjectiveReward(Set<String> objectives, ObjectiveReward reward) {
         if (reward.getType().equals(RewardType.ADD)) {
-            objectives.add(reward.getObjectiveId());
+            objectives.add(reward.getObjectiveKey());
         } else if (reward.getType().equals(RewardType.REMOVE)) {
-            objectives.remove(reward.getObjectiveId());
+            objectives.remove(reward.getObjectiveKey());
         }
     }
 
     private static void collectAttributeReward(Map<String, Float> attributes, AttributeReward reward) {
         float value = reward.getValue();
-        if (attributes.containsKey(reward.getAttributeId())) {
-            attributes.compute(reward.getAttributeId(), (s, v) -> v != null ? v + value : value);
+        if (attributes.containsKey(reward.getAttributeKey())) {
+            attributes.compute(reward.getAttributeKey(), (s, v) -> v != null ? v + value : value);
         } else {
-            attributes.put(reward.getAttributeId(), value);
+            attributes.put(reward.getAttributeKey(), value);
         }
     }
 }

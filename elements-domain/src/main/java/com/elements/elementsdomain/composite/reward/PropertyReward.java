@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PropertyReward {
-    private String propertyId;
+    private String propertyKey;
     private String value;
     private RewardType type;
 }
