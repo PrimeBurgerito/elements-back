@@ -11,7 +11,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 public class RequirementQueryBuilder {
-    private static final String LOCATION_ID = "requirement.locationId";
+    private static final String LOCATION_ID = "requirement.locationIds";
 
     private RequirementQueryBuilder() {
     }

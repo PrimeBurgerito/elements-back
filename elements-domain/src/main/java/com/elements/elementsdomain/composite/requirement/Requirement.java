@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 public class Requirement {
     @Indexed(sparse = true)
-    private String locationId;
+    private List<String> locationIds;
     private Timing timing;
     private List<String> objectives;
     private Map<String, Set<String>> properties;

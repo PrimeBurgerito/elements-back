@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Repository
 public interface LocationRepository extends MongoRepository<Location, String> {
-    Location findByName(String name);
-
     Set<Location> findByNameIn(Collection<String> names);
+
+    boolean existsAllById(Collection<String> ids);
 }

@@ -3,12 +3,14 @@ package com.elements.gamesession.engine.requirement;
 import com.elements.elementsdomain.composite.requirement.Requirement;
 import com.elements.elementsdomain.composite.requirement.Timing;
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.util.Pair;
 
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.Range.between;
 
 @Data
@@ -27,7 +29,7 @@ public class RequirementTester {
     }
 
     private boolean isCorrectLocation() {
-        return requirement.getLocationId() == null || requirement.getLocationId().equals(userInfo.getLocationId());
+        return isEmpty(requirement.getLocationIds()) || requirement.getLocationIds().contains(userInfo.getLocationId());
     }
 
     private boolean areObjectivesSatisfied() {

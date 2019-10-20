@@ -5,7 +5,10 @@ import com.elements.elementsapi.api.event.service.resource.EventValidation;
 import com.elements.elementsapi.api.location.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Slf4j
 @Service
@@ -16,10 +19,10 @@ public class EventValidationService {
 
     EventValidation validate(EventDto eventDto) {
         EventValidation validation = new EventValidation();
-        if (eventDto.getRequirement() == null || eventDto.getRequirement().getLocationId() == null) {
-            validation.unAccept("locationId", "Can't be null");
-        } else if (!locationRepository.existsById(eventDto.getRequirement().getLocationId())) {
-            validation.unAccept("locationId", "Location doesn't exist");
+        if (eventDto.getRequirement() == null || isEmpty(eventDto.getRequirement().getLocationIds())) {
+            validation.unAccept("locationIds", "Can't be null or empty");
+        } else if (!locationRepository.existsAllById(eventDto.getRequirement().getLocationIds())) {
+            validation.unAccept("locationIds", "Location doesn't exist");
         }
 
         if (validation.isAccepted()) {
