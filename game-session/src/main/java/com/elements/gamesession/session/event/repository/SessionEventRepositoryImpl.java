@@ -2,8 +2,10 @@ package com.elements.gamesession.session.event.repository;
 
 import com.elements.elementsdomain.aggregate.event.Event;
 import com.elements.elementsdomain.aggregate.gamestate.GameState;
+import com.elements.elementsdomain.composite.character.CharacterStatistics;
 import com.elements.gamesession.util.querybuilder.requirement.RequirementQueryBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +18,8 @@ public class SessionEventRepositoryImpl implements SessionEventRepository {
     private final MongoTemplate template;
 
     @Override
-    public List<Event> findByGameState(GameState gameState) {
-        return template.find(RequirementQueryBuilder.build(gameState), Event.class);
+    @Cacheable("eventQuery")
+    public List<Event> findByLocationAndStatistics(String locationId, CharacterStatistics statistics) {
+        return template.find(RequirementQueryBuilder.build(locationId, statistics), Event.class);
     }
 }

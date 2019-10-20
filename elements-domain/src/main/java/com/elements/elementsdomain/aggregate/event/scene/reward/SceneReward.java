@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class SceneReward implements SceneBase {
+    private static final long serialVersionUID = -1584226771781553895L;
     private Reward reward;
     private Integer next;
 

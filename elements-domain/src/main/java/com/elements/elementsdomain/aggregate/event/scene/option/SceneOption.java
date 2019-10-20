@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SceneOption extends SceneImage {
+    private static final long serialVersionUID = -989642667821306551L;
     private List<Option> options;
 
     @Override

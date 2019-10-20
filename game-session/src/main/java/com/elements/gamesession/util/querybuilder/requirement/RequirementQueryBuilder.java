@@ -1,6 +1,5 @@
 package com.elements.gamesession.util.querybuilder.requirement;
 
-import com.elements.elementsdomain.aggregate.gamestate.GameState;
 import com.elements.elementsdomain.composite.character.CharacterStatistics;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -16,10 +15,9 @@ public class RequirementQueryBuilder {
     private RequirementQueryBuilder() {
     }
 
-    public static Query build(GameState gameState) {
-        CharacterStatistics statistics = gameState.getCharacter().getStatistics();
+    public static Query build(String locationId, CharacterStatistics statistics) {
         return query(new Criteria().andOperator(
-                where(LOCATION_ID).is(gameState.getLocationId()),
+                where(LOCATION_ID).is(locationId),
                 AttributeCriteriaBuilder.build(statistics.getAttributes()),
                 PropertyCriteriaBuilder.build(statistics.getProperties()),
                 ObjectiveCriteriaBuilder.build(ofNullable(statistics.getObjectives()).orElse(emptySet()))

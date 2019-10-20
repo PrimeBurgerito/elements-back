@@ -67,7 +67,8 @@ public class SessionEventService {
     }
 
     private Event findByGameState(GameState gameState) {
-        List<Event> events = repository.findByGameState(gameState);
+        List<Event> events = repository
+                .findByLocationAndStatistics(gameState.getLocationId(), gameState.getCharacter().getStatistics());
         return events.isEmpty() ? null : events.get(0);
     }
 }
