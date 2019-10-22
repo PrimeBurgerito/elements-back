@@ -1,4 +1,4 @@
-package com.elements.elementsdomain.aggregate.location;
+package com.elements.elementsdomain.aggregate.location.area;
 
 import com.elements.elementscommon.domain.DocumentBase;
 import com.elements.elementsdomain.composite.image.Image;
@@ -18,7 +18,11 @@ public class LocationArea extends DocumentBase {
     private String name;
     private Requirement requirement;
     private String parentAreaId;
-    private Set<String> childAreaIds;
-    private Set<String> locationIds;
+    private Set<LocationInfo> children;
     private Image image;
+    private Type type;
+
+    public enum Type {
+        LOCATION, AREA
+    }
 }

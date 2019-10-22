@@ -1,9 +1,9 @@
-package com.elements.elementsapi.api.event.service.resource;
+package com.elements.elementsapi.api.shared.service.resource;
 
 import lombok.Data;
 
 @Data
-public class EventValidation {
+public class ValidationContainer {
     private String field;
     private String reason;
     private boolean accepted = true;

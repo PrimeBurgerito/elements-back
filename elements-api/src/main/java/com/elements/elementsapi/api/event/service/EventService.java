@@ -3,11 +3,11 @@ package com.elements.elementsapi.api.event.service;
 import com.elements.elementsapi.api.event.repository.EventRepository;
 import com.elements.elementsapi.api.event.service.mapper.EventMapper;
 import com.elements.elementsapi.api.event.service.resource.EventDto;
-import com.elements.elementsapi.api.event.service.resource.EventValidation;
 import com.elements.elementsapi.api.event.service.resource.ImageToSceneMap;
 import com.elements.elementsapi.api.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.BaseService;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
+import com.elements.elementsapi.api.shared.service.resource.ValidationContainer;
 import com.elements.elementsdomain.aggregate.event.Event;
 import com.elements.elementsdomain.aggregate.event.scene.SceneBase;
 import com.elements.elementsdomain.aggregate.event.scene.SceneImage;
@@ -27,6 +27,7 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public class EventService extends BaseService<EventDto, Event> {
 
+    private final static String VALIDATION_FAILED = "Validation failed - Field: %s, Reason: %s";
     private final FileStorageService fileStorageService;
     private final EventValidationService validationService;
     private final EventRepository repository;
@@ -46,11 +47,9 @@ public class EventService extends BaseService<EventDto, Event> {
         if (imageToSceneMap.size() != images.length) {
             throw new RuntimeException("Images and image to scene mapper sizes don't match!");
         }
-        EventValidation validation = validationService.validate(eventDto);
+        ValidationContainer validation = validationService.validate(eventDto);
         if (!validation.isAccepted()) {
-            throw new RuntimeException(
-                    format("Validation failed - Field: %s, Reason: %s", validation.getField(), validation.getReason())
-            );
+            throw new RuntimeException(format(VALIDATION_FAILED, validation.getField(), validation.getReason()));
         }
         imageToSceneMap.forEach(toSceneMap -> {
             MultipartFile imageFile = images[toSceneMap.getImageIndex()];

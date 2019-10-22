@@ -1,11 +1,10 @@
 package com.elements.elementsapi.api.event.service;
 
 import com.elements.elementsapi.api.event.service.resource.EventDto;
-import com.elements.elementsapi.api.event.service.resource.EventValidation;
 import com.elements.elementsapi.api.location.repository.LocationRepository;
+import com.elements.elementsapi.api.shared.service.resource.ValidationContainer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
@@ -17,8 +16,8 @@ public class EventValidationService {
 
     private final LocationRepository locationRepository;
 
-    EventValidation validate(EventDto eventDto) {
-        EventValidation validation = new EventValidation();
+    ValidationContainer validate(EventDto eventDto) {
+        ValidationContainer validation = new ValidationContainer();
         if (eventDto.getRequirement() == null || isEmpty(eventDto.getRequirement().getLocationIds())) {
             validation.unAccept("locationIds", "Can't be null or empty");
         } else if (!locationRepository.existsAllById(eventDto.getRequirement().getLocationIds())) {
