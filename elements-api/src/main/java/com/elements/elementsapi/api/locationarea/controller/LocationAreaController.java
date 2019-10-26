@@ -29,9 +29,9 @@ public class LocationAreaController extends BaseController<LocationAreaDto, Loca
 
     @PostMapping(value = "/new", consumes = {"multipart/form-data"})
     public LocationArea create(
-            @RequestPart("locationDto") @Valid LocationAreaDto locationDto,
+            @RequestPart("locationAreaDto") @Valid LocationAreaDto locationAreaDto,
             @RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file
     ) {
-        return service.create(locationDto, file);
+        return service.create(locationAreaDto, file);
     }
 }
