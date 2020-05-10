@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.locationarea.controller;
 import com.elements.elementsapi.api.locationarea.service.LocationAreaService;
 import com.elements.elementsapi.api.locationarea.service.resource.LocationAreaDto;
 import com.elements.elementsapi.api.shared.controller.BaseController;
-import com.elements.elementsdomain.aggregate.location.area.LocationArea;
+import com.elements.elementsdomain.document.location.area.LocationArea;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

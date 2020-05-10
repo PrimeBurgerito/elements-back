@@ -3,10 +3,13 @@ package com.elements.elementsapi.api.charactertemplate.controller;
 import com.elements.elementsapi.api.charactertemplate.service.CharacterTemplateService;
 import com.elements.elementsapi.api.charactertemplate.service.resource.CharacterTemplateDto;
 import com.elements.elementsapi.api.shared.controller.ImageEntityController;
-import com.elements.elementsdomain.aggregate.charactertemplate.CharacterTemplate;
+import com.elements.elementsdomain.document.charactertemplate.CharacterTemplate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,5 +21,10 @@ public class CharacterTemplateController extends ImageEntityController<Character
     @Override
     protected CharacterTemplateService getService() {
         return service;
+    }
+
+    @GetMapping("/full")
+    public List<CharacterTemplate> findTemplates() {
+        return service.findTemplates();
     }
 }

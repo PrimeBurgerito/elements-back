@@ -8,7 +8,6 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     implementation project(':elements-common')
-    implementation project(':elements-auth:token-store')
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

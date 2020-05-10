@@ -1,13 +1,6 @@
 server:
   port: 8080
 
-datasource:
-  host: localhost
-  port: 27017
-  user: root
-  password: admin
-  database: dev
-
 spring:
   data:
     mongodb:
@@ -17,6 +10,8 @@ spring:
       password: example
       database: dev
       authentication-database: admin
+      auto-index-creation: true
+      uri: mongodb://root:example@127.0.0.1:27017/dev?replicaSet=rs0&w=majority
 
   security:
     allowed-patterns: /**

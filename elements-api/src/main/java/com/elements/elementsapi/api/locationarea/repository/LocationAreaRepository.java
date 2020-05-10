@@ -1,7 +1,6 @@
 package com.elements.elementsapi.api.locationarea.repository;
 
-import com.elements.elementsdomain.aggregate.location.area.LocationArea;
-import com.elements.elementsdomain.aggregate.location.area.LocationInfo;
+import com.elements.elementsdomain.document.location.area.LocationArea;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -3,12 +3,13 @@ package com.elements.elementsapi.api.gamestate.service;
 import com.elements.elementsapi.api.charactertemplate.repository.CharacterTemplateRepository;
 import com.elements.elementsapi.api.gamestate.repository.GameStateRepository;
 import com.elements.elementsapi.api.gamestate.service.resource.GameStateDto;
+import com.elements.elementsapi.api.location.repository.LocationRepository;
 import com.elements.elementsapi.api.user.UserRepository;
 import com.elements.elementscommon.domain.user.User;
-import com.elements.elementsdomain.aggregate.charactertemplate.CharacterTemplate;
-import com.elements.elementsdomain.aggregate.gamestate.GameState;
-import com.elements.elementsdomain.composite.character.Character;
-import com.elements.elementsdomain.composite.character.CharacterStatistics;
+import com.elements.elementsdomain.document.charactertemplate.CharacterTemplate;
+import com.elements.elementsdomain.document.location.Location;
+import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.shared.character.Character;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +24,7 @@ public class GameStateService {
     private final GameStateRepository gameStateRepository;
     private final UserRepository userRepository;
     private final CharacterTemplateRepository characterTemplateRepository;
+    private final LocationRepository locationRepository;
 
     public boolean create(GameStateDto gameStateDto) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -32,23 +34,20 @@ public class GameStateService {
                 .findById(gameStateDto.getCharacterTemplateId())
                 .orElseThrow(() -> new RuntimeException("Character template not found"));
 
-        GameState gameState = new GameState();
-        gameState.setUserId(user.getId());
-        gameState.setCharacterTemplateId(gameStateDto.getCharacterTemplateId());
-
-        CharacterStatistics characterStatistics = CharacterStatistics.builder()
-                .attributes(characterTemplate.getAttributes())
-                .properties(characterTemplate.getProperties())
-                .build();
         Character character = Character.builder()
                 .name(gameStateDto.getCharacterName())
-                .statistics(characterStatistics)
+                .properties(characterTemplate.getProperties())
                 .images(characterTemplate.getImages())
+                .templateId(characterTemplate.getId())
                 .build();
 
-        gameState.setCharacter(character);
+        Location location = locationRepository.findAll().get(0);
 
-        gameStateRepository.save(gameState);
+        gameStateRepository.save(GameState.builder()
+                .userId(user.getId())
+                .locationId(location.getId())
+                .character(character)
+                .build());
         return true;
     }
 }

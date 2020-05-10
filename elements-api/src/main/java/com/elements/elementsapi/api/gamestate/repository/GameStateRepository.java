@@ -1,6 +1,6 @@
 package com.elements.elementsapi.api.gamestate.repository;
 
-import com.elements.elementsdomain.aggregate.gamestate.GameState;
+import com.elements.elementsdomain.gamestate.GameState;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

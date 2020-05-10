@@ -6,8 +6,8 @@ import com.elements.elementsapi.api.container.imagecontainer.service.resource.Im
 import com.elements.elementsapi.api.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.ImageEntityService;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
-import com.elements.elementsdomain.aggregate.container.ImageContainer;
-import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.document.container.ImageContainer;
+import com.elements.elementsdomain.shared.image.Image;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,11 +1,12 @@
 package com.elements.gamesession.engine.requirement;
 
-import com.elements.elementsdomain.composite.requirement.Requirement;
-import com.elements.elementsdomain.composite.requirement.Timing;
-import lombok.Data;
-import org.apache.commons.collections4.CollectionUtils;
+import com.elements.elementsdomain.shared.requirement.Requirement;
+import com.elements.elementsdomain.shared.requirement.Timing;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.data.util.Pair;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -13,58 +14,54 @@ import java.util.Set;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.Range.between;
 
-@Data
+@RequiredArgsConstructor
 public class RequirementTester {
-    private Requirement requirement;
-    private RequirementTesterUserInfo userInfo;
+    private final RequirementTesterInput userInfo;
 
-    public boolean isSatisfied() {
-        return requirement == null || (
-                isCorrectLocation() &&
-                        areAttributesSatisfied() &&
-                        arePropertiesSatisfied() &&
-                        areObjectivesSatisfied() &&
-                        isCorrectTiming()
-        );
+    public boolean isSatisfied(@Nullable Requirement requirement) {
+        return requirement == null
+                || (isCorrectLocation(requirement)
+                && areNumericPropertiesSatisfied(requirement.getProperties().getNumericProperties())
+                && areStringPropertiesSatisfied(requirement.getProperties().getStringProperties())
+                && areObjectivesSatisfied(requirement.getObjectives())
+                && isCorrectTiming(requirement.getTiming()));
     }
 
-    private boolean isCorrectLocation() {
+    private boolean isCorrectLocation(Requirement requirement) {
         return isEmpty(requirement.getLocationIds()) || requirement.getLocationIds().contains(userInfo.getLocationId());
     }
 
-    private boolean areObjectivesSatisfied() {
-        return (userInfo.getObjectives() == null && requirement.getObjectives() == null) ||
-                userInfo.getObjectives().containsAll(requirement.getObjectives());
+    private boolean areObjectivesSatisfied(List<String> requiredObjectives) {
+        return requiredObjectives == null || userInfo.getObjectives().containsAll(requiredObjectives);
     }
 
-    private boolean areAttributesSatisfied() {
-        Map<String, Pair<Float, Float>> attributes = requirement.getAttributes();
-        return attributes == null || attributes.isEmpty() ||
-                attributes.entrySet().stream().allMatch(this::isAttributeSatisfied);
+    private boolean areNumericPropertiesSatisfied(Map<String, Pair<Float, Float>> requiredProperties) {
+        return requiredProperties == null
+                || requiredProperties.isEmpty()
+                || requiredProperties.entrySet().stream().allMatch(this::isUserNumericPropertySatisfied);
     }
 
-    private boolean isAttributeSatisfied(Entry<String, Pair<Float, Float>> keyToAttribute) {
-        String key = keyToAttribute.getKey();
-        Pair<Float, Float> req = keyToAttribute.getValue();
-        Float userAttr = userInfo.getAttributes().get(key);
-        return userInfo.getAttributes().containsKey(key) && between(req.getFirst(), req.getSecond()).contains(userAttr);
+    private boolean isUserNumericPropertySatisfied(Entry<String, Pair<Float, Float>> requiredPropertyEntry) {
+        String key = requiredPropertyEntry.getKey();
+        Pair<Float, Float> req = requiredPropertyEntry.getValue();
+        Float userAttr = userInfo.getNumericProperties().get(key);
+        return userInfo.getNumericProperties().containsKey(key) && between(req.getFirst(), req.getSecond()).contains(userAttr);
     }
 
-    private boolean arePropertiesSatisfied() {
-        Map<String, Set<String>> properties = requirement.getProperties();
-        return properties == null || properties.isEmpty() ||
-                properties.entrySet().stream().allMatch(this::isPropertySatisfied);
+    private boolean areStringPropertiesSatisfied(Map<String, Set<String>> requiredProperties) {
+        return requiredProperties == null
+                || requiredProperties.isEmpty()
+                || requiredProperties.entrySet().stream().allMatch(this::isUserStringPropertySatisfied);
     }
 
-    private boolean isPropertySatisfied(Entry<String, Set<String>> keyToProperty) {
-        String key = keyToProperty.getKey();
-        Map<String, String> userProperties = userInfo.getProperties();
-        return userProperties.containsKey(key) && keyToProperty.getValue().contains(userProperties.get(key));
+    private boolean isUserStringPropertySatisfied(Entry<String, Set<String>> requiredPropertyEntry) {
+        String key = requiredPropertyEntry.getKey();
+        Map<String, List<String>> userProperties = userInfo.getStringProperties();
+        return userProperties.containsKey(key) && requiredPropertyEntry.getValue().containsAll(userProperties.get(key));
     }
 
-    private boolean isCorrectTiming() {
-        Timing timing = requirement.getTiming();
-        return timing == null || isTimingEmpty(timing);
+    private boolean isCorrectTiming(Timing requiredTiming) {
+        return requiredTiming == null || isTimingEmpty(requiredTiming);
     }
 
     private static boolean isTimingEmpty(Timing timing) {

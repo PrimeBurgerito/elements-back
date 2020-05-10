@@ -5,8 +5,8 @@ import com.elements.elementsapi.api.npctemplate.repository.NpcTemplateRepository
 import com.elements.elementsapi.api.npctemplate.service.mapper.NpcTemplateMapper;
 import com.elements.elementsapi.api.npctemplate.service.resource.NpcTemplateDto;
 import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
-import com.elements.elementsdomain.aggregate.npc.NpcTemplate;
-import com.elements.elementsdomain.composite.image.ConditionalImage;
+import com.elements.elementsdomain.document.npc.NpcTemplate;
+import com.elements.elementsdomain.shared.image.ConditionalImage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

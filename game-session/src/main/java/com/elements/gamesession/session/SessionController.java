@@ -1,8 +1,8 @@
 package com.elements.gamesession.session;
 
-import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
-import com.elements.gamesession.session.event.service.SessionEventService;
-import com.elements.gamesession.session.location.service.SessionLocationService;
+import com.elements.gamesession.session.resource.gamestate.domain.GameStateResource;
+import com.elements.gamesession.session.crud.event.service.SessionEventService;
+import com.elements.gamesession.session.crud.location.service.SessionLocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -19,24 +19,24 @@ public class SessionController {
     private final SessionEventService sessionEventService;
 
     @MessageMapping(value = "/game-state")
-    public ClientGameState getClientGameState() {
-        return session.getClientGameState();
+    public GameStateResource getClientGameState() {
+        return session.getGameStateResource();
     }
 
     @MessageMapping(value = "/change-location")
-    public ClientGameState changeLocation(@Payload String locationName) {
+    public GameStateResource changeLocation(@Payload String locationName) {
         sessionLocationService.setNewLocation(locationName, session);
         sessionEventService.setNewEvent(session);
-        return session.getClientGameState();
+        return session.getGameStateResource();
     }
 
     @MessageMapping(value = "/update-event")
-    public ClientGameState updateEvent(@Payload(required = false) Integer selectedOption) {
+    public GameStateResource updateEvent(@Payload(required = false) Integer selectedOption) {
         if (selectedOption == null) {
             sessionEventService.update(session);
         } else {
             sessionEventService.update(session, selectedOption);
         }
-        return session.getClientGameState();
+        return session.getGameStateResource();
     }
 }

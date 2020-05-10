@@ -4,7 +4,7 @@ import com.elements.elementsapi.api.container.keycontainer.repository.KeyContain
 import com.elements.elementsapi.api.container.keycontainer.service.mapper.KeyContainerMapper;
 import com.elements.elementsapi.api.container.keycontainer.service.resource.KeyContainerDto;
 import com.elements.elementsapi.api.shared.service.BaseService;
-import com.elements.elementsdomain.aggregate.container.KeyContainer;
+import com.elements.elementsdomain.document.container.KeyContainer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

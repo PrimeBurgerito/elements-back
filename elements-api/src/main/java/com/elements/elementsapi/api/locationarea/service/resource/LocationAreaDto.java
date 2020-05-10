@@ -1,9 +1,9 @@
 package com.elements.elementsapi.api.locationarea.service.resource;
 
-import com.elements.elementsdomain.aggregate.location.area.LocationArea;
-import com.elements.elementsdomain.aggregate.location.area.LocationInfo;
-import com.elements.elementsdomain.composite.image.Image;
-import com.elements.elementsdomain.composite.requirement.Requirement;
+import com.elements.elementsdomain.document.location.area.LocationArea;
+import com.elements.elementsdomain.document.location.area.LocationInfo;
+import com.elements.elementsdomain.shared.image.Image;
+import com.elements.elementsdomain.shared.requirement.Requirement;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

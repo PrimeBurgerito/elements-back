@@ -1,6 +1,6 @@
 package com.elements.elementsapi.api.container.keycontainer.service.resource;
 
-import com.elements.elementsdomain.aggregate.container.Key;
+import com.elements.elementsdomain.document.container.Key;
 import lombok.Data;
 
 import java.util.Set;

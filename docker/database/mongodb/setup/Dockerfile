@@ -1,4 +1,4 @@
-FROM mongo:4.1.10-bionic
+FROM mongo:4.2.6-bionic
 
 # Create app directory
 WORKDIR /usr/src/configs

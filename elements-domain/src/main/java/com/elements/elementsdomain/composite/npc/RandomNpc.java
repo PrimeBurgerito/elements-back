@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.composite.npc;
 
-import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.shared.image.Image;
 import lombok.Data;
 
 @Data

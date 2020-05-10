@@ -1,6 +1,7 @@
 package com.elements.gamesession.config.websocket;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
@@ -15,10 +16,10 @@ public class WebSocketHandshakeInterceptor extends HttpSessionHandshakeIntercept
 
     @Override
     public boolean beforeHandshake(
-            ServerHttpRequest request,
-            ServerHttpResponse response,
-            WebSocketHandler wsHandler,
-            Map<String, Object> attributes
+            @NotNull ServerHttpRequest request,
+            @NotNull ServerHttpResponse response,
+            @NotNull WebSocketHandler wsHandler,
+            @NotNull Map<String, Object> attributes
     ) throws Exception {
         super.beforeHandshake(request, response, wsHandler, attributes);
         if (attributes.containsKey(HTTP_SESSION_ID_ATTR_NAME)) {

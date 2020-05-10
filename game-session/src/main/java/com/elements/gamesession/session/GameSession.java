@@ -1,9 +1,9 @@
 package com.elements.gamesession.session;
 
-import com.elements.elementsdomain.aggregate.event.Event;
-import com.elements.elementsdomain.aggregate.gamestate.GameState;
-import com.elements.gamesession.session.clientgamestate.domain.ClientGameState;
-import com.elements.gamesession.session.event.domain.EventState;
+import com.elements.elementsdomain.document.event.Event;
+import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.gamesession.session.crud.event.domain.EventSession;
+import com.elements.gamesession.session.resource.gamestate.domain.GameStateResource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
@@ -19,9 +19,9 @@ import javax.annotation.PreDestroy;
 @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GameSession {
     private GameState gameState;
-    private EventState eventState;
+    private EventSession eventSession;
 
-    private ClientGameState clientGameState;
+    private GameStateResource gameStateResource;
 
     @PostConstruct
     public void init() {
@@ -34,11 +34,11 @@ public class GameSession {
     }
 
     public void setNewEvent(Event event) {
-        eventState = new EventState(event, gameState.getCharacter().getStatistics());
-        clientGameState.setCurrentEvent(eventState.getCurrentSessionEvent());
+        eventSession = new EventSession(event, gameState.getCharacter().getProperties());
+        gameStateResource.setCurrentScene(eventSession.getCurrentSceneState());
     }
 
-    public void updateClientCharacterStatistics() {
-        clientGameState.getCharacter().setStatistics(gameState.getCharacter().getStatistics());
+    public void updateGameStateResourceCharacterProperties() {
+        gameStateResource.getCharacter().setProperties(gameState.getCharacter().getProperties());
     }
 }

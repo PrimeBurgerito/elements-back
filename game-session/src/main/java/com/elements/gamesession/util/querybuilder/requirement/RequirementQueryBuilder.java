@@ -1,26 +1,24 @@
 package com.elements.gamesession.util.querybuilder.requirement;
 
-import com.elements.elementsdomain.composite.character.CharacterStatistics;
+import com.elements.elementsdomain.shared.character.CharacterProperties;
+import lombok.experimental.UtilityClass;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import static java.util.Collections.emptySet;
-import static java.util.Optional.ofNullable;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+@UtilityClass
 public class RequirementQueryBuilder {
-    private static final String LOCATION_ID = "requirement.locationIds";
+    private final String LOCATION_IDS = "requirement.locationIds";
 
-    private RequirementQueryBuilder() {
-    }
-
-    public static Query build(String locationId, CharacterStatistics statistics) {
+    public Query build(String locationId, CharacterProperties properties) {
         return query(new Criteria().andOperator(
-                where(LOCATION_ID).is(locationId),
-                AttributeCriteriaBuilder.build(statistics.getAttributes()),
-                PropertyCriteriaBuilder.build(statistics.getProperties()),
-                ObjectiveCriteriaBuilder.build(ofNullable(statistics.getObjectives()).orElse(emptySet()))
+                where(LOCATION_IDS).is(locationId),
+                NumericPropertyCriteriaBuilder.build(properties.getNumericPropertyKeyToValue()),
+                StringPropertyCriteriaBuilder.build(properties.getStringPropertyKeyToValue()),
+                ObjectiveCriteriaBuilder.build(emptySet())
         ));
     }
 }

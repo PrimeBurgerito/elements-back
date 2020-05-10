@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public abstract class BaseService<D, T extends DocumentBase> {
@@ -20,9 +21,11 @@ public abstract class BaseService<D, T extends DocumentBase> {
         return getRepository().save(entity);
     }
 
-    public D update(String entityId, D entity) {
-        if (getRepository().existsById(entityId)) {
-            return getMapper().map(getRepository().save(getMapper().map(entity)));
+    public D update(String entityId, D update) {
+        Optional<T> entity = getRepository().findById(entityId);
+        if (entity.isPresent()) {
+            getMapper().update(update, entity.get());
+            return getMapper().map(getRepository().save(entity.get()));
         }
         throw new RuntimeException("Entity not found. ID: " + entityId);
     }

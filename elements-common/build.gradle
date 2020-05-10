@@ -1,6 +1,6 @@
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.data:spring-data-releasetrain:Moore-RELEASE")
+        mavenBom("org.springframework.data:spring-data-releasetrain:Moore-SR7")
     }
 }
 

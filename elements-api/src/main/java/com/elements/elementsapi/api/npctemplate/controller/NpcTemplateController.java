@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.npctemplate.controller;
 import com.elements.elementsapi.api.npctemplate.service.NpcTemplateService;
 import com.elements.elementsapi.api.npctemplate.service.resource.NpcTemplateDto;
 import com.elements.elementsapi.api.shared.controller.ConditionalImageEntityController;
-import com.elements.elementsdomain.aggregate.npc.NpcTemplate;
+import com.elements.elementsdomain.document.npc.NpcTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

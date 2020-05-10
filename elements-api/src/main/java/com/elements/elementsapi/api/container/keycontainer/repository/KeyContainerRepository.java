@@ -1,6 +1,6 @@
 package com.elements.elementsapi.api.container.keycontainer.repository;
 
-import com.elements.elementsdomain.aggregate.container.KeyContainer;
+import com.elements.elementsdomain.document.container.KeyContainer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

@@ -1,11 +1,7 @@
 buildscript {
     ext { springBootVersion = spring_boot_version }
     repositories {
-        maven { url 'http://repo.spring.io/plugins-release' }
         mavenCentral()
-    }
-    dependencies {
-        classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
     }
 }
 
@@ -51,20 +47,25 @@ subprojects {
     }
 
     dependencies {
+        implementation "jakarta.xml.bind:jakarta.xml.bind-api"
+        implementation "org.glassfish.jaxb:jaxb-runtime"
+
         implementation "javax.servlet:javax.servlet-api"
         implementation "javax.xml.bind:jaxb-api"
         implementation "com.sun.xml.bind:jaxb-impl:$jaxb_impl_version"
         implementation "com.sun.istack:istack-commons-runtime:$istack_version"
+
+        implementation "org.jetbrains:annotations:19.0.0"
 
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
         testImplementation "org.junit.jupiter:junit-jupiter-api"
     }
 
-    sourceCompatibility = JavaVersion.VERSION_12
-    targetCompatibility = JavaVersion.VERSION_12
+    sourceCompatibility = JavaVersion.VERSION_HIGHER
+    targetCompatibility = JavaVersion.VERSION_HIGHER
 }
 
 wrapper {
-    gradleVersion = '5.6.2'
+    gradleVersion = '6.3'
 }

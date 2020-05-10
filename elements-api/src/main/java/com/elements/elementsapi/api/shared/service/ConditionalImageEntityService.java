@@ -3,8 +3,8 @@ package com.elements.elementsapi.api.shared.service;
 import com.elements.elementsapi.api.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.resource.ConditionalImageDto;
 import com.elements.elementscommon.domain.DocumentBase;
-import com.elements.elementsdomain.composite.image.ConditionalImage;
-import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.shared.image.ConditionalImage;
+import com.elements.elementsdomain.shared.image.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 

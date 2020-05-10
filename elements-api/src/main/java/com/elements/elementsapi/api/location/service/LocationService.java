@@ -6,8 +6,8 @@ import com.elements.elementsapi.api.location.service.mapper.LocationMapper;
 import com.elements.elementsapi.api.location.service.resource.LocationDto;
 import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
-import com.elements.elementsdomain.composite.image.ConditionalImage;
-import com.elements.elementsdomain.aggregate.location.Location;
+import com.elements.elementsdomain.shared.image.ConditionalImage;
+import com.elements.elementsdomain.document.location.Location;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,19 +53,19 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
     }
 
     @Override
-    public LocationDto update(String locationId, LocationDto locationDto) {
+    public LocationDto update(String locationId, LocationDto update) {
         Location location = findById(locationId);
-        Set<String> dtoNearbyLocations = (Set<String>) emptyIfNull(locationDto.getNearbyLocations());
+        Set<String> dtoNearbyLocations = (Set<String>) emptyIfNull(update.getNearbyLocations());
         Set<String> nearbyLocations = (Set<String>) emptyIfNull(location.getNearbyLocations());
         Set<String> newNearbyLocations = (Set<String>) subtract(dtoNearbyLocations, nearbyLocations);
         Set<String> removedNearbyLocations = (Set<String>) subtract(nearbyLocations, dtoNearbyLocations);
         if (!newNearbyLocations.isEmpty()) {
-            addToNearbyLocations(locationDto.getName(), newNearbyLocations);
+            addToNearbyLocations(update.getName(), newNearbyLocations);
         }
         if (!removedNearbyLocations.isEmpty()) {
             removeFromNearbyLocations(location.getName(), removedNearbyLocations);
         }
-        return mapper.map(getRepository().save(mapper.map(locationDto)));
+        return mapper.map(getRepository().save(mapper.map(update)));
     }
 
     @Override

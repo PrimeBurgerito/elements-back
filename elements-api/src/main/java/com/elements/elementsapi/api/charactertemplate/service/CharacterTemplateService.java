@@ -6,13 +6,14 @@ import com.elements.elementsapi.api.charactertemplate.service.resource.Character
 import com.elements.elementsapi.api.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.ImageEntityService;
 import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
-import com.elements.elementsdomain.aggregate.charactertemplate.CharacterTemplate;
-import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.document.charactertemplate.CharacterTemplate;
+import com.elements.elementsdomain.shared.image.Image;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @Transactional
@@ -24,11 +25,11 @@ public class CharacterTemplateService extends ImageEntityService<CharacterTempla
     public CharacterTemplateService(
             FileStorageService fileStorageService,
             CharacterTemplateRepository repository,
-            CharacterTemplateMapper mapper
+            CharacterTemplateMapper characterTemplateMapper
     ) {
         super(fileStorageService);
         this.repository = repository;
-        this.mapper = mapper;
+        this.mapper = characterTemplateMapper;
     }
 
     @Override
@@ -39,15 +40,6 @@ public class CharacterTemplateService extends ImageEntityService<CharacterTempla
     @Override
     protected BaseMapper<CharacterTemplateDto, CharacterTemplate> getMapper() {
         return this.mapper;
-    }
-
-    @Override
-    public CharacterTemplateDto update(String characterTemplateId, CharacterTemplateDto characterTemplateDto) {
-        CharacterTemplate characterTemplate = repository.findById(characterTemplateId)
-                .orElseThrow(() -> new RuntimeException("Character template not found"));
-        characterTemplate.setAttributes(characterTemplateDto.getAttributes());
-        characterTemplate.setProperties(characterTemplateDto.getProperties());
-        return mapper.map(repository.save(characterTemplate));
     }
 
     @Override
@@ -65,5 +57,9 @@ public class CharacterTemplateService extends ImageEntityService<CharacterTempla
             return true;
         }
         return false;
+    }
+
+    public List<CharacterTemplate> findTemplates() {
+        return repository.findAll();
     }
 }

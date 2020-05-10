@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.shared.controller;
 import com.elements.elementsapi.api.shared.service.ImageEntityService;
 import com.elements.elementsapi.api.shared.service.resource.ImageDto;
 import com.elements.elementscommon.domain.DocumentBase;
-import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.shared.image.Image;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

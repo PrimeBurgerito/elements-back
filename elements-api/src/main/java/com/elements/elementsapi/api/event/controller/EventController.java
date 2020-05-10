@@ -4,7 +4,7 @@ import com.elements.elementsapi.api.event.service.EventService;
 import com.elements.elementsapi.api.event.service.resource.EventDto;
 import com.elements.elementsapi.api.event.service.resource.ImageToSceneMap;
 import com.elements.elementsapi.api.shared.controller.BaseController;
-import com.elements.elementsdomain.aggregate.event.Event;
+import com.elements.elementsdomain.document.event.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

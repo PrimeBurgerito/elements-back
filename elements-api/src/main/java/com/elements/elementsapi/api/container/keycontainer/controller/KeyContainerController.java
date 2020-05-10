@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.container.keycontainer.controller;
 import com.elements.elementsapi.api.container.keycontainer.service.KeyContainerService;
 import com.elements.elementsapi.api.container.keycontainer.service.resource.KeyContainerDto;
 import com.elements.elementsapi.api.shared.controller.BaseController;
-import com.elements.elementsdomain.aggregate.container.KeyContainer;
+import com.elements.elementsdomain.document.container.KeyContainer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

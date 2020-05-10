@@ -16,4 +16,5 @@ class DatabaseProperties {
     private String password;
     private String database;
     private String authenticationDatabase;
+    private String uri;
 }

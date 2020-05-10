@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.container.imagecontainer.controller;
 import com.elements.elementsapi.api.container.imagecontainer.service.ImageContainerService;
 import com.elements.elementsapi.api.container.imagecontainer.service.resource.ImageContainerDto;
 import com.elements.elementsapi.api.shared.controller.ImageEntityController;
-import com.elements.elementsdomain.aggregate.container.ImageContainer;
+import com.elements.elementsdomain.document.container.ImageContainer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

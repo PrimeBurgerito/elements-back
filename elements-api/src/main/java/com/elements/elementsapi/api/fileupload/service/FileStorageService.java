@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.fileupload.service;
 import com.elements.elementsapi.api.fileupload.service.resource.FileStorageException;
 import com.elements.elementsapi.api.fileupload.service.resource.MyFileNotFoundException;
 import com.elements.elementsapi.config.properties.FileStorageProperties;
-import com.elements.elementsdomain.composite.image.Image;
+import com.elements.elementsdomain.shared.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
