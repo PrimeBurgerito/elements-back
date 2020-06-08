@@ -3,6 +3,7 @@ package com.elements.gamesession.engine.reward;
 import com.elements.elementsdomain.shared.character.CharacterProperties;
 import com.elements.elementsdomain.shared.property.NumericProperty;
 import com.elements.elementsdomain.shared.property.StringProperty;
+import com.elements.elementsdomain.shared.reward.*;
 import com.elements.gamesession.session.GameSession;
 import lombok.experimental.UtilityClass;
 
@@ -17,9 +18,9 @@ public class RewardEngine {
 
     public void collectRewards(GameSession session, Reward reward) {
         CharacterProperties statistics = session.getGameState().getCharacter().getProperties();
-        reward.getProperties().forEach(collectStringPropertyReward(statistics.getStringProperties()));
+        reward.getStringProperties().forEach(collectStringPropertyReward(statistics.getStringProperties()));
         reward.getObjectives().forEach(r -> collectObjectiveReward(Collections.emptySet(), r));
-        reward.getAttributes().forEach(collectNumericPropertyReward(statistics.getNumericProperties()));
+        reward.getNumericProperties().forEach(collectNumericPropertyReward(statistics.getNumericProperties()));
 
         session.updateGameStateResourceCharacterProperties();
     }

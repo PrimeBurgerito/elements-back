@@ -10,7 +10,7 @@ public class NumericPropertyDto extends PropertyDto<Float> {
     private float max = 100;
 
     @Override
-    protected boolean isValueValid() {
-        return min <= getValue() && max >= getValue();
+    protected boolean isValueValid(Float value) {
+        return min <= value && max >= value;
     }
 }

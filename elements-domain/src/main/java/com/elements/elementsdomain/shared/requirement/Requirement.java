@@ -1,7 +1,9 @@
 package com.elements.elementsdomain.shared.requirement;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.util.Pair;
 
@@ -12,6 +14,8 @@ import java.util.Set;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Requirement implements Serializable {
     private static final long serialVersionUID = -1465864466408195808L;
 

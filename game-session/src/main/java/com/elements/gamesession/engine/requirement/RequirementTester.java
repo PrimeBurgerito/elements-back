@@ -1,6 +1,7 @@
 package com.elements.gamesession.engine.requirement;
 
 import com.elements.elementsdomain.shared.requirement.Requirement;
+import com.elements.elementsdomain.shared.requirement.Requirement.PropertiesRequirement;
 import com.elements.elementsdomain.shared.requirement.Timing;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.Nullable;
@@ -20,22 +21,27 @@ public class RequirementTester {
 
     public boolean isSatisfied(@Nullable Requirement requirement) {
         return requirement == null
-                || (isCorrectLocation(requirement)
-                && areNumericPropertiesSatisfied(requirement.getProperties().getNumericProperties())
-                && areStringPropertiesSatisfied(requirement.getProperties().getStringProperties())
+                || (isCorrectLocation(requirement.getLocationIds())
+                && arePropertiesSatisfied(requirement.getProperties())
                 && areObjectivesSatisfied(requirement.getObjectives())
                 && isCorrectTiming(requirement.getTiming()));
     }
 
-    private boolean isCorrectLocation(Requirement requirement) {
-        return isEmpty(requirement.getLocationIds()) || requirement.getLocationIds().contains(userInfo.getLocationId());
+    private boolean isCorrectLocation(@Nullable List<String> locationIds) {
+        return locationIds == null || locationIds.isEmpty() || locationIds.contains(userInfo.getLocationId());
     }
 
-    private boolean areObjectivesSatisfied(List<String> requiredObjectives) {
+    private boolean arePropertiesSatisfied(@Nullable PropertiesRequirement properties) {
+        return properties == null
+                || (areNumericPropertiesSatisfied(properties.getNumericProperties())
+                && areStringPropertiesSatisfied(properties.getStringProperties()));
+    }
+
+    private boolean areObjectivesSatisfied(@Nullable List<String> requiredObjectives) {
         return requiredObjectives == null || userInfo.getObjectives().containsAll(requiredObjectives);
     }
 
-    private boolean areNumericPropertiesSatisfied(Map<String, Pair<Float, Float>> requiredProperties) {
+    private boolean areNumericPropertiesSatisfied(@Nullable Map<String, Pair<Float, Float>> requiredProperties) {
         return requiredProperties == null
                 || requiredProperties.isEmpty()
                 || requiredProperties.entrySet().stream().allMatch(this::isUserNumericPropertySatisfied);
@@ -48,7 +54,7 @@ public class RequirementTester {
         return userInfo.getNumericProperties().containsKey(key) && between(req.getFirst(), req.getSecond()).contains(userAttr);
     }
 
-    private boolean areStringPropertiesSatisfied(Map<String, Set<String>> requiredProperties) {
+    private boolean areStringPropertiesSatisfied(@Nullable Map<String, Set<String>> requiredProperties) {
         return requiredProperties == null
                 || requiredProperties.isEmpty()
                 || requiredProperties.entrySet().stream().allMatch(this::isUserStringPropertySatisfied);

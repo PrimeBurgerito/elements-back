@@ -6,6 +6,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,7 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import java.util.List;
+import static java.util.List.of;
 
 @Configuration
 @EnableMongoAuditing
@@ -44,19 +45,22 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
     }
 
     @Override
-    public MongoClient mongoClient() {
-//        ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
-        //MongoClientOptions options = MongoClientOptions.builder().build();
-        var addresses = List.of(new ServerAddress(db.getHost(), db.getPort()));
+    public boolean autoIndexCreation() {
+        return true;
+    }
+
+    @Override
+    public @NotNull MongoClient mongoClient() {
+        ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
         var settings = MongoClientSettings.builder()
-                .applyToClusterSettings(builder -> builder.hosts(addresses))
+                .applyToClusterSettings(builder -> builder.hosts(of(address)))
                 .build();
 
         return MongoClients.create(settings);
     }
 
     @Override
-    protected String getDatabaseName() {
+    protected @NotNull String getDatabaseName() {
         return db.getDatabase();
     }
 }

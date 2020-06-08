@@ -18,7 +18,10 @@ public class StringPropertyDto extends PropertyDto<List<String>> {
     private StringPropertyType type = StringPropertyType.MULTIPLE;
 
     @Override
-    protected boolean isValueValid() {
-        return possibleValues.containsAll(getValue());
+    protected boolean isValueValid(List<String> value) {
+        if (!StringPropertyType.MULTIPLE.equals(type) && value.size() > 1) {
+            return false;
+        }
+        return possibleValues.containsAll(value);
     }
 }

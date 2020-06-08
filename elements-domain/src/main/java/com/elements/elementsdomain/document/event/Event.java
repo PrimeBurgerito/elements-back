@@ -21,5 +21,5 @@ public class Event extends DocumentBase implements Serializable {
     private static final long serialVersionUID = -540853532575176084L;
     private String name;
     private Requirement requirement;
-    private List<? extends SceneBase> scenes;
+    private List<SceneBase> scenes;
 }

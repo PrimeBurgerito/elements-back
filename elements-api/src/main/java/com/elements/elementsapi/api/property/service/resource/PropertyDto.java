@@ -25,11 +25,11 @@ abstract class PropertyDto<T> {
 
     @JsonSetter
     public void setValue(T value) {
-        if (!isValueValid()) {
+        if (!isValueValid(value)) {
             throw new ValidationException(format("Value '{0}' is not valid!", value.toString()));
         }
         this.value = value;
     }
 
-    protected abstract boolean isValueValid();
+    protected abstract boolean isValueValid(T value);
 }
