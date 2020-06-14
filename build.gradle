@@ -28,6 +28,7 @@ subprojects {
 
     apply plugin: JavaPlugin
     apply plugin: IdeaPlugin
+    apply plugin: WarPlugin
     apply plugin: 'io.spring.dependency-management'
 
     idea {
