@@ -4,6 +4,7 @@ import com.elements.elementsapi.api.fileupload.service.resource.FileStorageExcep
 import com.elements.elementsapi.api.fileupload.service.resource.MyFileNotFoundException;
 import com.elements.elementsapi.config.properties.FileStorageProperties;
 import com.elements.elementsdomain.shared.image.Image;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+@Slf4j
 @Service
 public class FileStorageService {
 
@@ -30,6 +32,7 @@ public class FileStorageService {
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
+            log.error("Could not create directory: {}", this.fileStorageLocation);
             throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
         }
     }
