@@ -1,0 +1,14 @@
+server:
+  port: 7777
+
+spring:
+  data:
+    mongodb:
+      host: 13.49.107.220
+      port: 27017
+      database: dev
+      repositories:
+        type: auto
+
+file:
+  upload-dir: /uploads
