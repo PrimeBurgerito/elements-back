@@ -6,6 +6,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,9 +20,9 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import static java.text.MessageFormat.format;
 import static java.util.List.of;
 
+@Slf4j
 @Configuration
 @EnableMongoAuditing
 @EnableMongoRepositories(basePackages = {"com.elements"})
@@ -55,15 +56,18 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     public @NotNull MongoClient mongoClient() {
+        ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
         if (env.acceptsProfiles(Profiles.of("aws"))) {
-            return MongoClients.create(format("mongodb://{0}:{1}", db.getHost(), db.getPort()));
+            String mongoAddress = "mongodb://" + address.toString();
+            log.debug("Connecting to MongoDb with 'aws' profile: " + mongoAddress);
+            return MongoClients.create(mongoAddress);
         }
 
-        ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
         var settings = MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(of(address)))
                 .build();
 
+        log.debug("Connecting to MongoDb with 'aws' profile: " + address.toString());
         return MongoClients.create(settings);
     }
 
