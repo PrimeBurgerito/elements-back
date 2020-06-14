@@ -6,6 +6,8 @@ spring:
     mongodb:
       host: 172.31.64.104
       port: 27017
+      username: admin
+      password: admin
       database: dev
       authentication-database: admin
       auto-index-creation: true

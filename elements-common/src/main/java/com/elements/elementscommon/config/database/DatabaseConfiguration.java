@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
@@ -17,6 +19,7 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import static java.text.MessageFormat.format;
 import static java.util.List.of;
 
 @Configuration
@@ -27,6 +30,7 @@ import static java.util.List.of;
 public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
 
     private final DatabaseProperties db;
+    private final Environment env;
 
     @Bean
     public AuditorAware<String> auditorProvider() {
@@ -51,6 +55,10 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     public @NotNull MongoClient mongoClient() {
+        if (env.acceptsProfiles(Profiles.of("aws"))) {
+            return MongoClients.create(format("mongodb://{0}:{1}", db.getHost(), db.getPort()));
+        }
+
         ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
         var settings = MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(of(address)))
