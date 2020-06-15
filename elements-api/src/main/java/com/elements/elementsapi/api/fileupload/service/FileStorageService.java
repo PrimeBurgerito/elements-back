@@ -19,6 +19,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import static java.util.Objects.requireNonNull;
+
 @Slf4j
 @Service
 public class FileStorageService {
@@ -46,7 +48,7 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(requireNonNull(file.getOriginalFilename()));
 
         try {
             // Check if the file's name contains invalid characters

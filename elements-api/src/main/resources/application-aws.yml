@@ -14,7 +14,7 @@ spring:
 
   security:
     token-service:
-      server-uri: http://localhost:5100/oauth
+      server-uri: http://elementsback-env.eba-pizv7jpm.eu-north-1.elasticbeanstalk.com/auth/oauth
       client-id: elements-client
       client-secret: elements-secret
       client-id-swagger: elements-swagger
