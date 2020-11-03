@@ -4,22 +4,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Start MongoDB') {
+        stage('Move docker files') {
             steps {
-                sh 'docker rm $(docker ps -aq)'
-                dir('docker/database/mongodb') {
-                    sh 'docker-compose up -d'
-                    sh 'docker-compose -f docker-compose.setup.yml up -d'
-                    sh 'docker-compose -f docker-compose.post.yml up -d'
-                }
-            }
-        }
-
-        stage('Start Redis') {
-            steps {
-                dir('docker/database/redis') {
-                    sh 'docker-compose up -d'
-                }
+                mv 'docker' '/var/tmp'
             }
         }
     }
