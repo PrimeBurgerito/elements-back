@@ -7,7 +7,8 @@ pipeline {
         stage('Move docker files') {
             steps {
                 sh 'ls -a'
-                sh 'mv docker /var/tmp'
+                sh 'whoami'
+                sh 'mv -v docker /var/tmp'
             }
         }
     }
