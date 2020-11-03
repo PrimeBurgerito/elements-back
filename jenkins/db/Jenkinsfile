@@ -6,11 +6,13 @@ pipeline {
     stages {
         stage('Start MongoDB') {
             steps {
-                def files = findFiles()
+                script {
+                    def files = findFiles()
 
-                files.each { f ->
-                    if (f.directory) {
-                        echo "This is directory: ${f.name} "
+                    files.each { f ->
+                        if (f.directory) {
+                            echo "This is directory: ${f.name} "
+                        }
                     }
                 }
             }
