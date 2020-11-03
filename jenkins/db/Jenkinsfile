@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Move docker files') {
             steps {
-                mv 'docker' '/var/tmp'
+                sh 'ls -a'
+                sh 'mv docker /var/tmp'
             }
         }
     }
