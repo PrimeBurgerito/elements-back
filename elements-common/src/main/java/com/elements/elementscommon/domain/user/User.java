@@ -11,10 +11,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.beans.Transient;
 import java.util.Collection;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
+import static java.util.stream.Collectors.toList;
 
 @Data
 @Document
@@ -31,12 +33,21 @@ public class User extends DocumentBase implements UserDetails {
     @JsonIgnore
     private String password;
 
+    @NonNull
+    private String email;
+
     private List<UserRole> roles = singletonList(new UserRole());
 
     @JsonIgnore
     @Override
     public Collection<UserRole> getAuthorities() {
         return roles;
+    }
+
+    @JsonIgnore
+    @Transient
+    public Collection<String> getRoleStrings() {
+        return roles.stream().map(UserRole::getAuthority).collect(toList());
     }
 
     @JsonIgnore

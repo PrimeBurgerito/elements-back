@@ -23,7 +23,7 @@ public class StringProperty extends Property<List<String>> {
     }
 
     public void setValue(List<String> newValues) {
-        if (type == MULTIPLE) {
+        if (getValue() != null && type == MULTIPLE) {
             List<String> merged = concat(getValue().stream(), newValues.stream()).distinct().collect(toList());
             super.setValue(merged);
         } else {

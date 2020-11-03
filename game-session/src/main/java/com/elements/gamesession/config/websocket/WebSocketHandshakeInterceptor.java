@@ -11,8 +11,8 @@ import java.util.Map;
 
 @Slf4j
 public class WebSocketHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
-
     private static final String SPRING_SESSION_ID_ATTR_NAME = "SPRING.SESSION.ID";
+    private static final String SERVLET_SESSION_ID_NAME = "sessionId";
 
     @Override
     public boolean beforeHandshake(
@@ -22,8 +22,10 @@ public class WebSocketHandshakeInterceptor extends HttpSessionHandshakeIntercept
             @NotNull Map<String, Object> attributes
     ) throws Exception {
         super.beforeHandshake(request, response, wsHandler, attributes);
+
         if (attributes.containsKey(HTTP_SESSION_ID_ATTR_NAME)) {
             attributes.put(SPRING_SESSION_ID_ATTR_NAME, attributes.get(HTTP_SESSION_ID_ATTR_NAME));
+            attributes.put(SERVLET_SESSION_ID_NAME, attributes.get(HTTP_SESSION_ID_ATTR_NAME));
         }
         return true;
     }

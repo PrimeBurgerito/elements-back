@@ -16,19 +16,6 @@ spring:
     host: localhost
     port: 6379
 
-  security:
-    token-service:
-      server-uri: http://localhost:8080/oauth
-      client-id: elements-client
-      client-secret: elements-secret
-      client-id-swagger: elements-swagger
-      client-secret-swagger: elements-swagger
-      check-token-endpoint: ${spring.security.token-service.server-uri}/check_token
-
-    allowed-patterns:
-      - /csrf
-      - /start-session
-
 server:
   port: 7778
   servlet:
@@ -36,3 +23,12 @@ server:
       cookie:
         http-only: true
         secure: true
+logging:
+  level:
+    org.springframework: debug
+    ee.elements: debug
+
+elements:
+  jwt:
+    secret: elements-client
+    expiration-ms: 86400000

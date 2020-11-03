@@ -6,12 +6,8 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "io.spring.dependency-management" version "1.0.10.RELEASE" apply false
     id "base"
-}
-
-dependencyManagement {
-    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
 }
 
 allprojects {
@@ -26,9 +22,8 @@ subprojects {
         }
     }
 
-    apply plugin: JavaPlugin
+    apply plugin: JavaLibraryPlugin
     apply plugin: IdeaPlugin
-//    apply plugin: WarPlugin
     apply plugin: 'io.spring.dependency-management'
 
     idea {
@@ -56,17 +51,17 @@ subprojects {
         implementation "com.sun.xml.bind:jaxb-impl:$jaxb_impl_version"
         implementation "com.sun.istack:istack-commons-runtime:$istack_version"
 
-        implementation "org.jetbrains:annotations:19.0.0"
+        implementation "org.jetbrains:annotations:$jetbrains_annotations"
 
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
         testImplementation "org.junit.jupiter:junit-jupiter-api"
     }
 
-    sourceCompatibility = JavaVersion.VERSION_HIGHER
-    targetCompatibility = JavaVersion.VERSION_HIGHER
+    sourceCompatibility = JavaVersion.VERSION_13
+    targetCompatibility = JavaVersion.VERSION_13
 }
 
 wrapper {
-    gradleVersion = '6.3'
+    gradleVersion = '6.7'
 }

@@ -1,0 +1,17 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Start MongoDB') {
+            def files = findFiles()
+
+            files.each { f ->
+                if (f.directory) {
+                    echo "This is directory: ${f.name} "
+                }
+            }
+        }
+    }
+}

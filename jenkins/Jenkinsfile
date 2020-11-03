@@ -1,0 +1,21 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent {
+        docker {
+            image 'openjdk:13'
+            args '-v "$PWD":/app'
+            reuseNode true
+        }
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh './gradlew clean assemble'
+
+            }
+        }
+    }
+}

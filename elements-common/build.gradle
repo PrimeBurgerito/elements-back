@@ -6,9 +6,12 @@ dependencyManagement {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-mongodb"
-    implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+
+    implementation 'org.springframework.security:spring-security-core'
+    implementation "io.jsonwebtoken:jjwt:$jjwt_version"
+    implementation "org.springframework.security:spring-security-oauth2-jose"
 
     compileOnly "org.projectlombok:lombok"
 

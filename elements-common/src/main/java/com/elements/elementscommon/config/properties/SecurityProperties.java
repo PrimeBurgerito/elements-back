@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
+@Deprecated
 @ConfigurationProperties(prefix = "spring.security")
 public class SecurityProperties {
     private String[] allowedPatterns;

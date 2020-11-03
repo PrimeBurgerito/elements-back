@@ -11,14 +11,13 @@ dependencies {
     implementation project(":elements-domain")
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation "org.springframework.security.oauth:spring-security-oauth2:$oauth2_version"
 
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
 
     implementation "org.springframework.session:spring-session-data-redis"
-
     implementation "org.springframework.security:spring-security-messaging"
 
     implementation "org.apache.commons:commons-lang3"

@@ -8,8 +8,9 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Data
 public class CharacterEquipment {
     private Weapon weapon;
-    private final Map<ClothingType, Clothing> clothing = new HashMap<>();
+    private Map<ClothingType, Clothing> clothing = new HashMap<>();
 }

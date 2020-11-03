@@ -1,5 +1,7 @@
 server:
   port: 7777
+  servlet:
+    context-path: /api
 
 spring:
   data:
@@ -20,23 +22,16 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
-  security:
-    token-service:
-      server-uri: http://localhost:8080/oauth
-      client-id: elements-client
-      client-secret: elements-secret
-      client-id-swagger: elements-swagger
-      client-secret-swagger: elements-swagger
-      check-token-endpoint: ${spring.security.token-service.server-uri}/check_token
+springdoc:
+  packages-to-scan: com.elements.elementsapi.api
+  swagger-ui:
+    doc-expansion: none
+    disable-swagger-default-url: true
+  show-actuator: true
 
-    allowed-patterns:
-      - /swagger-ui.html
-      - /v2/api-docs
-      - /swagger-resources/**
-      - /webjars/**
-      - /configuration/ui
-      - /configuration/security
-      - /user/create
-
-file:
-  upload-dir: /uploads
+elements:
+  jwt:
+    secret: elements-client
+    expiration-ms: 86400000
+  file:
+    upload-dir: /uploads

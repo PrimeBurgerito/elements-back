@@ -1,6 +1,6 @@
 package com.elements.elementsapi.api.shared.service;
 
-import com.elements.elementsapi.api.fileupload.service.FileStorageService;
+import com.elements.elementsapi.api.game.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.shared.service.resource.ImageDto;
 import com.elements.elementscommon.domain.DocumentBase;
 import com.elements.elementsdomain.shared.image.Image;
