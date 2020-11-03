@@ -7,9 +7,9 @@ pipeline {
         stage('Start MongoDB') {
             steps {
                 dir('docker/database/mongodb') {
-                    sh 'docker-compose up'
-                    sh 'docker-compose -f docker-compose.setup.yml up'
-                    sh 'docker-compose -f docker-compose.post.yml up'
+                    sh 'docker-compose up -d'
+                    sh 'docker-compose -f docker-compose.setup.yml up -d'
+                    sh 'docker-compose -f docker-compose.post.yml up -d'
                 }
             }
         }
@@ -17,7 +17,7 @@ pipeline {
         stage('Start Redis') {
             steps {
                 dir('docker/database/redis') {
-                    sh 'docker-compose up'
+                    sh 'docker-compose up -d'
                 }
             }
         }
