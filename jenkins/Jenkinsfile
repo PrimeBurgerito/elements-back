@@ -4,6 +4,7 @@ pipeline {
     agent {
         docker {
             image 'openjdk:13-slim'
+            args '-v /tmp:/tmp'
         }
     }
 
