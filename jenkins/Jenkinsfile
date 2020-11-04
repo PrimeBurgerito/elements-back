@@ -7,6 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+                sh 'chmod +x gradlew.sh'
                 sh './gradlew clean assemble'
                 sh 'mv -v elements-api/build/libs/*.jar /var/tmp/app/elements-api.jar'
                 sh 'mv -v game-session/build/libs/*.jar /var/tmp/app/elements-session.jar'
