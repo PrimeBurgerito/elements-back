@@ -4,7 +4,7 @@ pipeline {
     agent {
         docker {
             image 'openjdk:13-slim'
-            args '-v /var/tmp/app:/var/lib/jenkins/workspace/elements-back/build'
+            args '-v /var/tmp/app:/var/lib/jenkins/workspace/elements-back/build -u root'
         }
     }
 
