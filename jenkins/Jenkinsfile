@@ -1,20 +1,15 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent {
-        docker {
-            image 'openjdk:13'
-            args '-v "$PWD":/app'
-            reuseNode true
-        }
-    }
+    agent any
 
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
                 sh './gradlew clean assemble'
-
+                sh 'mv -v elements-api/build/libs/*.jar /var/tmp/app/elements-api.jar'
+                sh 'mv -v game-session/build/libs/*.jar /var/tmp/app/elements-session.jar'
             }
         }
     }
