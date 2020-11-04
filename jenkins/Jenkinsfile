@@ -4,7 +4,7 @@ pipeline {
     agent {
         docker {
             image 'openjdk:13-slim'
-            args '-v /tmp:/tmp'
+            args '-v /var/tmp/app:/tmp'
         }
     }
 
@@ -15,8 +15,8 @@ pipeline {
                 sh 'ls -a'
                 sh 'chmod +x gradlew'
                 sh './gradlew clean assemble'
-                sh 'mv -v elements-api/build/libs/*.jar /var/tmp/app/elements-api.jar'
-                sh 'mv -v game-session/build/libs/*.jar /var/tmp/app/elements-session.jar'
+                sh 'mv -v elements-api/build/libs/*.jar  /tmp/elements-api.jar'
+                sh 'mv -v game-session/build/libs/*.jar /tmp/elements-session.jar'
             }
         }
     }
