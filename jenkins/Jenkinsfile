@@ -4,7 +4,7 @@ pipeline {
     agent {
         docker {
             image 'openjdk:13-slim'
-            args '-v /var/tmp/app:/tmp'
+            args '-v /var/tmp/app:/var/lib/jenkins/workspace/elements-back/build'
         }
     }
 
@@ -15,8 +15,8 @@ pipeline {
                 sh 'ls -a'
                 sh 'chmod +x gradlew'
                 sh './gradlew clean assemble'
-                sh 'mv -v elements-api/build/libs/*.jar  /tmp/elements-api.jar'
-                sh 'mv -v game-session/build/libs/*.jar /tmp/elements-session.jar'
+                sh 'mv -v elements-api/build/libs/*.jar  /var/lib/jenkins/workspace/elements-back/build/elements-api.jar'
+                sh 'mv -v game-session/build/libs/*.jar /var/lib/jenkins/workspace/elements-back/build/elements-session.jar'
             }
         }
     }
