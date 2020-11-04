@@ -14,7 +14,7 @@ pipeline {
                 echo 'Building...'
                 sh 'ls -a'
                 sh 'chmod +x gradlew'
-                sh './gradlew clean assemble'
+                sh './gradlew assemble'
                 sh 'mv -v elements-api/build/libs/*.jar  /var/lib/jenkins/workspace/elements-back/build/elements-api.jar'
                 sh 'mv -v game-session/build/libs/*.jar /var/lib/jenkins/workspace/elements-back/build/elements-session.jar'
             }
