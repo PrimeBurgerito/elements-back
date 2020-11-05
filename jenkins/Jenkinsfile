@@ -17,6 +17,8 @@ pipeline {
                 sh './gradlew assemble'
                 sh 'mv -v elements-api/build/libs/*.jar  /var/lib/jenkins/workspace/elements-back/build/elements-api.jar'
                 sh 'mv -v game-session/build/libs/*.jar /var/lib/jenkins/workspace/elements-back/build/elements-session.jar'
+                echo 'Run with: \n `$ /usr/lib/jvm/java-13-openjdk-amd64/bin/java -jar /var/tmp/app/elements-api.jar`'
+                echo 'Run with: \n `$ /usr/lib/jvm/java-13-openjdk-amd64/bin/java -jar /var/tmp/app/elements-session.jar`'
             }
         }
     }

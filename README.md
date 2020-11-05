@@ -12,3 +12,10 @@ In folder docker/database/redis:
 
 In folder docker/nginx:
  1. `docker-compose up`
+
+## DigitalOcean
+
+### Run Application
+
+`$ /usr/lib/jvm/java-13-openjdk-amd64/bin/java -jar /var/tmp/app/elements-api.jar`
+`$ /usr/lib/jvm/java-13-openjdk-amd64/bin/java -jar /var/tmp/app/elements-session.jar`
