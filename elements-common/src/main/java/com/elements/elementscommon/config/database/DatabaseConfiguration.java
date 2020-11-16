@@ -52,14 +52,14 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     public boolean autoIndexCreation() {
-        return true;
+        return db.isAutoIndexCreation();
     }
 
     @Override
     public @NotNull MongoClient mongoClient() {
         log.info("Connecting to mongo with active profiles '{}'", List.of(env.getActiveProfiles()));
         if (!MongoProperties.DEFAULT_URI.equals(db.getUri())) {
-            log.debug("Connecting to MongoDb with on '{}'", db.getUri());
+            log.info("Connecting to MongoDb on '{}'", db.getUri());
             return MongoClients.create(db.getUri());
         }
 
