@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: heroku
   data:
     mongodb:
       repositories:
