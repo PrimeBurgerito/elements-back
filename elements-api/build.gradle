@@ -32,6 +32,12 @@ dependencies {
 
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
 
+    // Google drive
+    implementation "com.google.api-client:google-api-client:$google_api_version"
+    implementation "com.google.oauth-client:google-oauth-client-jetty:$google_api_version"
+    implementation "com.google.apis:google-api-services-drive:v3-rev110-$google_api_version"
+    // Google drive
+
     compileOnly "org.projectlombok:lombok"
     annotationProcessor "org.projectlombok:lombok"
 

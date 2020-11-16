@@ -35,4 +35,5 @@ elements:
     secret: elements-client
     expiration-ms: 86400000
   file:
+    use-google: false
     upload-dir: /uploads
