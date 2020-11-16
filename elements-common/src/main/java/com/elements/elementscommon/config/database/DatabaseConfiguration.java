@@ -20,6 +20,8 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.List;
+
 import static java.util.List.of;
 
 @Slf4j
@@ -55,6 +57,7 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     public @NotNull MongoClient mongoClient() {
+        log.info("Connecting to mongo with active profiles '{}'", List.of(env.getActiveProfiles()));
         if (!MongoProperties.DEFAULT_URI.equals(db.getUri())) {
             log.debug("Connecting to MongoDb with on '{}'", db.getUri());
             return MongoClients.create(db.getUri());
