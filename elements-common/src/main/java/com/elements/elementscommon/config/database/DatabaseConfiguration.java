@@ -1,5 +1,6 @@
 package com.elements.elementscommon.config.database;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
@@ -53,7 +54,7 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
         log.info("Connecting to mongo with active profiles '{}'", List.of(env.getActiveProfiles()));
         if (!MongoProperties.DEFAULT_URI.equals(db.getUri())) {
             log.info("Connecting to MongoDb on '{}'", db.getUri());
-            return MongoClients.create(db.getUri());
+            return MongoClients.create(new ConnectionString(db.getUri()));
         }
 
         ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
