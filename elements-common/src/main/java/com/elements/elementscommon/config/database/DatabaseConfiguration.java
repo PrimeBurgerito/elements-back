@@ -1,7 +1,6 @@
 package com.elements.elementscommon.config.database;
 
 import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -42,12 +41,6 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
     @Bean
     MongoTransactionManager transactionManager(MongoDatabaseFactory mongoDatabaseFactory) {
         return new MongoTransactionManager(mongoDatabaseFactory);
-    }
-
-    private MongoCredential getMongoCredentials() {
-        String authDb = db.getAuthenticationDatabase();
-        char[] password = db.getPassword();
-        return MongoCredential.createScramSha1Credential(db.getUsername(), authDb, password);
     }
 
     @Override

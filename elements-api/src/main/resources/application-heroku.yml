@@ -8,3 +8,7 @@ spring:
       uri: mongodb+srv://admin:t6W1tHI6iZ9YASfe@cluster0.kzzy2.mongodb.net/<dbname>?retryWrites=true&w=majority
       database: dev
       auto-index-creation: false
+
+elements:
+  file:
+    upload-dir: /staticfiles
