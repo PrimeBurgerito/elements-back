@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      repositories:
+        type: auto
+      uri: mongodb+srv://admin:t6W1tHI6iZ9YASfe@cluster0.kzzy2.mongodb.net/<dbname>?retryWrites=true&w=majority
+      database: dev
+
+  redis:
+    url: redis://default:JZWiwzdk2BjpFUdydWKD6juwem7n2r58@redis-12886.c242.eu-west-1-2.ec2.cloud.redislabs.com:12886

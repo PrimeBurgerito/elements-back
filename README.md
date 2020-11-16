@@ -19,3 +19,7 @@ In folder docker/nginx:
 
 `$ /usr/lib/jvm/java-13-openjdk-amd64/bin/java -jar /var/tmp/app/elements-api.jar`
 `$ /usr/lib/jvm/java-13-openjdk-amd64/bin/java -jar /var/tmp/app/elements-session.jar`
+
+### Swagger
+
+* http://128.199.54.24/elements/api/swagger-ui/index.html?configUrl=/elements/api/v3/api-docs/swagger-config#/

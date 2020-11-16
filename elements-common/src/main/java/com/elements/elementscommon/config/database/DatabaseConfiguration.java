@@ -55,10 +55,15 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     public @NotNull MongoClient mongoClient() {
+        if (!MongoProperties.DEFAULT_URI.equals(db.getUri())) {
+            log.debug("Connecting to MongoDb with on '{}'", db.getUri());
+            return MongoClients.create(db.getUri());
+        }
+
         ServerAddress address = new ServerAddress(db.getHost(), db.getPort());
-        if (env.acceptsProfiles(Profiles.of("aws"))) {
+        if (env.acceptsProfiles(Profiles.of("aws", "heroku"))) {
             String mongoAddress = "mongodb://" + address.toString();
-            log.debug("Connecting to MongoDb with 'aws' profile: " + mongoAddress);
+            log.debug("Connecting to MongoDb with 'aws' profile: {}", mongoAddress);
             return MongoClients.create(mongoAddress);
         }
 
