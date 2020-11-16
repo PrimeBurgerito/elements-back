@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+
 @Slf4j
 @Component
 public class JwtUtils {
@@ -19,13 +20,16 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-        User userPrincipal = (User) authentication.getPrincipal();
-        return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+        if (authentication.getPrincipal() instanceof User) {
+            User userPrincipal = (User) authentication.getPrincipal();
+            return Jwts.builder()
+                    .setSubject(userPrincipal.getUsername())
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                    .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                    .compact();
+        }
+        return null;
     }
 
     public String getUserNameFromJwtToken(String token) {
