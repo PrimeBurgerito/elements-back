@@ -29,10 +29,10 @@ import static java.util.List.of;
 @EnableMongoAuditing
 @EnableMongoRepositories(basePackages = {"com.elements"})
 @RequiredArgsConstructor
-public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
-
+public class DatabaseConfiguration {
+/*
     private final Environment env;
-    private final MongoProperties db;
+    private final MongoProperties db;*/
 
     @Bean
     public AuditorAware<String> auditorProvider() {
@@ -43,7 +43,7 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
     MongoTransactionManager transactionManager(MongoDatabaseFactory mongoDatabaseFactory) {
         return new MongoTransactionManager(mongoDatabaseFactory);
     }
-
+/*
     @Override
     public boolean autoIndexCreation() {
         return db.isAutoIndexCreation();
@@ -75,5 +75,5 @@ public class DatabaseConfiguration extends AbstractMongoClientConfiguration {
     @Override
     protected @NotNull String getDatabaseName() {
         return db.getDatabase();
-    }
+    }*/
 }
