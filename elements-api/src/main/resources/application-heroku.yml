@@ -12,10 +12,10 @@ spring:
     mongodb:
       repositories:
         type: auto
-      uri: mongodb+srv://admin:t6W1tHI6iZ9YASfe@cluster0.kzzy2.mongodb.net/dev?retryWrites=true&w=majority&connecttimeoutms=60000
+      uri: mongodb://admin:t6W1tHI6iZ9YASfe@cluster0-shard-00-00.kzzy2.mongodb.net:27017,cluster0-shard-00-01.kzzy2.mongodb.net:27017,cluster0-shard-00-02.kzzy2.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-pdii5v-shard-0&authSource=admin&retryWrites=true&w=majority&connecttimeoutms=60000
+      #uri: mongodb+srv://admin:t6W1tHI6iZ9YASfe@cluster0.kzzy2.mongodb.net/dev?retryWrites=true&w=majority&connecttimeoutms=60000
       database: dev
       auto-index-creation: false
-      host: cluster0.kzzy2.mongodb.net
 
 elements:
   file:
