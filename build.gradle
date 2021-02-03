@@ -6,7 +6,8 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "1.0.10.RELEASE" apply false
+    id "io.spring.dependency-management" version "1.0.11.RELEASE" apply false
+    id "io.franzbecker.gradle-lombok" version "4.0.0" apply false
     id "base"
 }
 
@@ -25,6 +26,7 @@ subprojects {
     apply plugin: JavaLibraryPlugin
     apply plugin: IdeaPlugin
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: "io.franzbecker.gradle-lombok"
 
     idea {
         module {
@@ -63,5 +65,5 @@ subprojects {
 }
 
 wrapper {
-    gradleVersion = '6.7'
+    gradleVersion = '6.8.1'
 }

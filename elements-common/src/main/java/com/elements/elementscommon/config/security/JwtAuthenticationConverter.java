@@ -1,8 +1,8 @@
 package com.elements.elementscommon.config.security;
 
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,10 @@ public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthen
     private final UserDetailsService userDetailsService;
 
     @Override
-    public AbstractAuthenticationToken convert(@NotNull Jwt jwt) {
+    public AbstractAuthenticationToken convert(@Nullable Jwt jwt) {
+        if (jwt == null) {
+            return new UsernamePasswordAuthenticationToken(null, null, null);
+        }
         UserDetails user = userDetailsService.loadUserByUsername(jwt.getSubject());
         return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
     }

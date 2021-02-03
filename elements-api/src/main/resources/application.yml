@@ -7,12 +7,8 @@ server:
 spring:
   data:
     mongodb:
-#      host: 127.0.0.1
-#      port: 27017
-#      username: root
-#      password: example
+      uri: mongodb://localhost:27017/dev
       database: dev
-      #      authentication-database: admin
       repositories:
         type: auto
 
@@ -27,7 +23,7 @@ springdoc:
   packages-to-scan: com.elements.elementsapi.api
   swagger-ui:
     doc-expansion: none
-    disable-swagger-default-url: true
+  #    disable-swagger-default-url: true
   show-actuator: true
 
 elements:

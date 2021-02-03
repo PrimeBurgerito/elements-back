@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class SessionEventRepositoryImpl implements SessionEventRepository {
-
     private final MongoTemplate template;
 
     @Override

@@ -38,7 +38,7 @@ public class SessionCreatedListener implements ApplicationListener<SessionConnec
             GameState gameState = gameStateService.get(requireNonNull(user).getId());
 
             gameSession.setGameState(gameState);
-            gameSession.setGameStateResource(gameStateResourceBuilder.build(gameState));
+            gameSession.setGameStateDTO(gameStateResourceBuilder.build(gameState));
         }
     }
 }

@@ -4,18 +4,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.servlet.http.HttpServletResponse;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
+import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED;
 
 
 @Slf4j
@@ -50,14 +50,14 @@ public class SessionWebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .exceptionHandling(configurer -> configurer.accessDeniedHandler((request, response, authException) -> {
                     log.error("Unauthorized error: {}", authException.getMessage());
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+                    response.sendError(SC_UNAUTHORIZED, "Error: Unauthorized");
                 }))
                 .sessionManagement(configurer -> {
-                    configurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+                    configurer.sessionCreationPolicy(IF_REQUIRED);
                     configurer.maximumSessions(1);
                 })
                 .authorizeRequests(registry -> {
-                    registry.antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                    registry.antMatchers(OPTIONS, "/**").permitAll();
                     registry.antMatchers(ALLOWED_PATTERNS).permitAll();
                     registry.anyRequest().authenticated();
                 });

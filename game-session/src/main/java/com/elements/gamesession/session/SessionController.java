@@ -1,6 +1,6 @@
 package com.elements.gamesession.session;
 
-import com.elements.gamesession.session.resource.gamestate.domain.GameStateResource;
+import com.elements.gamesession.session.resource.gamestate.domain.GameStateDTO;
 import com.elements.gamesession.session.crud.event.service.SessionEventService;
 import com.elements.gamesession.session.crud.location.service.SessionLocationService;
 import lombok.RequiredArgsConstructor;
@@ -19,24 +19,24 @@ public class SessionController {
     private final SessionEventService sessionEventService;
 
     @MessageMapping(value = "/game-state")
-    public GameStateResource getClientGameState() {
-        return session.getGameStateResource();
+    public GameStateDTO getClientGameState() {
+        return session.getGameStateDTO();
     }
 
     @MessageMapping(value = "/change-location")
-    public GameStateResource changeLocation(@Payload String locationName) {
+    public GameStateDTO changeLocation(@Payload String locationName) {
         sessionLocationService.setNewLocation(locationName, session);
         sessionEventService.setNewEvent(session);
-        return session.getGameStateResource();
+        return session.getGameStateDTO();
     }
 
     @MessageMapping(value = "/update-event")
-    public GameStateResource updateEvent(@Payload(required = false) Integer selectedOption) {
+    public GameStateDTO updateEvent(@Payload(required = false) Integer selectedOption) {
         if (selectedOption == null) {
             sessionEventService.update(session);
         } else {
             sessionEventService.update(session, selectedOption);
         }
-        return session.getGameStateResource();
+        return session.getGameStateDTO();
     }
 }

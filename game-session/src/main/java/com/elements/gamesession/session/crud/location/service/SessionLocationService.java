@@ -27,6 +27,6 @@ public class SessionLocationService {
 
         gameState.setLocationId(location.getId());
         LocationState newLocation = mapper.map(location, gameState.getCharacter().getProperties());
-        gameSession.getGameStateResource().setLocation(newLocation);
+        gameSession.getGameStateDTO().setLocation(newLocation);
     }
 }

@@ -17,6 +17,9 @@ dependencies {
 
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
 
+    implementation "com.querydsl:querydsl-jpa:$querydsl_version"
+    implementation "com.querydsl:querydsl-mongodb:$querydsl_version"
+
     implementation "org.springframework.session:spring-session-data-redis"
     implementation "org.springframework.security:spring-security-messaging"
 

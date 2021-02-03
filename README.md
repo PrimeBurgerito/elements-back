@@ -23,3 +23,6 @@ In folder docker/nginx:
 ### Swagger
 
 * http://128.199.54.24/elements/api/swagger-ui/index.html?configUrl=/elements/api/v3/api-docs/swagger-config#/
+
+#### Local
+* http://localhost:7777/api/swagger-ui/index.html?configUrl=/api/v3/api-docs/swagger-config

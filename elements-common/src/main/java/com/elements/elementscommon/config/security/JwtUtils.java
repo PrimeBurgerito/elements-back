@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+import static io.jsonwebtoken.SignatureAlgorithm.HS512;
+
 
 @Slf4j
 @Component
@@ -26,7 +28,7 @@ public class JwtUtils {
                     .setSubject(userPrincipal.getUsername())
                     .setIssuedAt(new Date())
                     .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                    .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                    .signWith(HS512, jwtSecret)
                     .compact();
         }
         return null;

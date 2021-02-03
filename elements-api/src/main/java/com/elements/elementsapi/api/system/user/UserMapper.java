@@ -6,9 +6,7 @@ import org.mapstruct.Mapper;
 import java.util.Collection;
 import java.util.List;
 
-import static org.mapstruct.MappingInheritanceStrategy.AUTO_INHERIT_FROM_CONFIG;
-
-@Mapper(mappingInheritanceStrategy = AUTO_INHERIT_FROM_CONFIG)
+@Mapper
 public interface UserMapper {
 
     UserDto map(User user);

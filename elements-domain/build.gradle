@@ -1,11 +1,47 @@
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+/*configurations {
+    querydsl.extendsFrom compileClasspath
+}*/
+
+querydsl {
+    library = "com.querydsl:querydsl-apt:$querydsl_version"
+    querydslSourcesDir = "$buildDir/generated/sources/querydsl"
+    springDataMongo = true
+}
+
+configurations {
+    querydslapt
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += "$buildDir/generated/sources/querydsl"
+        }
+    }
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+    options.compilerArgs += '-proc:none'
+}
+
 dependencies {
     compile project(':elements-common')
 
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
+    annotationProcessor "org.springframework.data:spring-data-mongodb:$mongo_version"
+
+    compileOnly "com.querydsl:querydsl-apt:$querydsl_version"
+    implementation "com.querydsl:querydsl-mongodb:$querydsl_version"
 
     implementation "org.hibernate.validator:hibernate-validator"
+    implementation "jakarta.annotation:jakarta.annotation-api"
+    compile "javax.validation:validation-api:$javax_validation_version"
 
-    compileOnly "org.projectlombok:lombok"
-    annotationProcessor "org.projectlombok:lombok"
+    implementation "org.projectlombok:lombok"
 }

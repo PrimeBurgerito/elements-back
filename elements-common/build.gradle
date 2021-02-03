@@ -13,7 +13,5 @@ dependencies {
     implementation "io.jsonwebtoken:jjwt:$jjwt_version"
     implementation "org.springframework.security:spring-security-oauth2-jose"
 
-    compileOnly "org.projectlombok:lombok"
-
-    annotationProcessor "org.projectlombok:lombok"
+    implementation "org.projectlombok:lombok"
 }

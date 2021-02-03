@@ -1,13 +1,15 @@
 package com.elements.gamesession.session.crud.event.service;
 
-import com.elements.elementsdomain.shared.reward.Reward;
 import com.elements.elementsdomain.document.event.Event;
-import com.elements.elementsdomain.document.event.scene.SceneType;
+import com.elements.elementsdomain.document.event.scene.SceneBase;
 import com.elements.elementsdomain.document.event.scene.reward.SceneReward;
 import com.elements.elementsdomain.gamestate.GameState;
+import com.elements.elementsdomain.shared.character.CharacterProperties;
+import com.elements.elementsdomain.shared.reward.Reward;
 import com.elements.gamesession.engine.reward.RewardEngine;
 import com.elements.gamesession.session.GameSession;
 import com.elements.gamesession.session.crud.event.domain.SceneStateOption;
+import com.elements.gamesession.session.crud.event.domain.SessionEventUtil;
 import com.elements.gamesession.session.crud.event.domain.SessionEventValidation;
 import com.elements.gamesession.session.crud.event.repository.SessionEventRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.elements.elementsdomain.document.event.scene.SceneType.REWARD;
 
 @Slf4j
 @Service
@@ -27,8 +31,8 @@ public class SessionEventService {
 
     public void setNewEvent(GameSession session) {
         if (session.getEventSession() != null) {
-            log.info("Clearing old event - Id: {}", session.getEventSession().getEvent().getId());
-            SessionEventEngine.clearEvent(session);
+            log.info("Clearing old event from game state '{}'", session.getGameState().getId());
+            SessionEventUtil.clearEvent(session);
         }
         Event event = findByGameState(session.getGameState());
         SessionEventValidation validation = validationService.validate(event);
@@ -41,27 +45,28 @@ public class SessionEventService {
         if (session.getEventSession() == null) {
             throw new RuntimeException("No event started!");
         }
-        SceneType newSceneType = SessionEventEngine.nextScene(session);
-        processRewardScene(session, newSceneType);
+        SessionEventUtil.nextScene(session);
+        processRewardScene(session);
     }
 
     public void update(GameSession session, @NotNull Integer selectedOption) {
         if (session.getEventSession() == null) {
             throw new RuntimeException("No event started!");
         }
-        List<SceneStateOption> eventOptions = session.getGameStateResource().getCurrentScene().getOptions();
+        List<SceneStateOption> eventOptions = session.getGameStateDTO().getCurrentScene().getOptions();
         SessionEventValidation validation = validationService.validate(eventOptions, selectedOption);
         if (validation.isCorrect()) {
-            SceneType newSceneType = SessionEventEngine.chooseSceneOption(session, selectedOption);
-            processRewardScene(session, newSceneType);
+            SessionEventUtil.chooseSceneOption(session, selectedOption);
+            processRewardScene(session);
         } else {
-            SessionEventEngine.clearEvent(session);
+            SessionEventUtil.clearEvent(session);
         }
     }
 
-    private void processRewardScene(GameSession session, SceneType sceneType) {
-        if (SceneType.REWARD.equals(sceneType)) {
-            Reward reward = ((SceneReward) session.getEventSession().getCurrentScene()).getReward();
+    private void processRewardScene(GameSession session) {
+        SceneBase eventSession = session.getEventSession().getCurrentScene();
+        if (REWARD.equals(eventSession.getType())) {
+            Reward reward = ((SceneReward) eventSession).getReward();
             RewardEngine.collectRewards(session, reward);
             update(session);
         }
@@ -69,8 +74,9 @@ public class SessionEventService {
 
     private Event findByGameState(GameState gameState) {
         //QEvent qEvent = new QEvent("event");
-        List<Event> events = repository
-                .findByLocationAndProperties(gameState.getLocationId(), gameState.getCharacter().getProperties());
+        String locationId = gameState.getLocationId();
+        CharacterProperties characterProperties = gameState.getCharacter().getProperties();
+        List<Event> events = repository.findByLocationAndProperties(locationId, characterProperties);
         return events.isEmpty() ? null : events.get(0);
     }
 }

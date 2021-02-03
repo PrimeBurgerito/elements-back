@@ -3,7 +3,7 @@ package com.elements.gamesession.session;
 import com.elements.elementsdomain.document.event.Event;
 import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.gamesession.session.crud.event.domain.EventSession;
-import com.elements.gamesession.session.resource.gamestate.domain.GameStateResource;
+import com.elements.gamesession.session.resource.gamestate.domain.GameStateDTO;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
@@ -20,25 +20,25 @@ import javax.annotation.PreDestroy;
 public class GameSession {
     private GameState gameState;
     private EventSession eventSession;
-
-    private GameStateResource gameStateResource;
+    private GameStateDTO gameStateDTO;
 
     @PostConstruct
     public void init() {
-        log.info("Websocket session constructed [{}]", getClass());
+        String state = gameState == null ? "NOT_CREATED" : gameState.getId();
+        log.info("Websocket session constructed for game state '{}' [{}]", state, getClass());
     }
 
     @PreDestroy
     public void destroy() {
-        log.info("Websocket session going to be destroyed [{}]", getClass());
+        log.info("Websocket session going to be destroyed for game state '{}' [{}]", gameState.getId(), getClass());
     }
 
     public void setNewEvent(Event event) {
         eventSession = new EventSession(event, gameState.getCharacter().getProperties());
-        gameStateResource.setCurrentScene(eventSession.getCurrentSceneState());
+        gameStateDTO.setCurrentScene(eventSession.getCurrentSceneState());
     }
 
     public void updateGameStateResourceCharacterProperties() {
-        gameStateResource.getCharacter().setProperties(gameState.getCharacter().getProperties());
+        gameStateDTO.getCharacter().setProperties(gameState.getCharacter().getProperties());
     }
 }

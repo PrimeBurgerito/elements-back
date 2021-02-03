@@ -30,8 +30,8 @@ public class WebSocketBrokerConfiguration extends AbstractSessionWebSocketMessag
     @Override
     public void configureStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/start-session")
-                .setHandshakeHandler(tokenHandshakeHandler)
                 .addInterceptors(new WebSocketHandshakeInterceptor())
+                .setHandshakeHandler(tokenHandshakeHandler)
                 .setAllowedOrigins("*");
     }
 }

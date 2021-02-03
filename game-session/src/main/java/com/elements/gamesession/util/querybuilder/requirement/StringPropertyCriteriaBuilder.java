@@ -1,5 +1,6 @@
 package com.elements.gamesession.util.querybuilder.requirement;
 
+import com.elements.elementsdomain.document.event.QEvent;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.mongodb.core.query.Criteria;
 
@@ -9,11 +10,11 @@ import java.util.Map.Entry;
 
 import static java.lang.String.format;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.querydsl.QuerydslUtils.toDotPath;
 
 @UtilityClass
 class StringPropertyCriteriaBuilder {
-
-    private final String PROPERTIES_KEY = "requirement.properties.stringProperties";
+    private final String PROPERTIES_KEY = toDotPath(QEvent.event.requirement.properties.stringProperties);
 
     Criteria build(Map<String, List<String>> properties) {
         return new Criteria().orOperator(where(PROPERTIES_KEY).is(null), buildPropertiesCriteria(properties));

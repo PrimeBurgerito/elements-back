@@ -6,20 +6,22 @@ import com.elements.elementscommon.config.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import static org.springframework.web.cors.CorsConfiguration.ALL;
 
 
 @Configuration
@@ -33,6 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             "/authentication/**",
             "/user/create",
             "/auth/test/**",
+            "/swagger-ui.html",
             "/swagger-ui/**",
             "/v3/api-docs/**"
     };
@@ -41,10 +44,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin(CorsConfiguration.ALL);
-        config.addAllowedHeader(CorsConfiguration.ALL);
-        config.addAllowedMethod(CorsConfiguration.ALL);
+        config.setAllowCredentials(false);
+        config.addAllowedOrigin(ALL);
+        config.addAllowedHeader(ALL);
+        config.addAllowedMethod(ALL);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
@@ -71,9 +74,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling(configurer -> configurer.authenticationEntryPoint(new UnauthorizedEntryPoint()))
-                .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(configurer -> configurer.sessionCreationPolicy(STATELESS))
                 .authorizeRequests(registry -> {
-                    registry.antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                    registry.antMatchers(OPTIONS, "/**").permitAll();
                     registry.antMatchers(ALLOWED_PATTERNS).permitAll();
                     registry.anyRequest().authenticated();
                 })

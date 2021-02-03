@@ -1,18 +1,39 @@
 package com.elements.elementsdomain.document.event.scene;
 
+import com.elements.elementsdomain.document.event.Event;
 import com.elements.elementsdomain.document.event.scene.option.SceneOption;
 import com.elements.elementsdomain.document.event.scene.reward.SceneReward;
 
-public interface EventProcessor {
-    void setNextSceneAfter(Scene scene);
+public abstract class EventProcessor {
+    private final Event event;
+    protected int currentSceneIndex;
 
-    void setNextSceneAfter(SceneOption sceneOption);
+    public EventProcessor(Event event) {
+        this.event = event;
+        currentSceneIndex = 0;
+    }
 
-    void setNextSceneAfter(SceneReward sceneReward);
+    public SceneBase getCurrentScene() {
+        return event.getScenes().get(currentSceneIndex);
+    }
 
-    void convert(Scene sceneBase);
+    protected boolean isSceneInRange() {
+        return currentSceneIndex >= 0 && currentSceneIndex < event.getScenes().size();
+    }
 
-    void convert(SceneOption sceneBase);
+    protected void replaceSceneStateFromScene() {
+        getCurrentScene().convert(this);
+    }
 
-    void convert(SceneReward sceneBase);
+    public abstract void setNextSceneAfter(Scene scene);
+
+    public abstract void setNextSceneAfter(SceneOption sceneOption);
+
+    public abstract void setNextSceneAfter(SceneReward sceneReward);
+
+    public abstract void convert(Scene sceneBase);
+
+    public abstract void convert(SceneOption sceneBase);
+
+    public abstract void convert(SceneReward sceneBase);
 }

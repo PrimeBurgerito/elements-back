@@ -4,11 +4,11 @@ import com.elements.elementsdomain.document.location.Location;
 import com.elements.elementsdomain.shared.character.CharacterProperties;
 import com.elements.elementsdomain.shared.image.ConditionalImage;
 import com.elements.elementsdomain.shared.image.Image;
-import com.elements.gamesession.engine.requirement.RequirementTester;
-import com.elements.gamesession.engine.requirement.RequirementTesterInput;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptySet;
@@ -26,17 +26,16 @@ public class SessionLocationMapper {
     }
 
     private static Set<Image> filterImages(Set<ConditionalImage> images, CharacterProperties properties) {
-        RequirementTesterInput input = RequirementTesterInput.builder()
-                .numericProperties(properties.getNumericPropertyKeyToValue())
-                .stringProperties(properties.getStringPropertyKeyToValue())
-                .objectives(emptySet()) // TODO
-                .build();
-
-        RequirementTester tester = new RequirementTester(input);
-
         return images.stream()
-                .filter(img -> tester.isSatisfied(img.getRequirement()))
+                .filter(byRequirements(properties))
                 .map(ConditionalImage::getImage)
                 .collect(Collectors.toSet());
+    }
+
+    @NotNull
+    private static Predicate<ConditionalImage> byRequirements(CharacterProperties properties) {
+        return img -> img.getRequirement() == null
+                || img.getRequirement().getProperties() == null
+                || img.getRequirement().getProperties().testProperties(properties);
     }
 }

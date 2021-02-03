@@ -38,8 +38,8 @@ public class GameStateService {
                 .name(gameStateDto.getCharacterName())
                 .properties(characterTemplate.getProperties())
                 .templateId(characterTemplate.getId())
+                .images(characterTemplate.getImages())
                 .build();
-        character.getImages().putAll(characterTemplate.getImages());
 
         Location location = locationRepository.findAll().get(0);
 

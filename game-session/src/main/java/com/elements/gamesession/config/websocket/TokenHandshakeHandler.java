@@ -33,10 +33,14 @@ public class TokenHandshakeHandler extends DefaultHandshakeHandler {
     ) {
         if (request.getURI().getQuery().startsWith(TOKEN_KEY)) {
             String token = request.getURI().getQuery().substring(TOKEN_KEY.length());
-            String username = jwtUtils.getUserNameFromJwtToken(token);
-            User user = mongoTemplate.findOne(query(where("username").is(username)), User.class);
-            return new UsernamePasswordAuthenticationToken(user, null, user == null ? null : user.getAuthorities());
+            return getUserFromToken(token);
         }
         return super.determineUser(request, wsHandler, attributes);
+    }
+
+    private Principal getUserFromToken(String token) {
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+        User user = mongoTemplate.findOne(query(where("username").is(username)), User.class);
+        return new UsernamePasswordAuthenticationToken(user, null, user == null ? null : user.getAuthorities());
     }
 }

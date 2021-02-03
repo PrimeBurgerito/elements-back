@@ -20,7 +20,7 @@ public class NumericPropertyTemplate extends PropertyTemplate<Float, NumericProp
         property.setMin(min);
         property.setKey(getKey());
         property.setName(getName());
-        property.setValue(getValue());
+        property.setValue(value == null ? getValue() : value);
         return property;
     }
 }

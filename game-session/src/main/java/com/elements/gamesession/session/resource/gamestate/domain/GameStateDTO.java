@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class GameStateResource {
+public class GameStateDTO {
     private Character character;
     private LocationState location;
     private SceneState currentScene;

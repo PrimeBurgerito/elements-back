@@ -3,7 +3,6 @@ package com.elements.gamesession.session.crud.event.domain;
 import com.elements.elementsdomain.document.event.Event;
 import com.elements.elementsdomain.document.event.scene.EventProcessor;
 import com.elements.elementsdomain.document.event.scene.Scene;
-import com.elements.elementsdomain.document.event.scene.SceneBase;
 import com.elements.elementsdomain.document.event.scene.option.Option;
 import com.elements.elementsdomain.document.event.scene.option.SceneOption;
 import com.elements.elementsdomain.document.event.scene.reward.SceneReward;
@@ -14,41 +13,29 @@ import static java.util.Optional.ofNullable;
 
 
 @Getter
-public class EventSession implements EventProcessor {
-    private final Event event;
+public class EventSession extends EventProcessor {
     private SceneState currentSceneState;
     private final CharacterProperties characterProperties;
-    private int currentSceneIndex;
     private int chosenOptionIndex;
 
     public EventSession(Event event, CharacterProperties characterProperties) {
-        this.event = event;
+        super(event);
         this.characterProperties = characterProperties;
-        currentSceneIndex = 0;
-        chosenOptionIndex = 0;
-        getCurrentScene().convert(this);
+        replaceSceneStateFromScene();
     }
 
-    public void nextScene() {
+    void nextScene() {
         getCurrentScene().nextScene(this);
     }
 
-    public void chooseOption(int index) {
-        chosenOptionIndex = index;
+    void nextScene(int option) {
+        chosenOptionIndex = option;
         getCurrentScene().nextScene(this);
     }
 
-    public SceneBase getCurrentScene() {
-        return event.getScenes().get(currentSceneIndex);
-    }
-
-    private boolean isSceneInRange() {
-        return currentSceneIndex >= 0 && currentSceneIndex < event.getScenes().size();
-    }
-
-    private void updateSessionEvent() {
+    private void replaceSceneState() {
         if (isSceneInRange()) {
-            getCurrentScene().convert(this);
+            replaceSceneStateFromScene();
         } else {
             currentSceneState = null;
         }
@@ -57,7 +44,7 @@ public class EventSession implements EventProcessor {
     @Override
     public void setNextSceneAfter(Scene scene) {
         currentSceneIndex = ofNullable(scene.getNext()).orElse(-1);
-        updateSessionEvent();
+        replaceSceneState();
     }
 
     @Override
@@ -68,13 +55,13 @@ public class EventSession implements EventProcessor {
             Option chosenOption = sceneOption.getOptions().get(chosenOptionIndex);
             currentSceneIndex = ofNullable(chosenOption.getNext()).orElse(-1);
         }
-        updateSessionEvent();
+        replaceSceneState();
     }
 
     @Override
     public void setNextSceneAfter(SceneReward sceneReward) {
         currentSceneIndex = ofNullable(sceneReward.getNext()).orElse(-1);
-        updateSessionEvent();
+        replaceSceneState();
     }
 
     @Override
