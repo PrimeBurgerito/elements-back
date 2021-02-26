@@ -7,8 +7,9 @@ import com.elements.elementsdomain.document.objective.Objective;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/objective")
 public class ObjectiveController extends BaseController<ObjectiveDto, Objective> {

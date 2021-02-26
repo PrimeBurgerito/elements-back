@@ -46,7 +46,9 @@ public class SessionEventService {
             throw new RuntimeException("No event started!");
         }
         SessionEventUtil.nextScene(session);
-        processRewardScene(session);
+        if (session.getEventSession() != null && session.getEventSession().getCurrentScene() != null) {
+            processRewardScene(session);
+        }
     }
 
     public void update(GameSession session, @NotNull Integer selectedOption) {
