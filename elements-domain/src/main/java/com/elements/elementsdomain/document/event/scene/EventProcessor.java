@@ -6,34 +6,29 @@ import com.elements.elementsdomain.document.event.scene.reward.SceneReward;
 
 public abstract class EventProcessor {
     private final Event event;
-    protected int currentSceneIndex;
+    protected int currentSceneIndex = 0;
 
     public EventProcessor(Event event) {
         this.event = event;
-        currentSceneIndex = 0;
     }
 
     public SceneBase getCurrentScene() {
-        return event.getScenes().get(currentSceneIndex);
+        boolean isSceneInRange = currentSceneIndex >= 0 && currentSceneIndex < event.getScenes().size();
+        if (isSceneInRange) {
+            return event.getScenes().get(currentSceneIndex);
+        }
+        return null;
     }
 
-    protected boolean isSceneInRange() {
-        return currentSceneIndex >= 0 && currentSceneIndex < event.getScenes().size();
-    }
+    public abstract void setSceneIndexAfter(Scene scene);
 
-    protected void replaceSceneStateFromScene() {
-        getCurrentScene().convert(this);
-    }
+    public abstract void setSceneIndexAfter(SceneOption sceneOption);
 
-    public abstract void setNextSceneAfter(Scene scene);
+    public abstract void setSceneIndexAfter(SceneReward sceneReward);
 
-    public abstract void setNextSceneAfter(SceneOption sceneOption);
+    public abstract void setSceneState(Scene sceneBase);
 
-    public abstract void setNextSceneAfter(SceneReward sceneReward);
+    public abstract void setSceneState(SceneOption sceneBase);
 
-    public abstract void convert(Scene sceneBase);
-
-    public abstract void convert(SceneOption sceneBase);
-
-    public abstract void convert(SceneReward sceneBase);
+    public abstract void setSceneState(SceneReward sceneBase);
 }

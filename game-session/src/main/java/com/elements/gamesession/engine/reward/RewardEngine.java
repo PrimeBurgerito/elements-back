@@ -21,8 +21,6 @@ public class RewardEngine {
         reward.getStringProperties().forEach(collectStringPropertyReward(statistics.getStringProperties()));
         reward.getObjectives().forEach(r -> collectObjectiveReward(Collections.emptySet(), r));
         reward.getNumericProperties().forEach(collectNumericPropertyReward(statistics.getNumericProperties()));
-
-        session.updateGameStateResourceCharacterProperties();
     }
 
     private Consumer<StringPropertyReward> collectStringPropertyReward(List<StringProperty> properties) {

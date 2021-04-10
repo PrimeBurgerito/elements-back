@@ -14,14 +14,14 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation "org.springframework.session:spring-session-data-redis"
+    implementation "org.springframework.security:spring-security-messaging"
 
     implementation "org.springframework.data:spring-data-mongodb:$mongo_version"
 
     implementation "com.querydsl:querydsl-jpa:$querydsl_version"
     implementation "com.querydsl:querydsl-mongodb:$querydsl_version"
 
-    implementation "org.springframework.session:spring-session-data-redis"
-    implementation "org.springframework.security:spring-security-messaging"
 
     implementation "org.apache.commons:commons-lang3"
     implementation "org.apache.commons:commons-collections4:$commons_collections4_version"

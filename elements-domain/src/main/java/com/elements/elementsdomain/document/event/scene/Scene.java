@@ -10,13 +10,13 @@ public class Scene extends SceneImage {
     private Integer next;
 
     @Override
-    public void nextScene(EventProcessor processor) {
-        processor.setNextSceneAfter(this);
+    public void configureNextSceneIndex(EventProcessor processor) {
+        processor.setSceneIndexAfter(this);
     }
 
     @Override
-    public void convert(EventProcessor processor) {
-        processor.convert(this);
+    public void setSceneState(EventProcessor processor) {
+        processor.setSceneState(this);
     }
 
     @Override

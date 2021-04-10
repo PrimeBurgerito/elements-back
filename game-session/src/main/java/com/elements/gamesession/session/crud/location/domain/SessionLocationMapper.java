@@ -4,8 +4,8 @@ import com.elements.elementsdomain.document.location.Location;
 import com.elements.elementsdomain.shared.character.CharacterProperties;
 import com.elements.elementsdomain.shared.image.ConditionalImage;
 import com.elements.elementsdomain.shared.image.Image;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -14,15 +14,12 @@ import java.util.stream.Collectors;
 import static java.util.Collections.emptySet;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
-@Component
+@UtilityClass
 public class SessionLocationMapper {
 
-    public LocationState map(Location location, CharacterProperties statistics) {
-        return LocationState.builder()
-                .name(location.getName())
-                .images(isEmpty(location.getImages()) ? emptySet() : filterImages(location.getImages(), statistics))
-                .nearbyLocations(location.getNearbyLocations())
-                .build();
+    public static LocationStateDTO map(Location location, CharacterProperties statistics) {
+        Set<Image> images = isEmpty(location.getImages()) ? emptySet() : filterImages(location.getImages(), statistics);
+        return new LocationStateDTO(location.getName(), location.getNearbyLocations(), images);
     }
 
     private static Set<Image> filterImages(Set<ConditionalImage> images, CharacterProperties properties) {

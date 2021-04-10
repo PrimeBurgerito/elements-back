@@ -1,18 +1,17 @@
-package com.elements.gamesession.session.crud.event.service;
+package com.elements.gamesession.session.crud.event.util;
 
 import com.elements.elementsdomain.document.event.Event;
-import com.elements.gamesession.session.crud.event.domain.SessionEventValidation;
-import com.elements.gamesession.session.crud.event.domain.SceneStateOption;
+import com.elements.gamesession.session.crud.event.domain.SceneStateOptionDTO;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
-@Service
-public class SessionEventValidationService {
+@UtilityClass
+public class SessionEventValidationUtil {
 
-    SessionEventValidation validate(Event event) {
+    SessionEventValidation validateEvent(Event event) {
         SessionEventValidation validation = new SessionEventValidation();
         if (event == null) {
             validation.unAccept("event", "Value is null");
@@ -22,14 +21,14 @@ public class SessionEventValidationService {
             validation.unAccept("scenes", "Can't be empty");
         }
 
-        if (!validation.isCorrect()) {
+        if (!validation.isValid()) {
             log.error("SessionEvent validation failed - Field: {}, Reason: {}",
                     validation.getField(), validation.getReason());
         }
         return validation;
     }
 
-    SessionEventValidation validate(List<SceneStateOption> options, Integer option) {
+    public SessionEventValidation validateOption(List<SceneStateOptionDTO> options, Integer option) {
         SessionEventValidation validation = new SessionEventValidation();
         if (option == null) {
             validation.unAccept("option", "Value is null");
@@ -39,7 +38,7 @@ public class SessionEventValidationService {
             validation.unAccept("disabled", "Selected option is disabled");
         }
 
-        if (!validation.isCorrect()) {
+        if (!validation.isValid()) {
             log.error("SessionOption validation failed - Field: {}, Reason: {}",
                     validation.getField(), validation.getReason());
         }

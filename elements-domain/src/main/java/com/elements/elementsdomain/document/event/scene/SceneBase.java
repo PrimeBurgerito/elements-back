@@ -18,9 +18,9 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
         @Type(value = SceneReward.class, name = "REWARD")
 })
 public interface SceneBase extends Serializable {
-    void nextScene(EventProcessor processor);
+    void configureNextSceneIndex(EventProcessor processor);
 
-    void convert(EventProcessor processor);
+    void setSceneState(EventProcessor processor);
 
     SceneType getType();
 }

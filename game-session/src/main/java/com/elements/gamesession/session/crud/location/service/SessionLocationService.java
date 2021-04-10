@@ -1,32 +1,23 @@
 package com.elements.gamesession.session.crud.location.service;
 
-import com.elements.elementsdomain.gamestate.GameState;
 import com.elements.elementsdomain.document.location.Location;
-import com.elements.gamesession.session.GameSession;
-import com.elements.gamesession.session.crud.location.domain.LocationState;
-import com.elements.gamesession.session.crud.location.domain.SessionLocationMapper;
 import com.elements.gamesession.session.crud.location.repository.SessionLocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class SessionLocationService {
 
-    private final SessionLocationMapper mapper;
     private final SessionLocationRepository repository;
 
-    public LocationState getByGameState(GameState gameState) {
-        Location location = repository.get(gameState.getLocationId());
-        return mapper.map(location, gameState.getCharacter().getProperties());
+    public Location getById(String id) {
+        return repository.get(id);
     }
 
-    public void setNewLocation(String locationName, GameSession gameSession) {
-        GameState gameState = gameSession.getGameState();
-        Location location = repository.getByName(locationName);
-
-        gameState.setLocationId(location.getId());
-        LocationState newLocation = mapper.map(location, gameState.getCharacter().getProperties());
-        gameSession.getGameStateDTO().setLocation(newLocation);
+    public Location getByName(String name) {
+        return repository.getByName(name);
     }
 }

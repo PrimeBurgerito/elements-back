@@ -12,11 +12,10 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class GameStateService {
-
     private final GameStateRepository repository;
 
     @Transactional(readOnly = true)
-    public GameState get(String userId) {
+    public GameState getForUser(String userId) {
         List<GameState> gameStates = repository.findAllByUserId(userId);
         if (gameStates == null || gameStates.isEmpty()) {
             throw new RuntimeException("No game states found for userId: " + userId);

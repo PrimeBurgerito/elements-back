@@ -1,9 +1,12 @@
 package com.elements.gamesession.session;
 
-import com.elements.elementsdomain.document.event.Event;
+import com.elements.elementsdomain.document.location.Location;
 import com.elements.elementsdomain.gamestate.GameState;
-import com.elements.gamesession.session.crud.event.domain.EventSession;
-import com.elements.gamesession.session.resource.gamestate.domain.GameStateDTO;
+import com.elements.gamesession.session.crud.event.EventFactory;
+import com.elements.gamesession.session.crud.event.domain.SceneStateDTO;
+import com.elements.gamesession.session.crud.location.domain.LocationStateDTO;
+import com.elements.gamesession.session.crud.location.domain.SessionLocationMapper;
+import com.elements.gamesession.session.resource.GameStateDTO;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
@@ -19,8 +22,8 @@ import javax.annotation.PreDestroy;
 @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GameSession {
     private GameState gameState;
-    private EventSession eventSession;
-    private GameStateDTO gameStateDTO;
+    private Location currentLocation;
+    private EventFactory eventFactory;
 
     @PostConstruct
     public void init() {
@@ -33,12 +36,9 @@ public class GameSession {
         log.info("Websocket session going to be destroyed for game state '{}' [{}]", gameState.getId(), getClass());
     }
 
-    public void setNewEvent(Event event) {
-        eventSession = new EventSession(event, gameState.getCharacter().getProperties());
-        gameStateDTO.setCurrentScene(eventSession.getCurrentSceneState());
-    }
-
-    public void updateGameStateResourceCharacterProperties() {
-        gameStateDTO.getCharacter().setProperties(gameState.getCharacter().getProperties());
+    public GameStateDTO getGameStateDTO() {
+        LocationStateDTO location = SessionLocationMapper.map(currentLocation, gameState.getCharacter().getProperties());
+        SceneStateDTO currentScene = eventFactory == null ? null : eventFactory.getCurrentSceneState();
+        return new GameStateDTO(gameState.getCharacter(), location, currentScene);
     }
 }

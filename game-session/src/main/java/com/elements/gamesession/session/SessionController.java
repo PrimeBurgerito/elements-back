@@ -1,8 +1,6 @@
 package com.elements.gamesession.session;
 
-import com.elements.gamesession.session.resource.gamestate.domain.GameStateDTO;
-import com.elements.gamesession.session.crud.event.service.SessionEventService;
-import com.elements.gamesession.session.crud.location.service.SessionLocationService;
+import com.elements.gamesession.session.resource.GameStateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -15,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SessionController {
 
     private final GameSession session;
-    private final SessionLocationService sessionLocationService;
-    private final SessionEventService sessionEventService;
+    private final GameSessionService sessionService;
 
     @MessageMapping(value = "/game-state")
     public GameStateDTO getClientGameState() {
@@ -25,18 +22,13 @@ public class SessionController {
 
     @MessageMapping(value = "/change-location")
     public GameStateDTO changeLocation(@Payload String locationName) {
-        sessionLocationService.setNewLocation(locationName, session);
-        sessionEventService.setNewEvent(session);
+        sessionService.setNewLocation(session, locationName);
         return session.getGameStateDTO();
     }
 
     @MessageMapping(value = "/update-event")
     public GameStateDTO updateEvent(@Payload(required = false) Integer selectedOption) {
-        if (selectedOption == null) {
-            sessionEventService.update(session);
-        } else {
-            sessionEventService.update(session, selectedOption);
-        }
+        sessionService.updateEvent(session, selectedOption);
         return session.getGameStateDTO();
     }
 }

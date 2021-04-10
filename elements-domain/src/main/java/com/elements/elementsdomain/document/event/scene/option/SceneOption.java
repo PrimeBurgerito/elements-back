@@ -1,7 +1,7 @@
 package com.elements.elementsdomain.document.event.scene.option;
 
-import com.elements.elementsdomain.document.event.scene.SceneImage;
 import com.elements.elementsdomain.document.event.scene.EventProcessor;
+import com.elements.elementsdomain.document.event.scene.SceneImage;
 import com.elements.elementsdomain.document.event.scene.SceneType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,13 +15,13 @@ public class SceneOption extends SceneImage {
     private List<Option> options;
 
     @Override
-    public void nextScene(EventProcessor processor) {
-        processor.setNextSceneAfter(this);
+    public void configureNextSceneIndex(EventProcessor processor) {
+        processor.setSceneIndexAfter(this);
     }
 
     @Override
-    public void convert(EventProcessor processor) {
-        processor.convert(this);
+    public void setSceneState(EventProcessor processor) {
+        processor.setSceneState(this);
     }
 
     @Override

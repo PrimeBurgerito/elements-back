@@ -1,7 +1,7 @@
 package com.elements.elementsdomain.document.event.scene.reward;
 
-import com.elements.elementsdomain.document.event.scene.SceneBase;
 import com.elements.elementsdomain.document.event.scene.EventProcessor;
+import com.elements.elementsdomain.document.event.scene.SceneBase;
 import com.elements.elementsdomain.document.event.scene.SceneType;
 import com.elements.elementsdomain.shared.reward.Reward;
 import lombok.Data;
@@ -13,13 +13,13 @@ public class SceneReward implements SceneBase {
     private Integer next;
 
     @Override
-    public void nextScene(EventProcessor processor) {
-        processor.setNextSceneAfter(this);
+    public void configureNextSceneIndex(EventProcessor processor) {
+        processor.setSceneIndexAfter(this);
     }
 
     @Override
-    public void convert(EventProcessor processor) {
-        processor.convert(this);
+    public void setSceneState(EventProcessor processor) {
+        processor.setSceneState(this);
     }
 
     @Override
