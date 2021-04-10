@@ -15,6 +15,11 @@ public class SessionController {
     private final GameSession session;
     private final GameSessionService sessionService;
 
+    @MessageMapping(value = "/test")
+    public String test(@Payload String callBack) {
+        return "Hello '" + callBack + "'!";
+    }
+
     @MessageMapping(value = "/game-state")
     public GameStateDTO getClientGameState() {
         return session.getGameStateDTO();

@@ -31,8 +31,9 @@ public class TokenHandshakeHandler extends DefaultHandshakeHandler {
             @NotNull WebSocketHandler wsHandler,
             @NotNull Map<String, Object> attributes
     ) {
-        if (request.getURI().getQuery().startsWith(TOKEN_KEY)) {
-            String token = request.getURI().getQuery().substring(TOKEN_KEY.length());
+        String query = request.getURI().getQuery();
+        if (query != null && query.startsWith(TOKEN_KEY)) {
+            String token = query.substring(TOKEN_KEY.length());
             return getUserFromToken(token);
         }
         return super.determineUser(request, wsHandler, attributes);
@@ -41,6 +42,6 @@ public class TokenHandshakeHandler extends DefaultHandshakeHandler {
     private Principal getUserFromToken(String token) {
         String username = jwtUtils.getUserNameFromJwtToken(token);
         User user = mongoTemplate.findOne(query(where("username").is(username)), User.class);
-        return new UsernamePasswordAuthenticationToken(user, null, user == null ? null : user.getAuthorities());
+        return user == null ? null : new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
     }
 }

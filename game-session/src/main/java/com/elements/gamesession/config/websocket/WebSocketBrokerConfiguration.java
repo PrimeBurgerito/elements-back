@@ -32,6 +32,7 @@ public class WebSocketBrokerConfiguration extends AbstractSessionWebSocketMessag
         registry.addEndpoint("/start-session")
                 .addInterceptors(new WebSocketHandshakeInterceptor())
                 .setHandshakeHandler(tokenHandshakeHandler)
-                .setAllowedOrigins("*");
+                .setAllowedOrigins("*")
+                .withSockJS();
     }
 }

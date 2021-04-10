@@ -22,7 +22,7 @@ import static com.elements.gamesession.session.crud.event.util.SessionEventValid
 @UtilityClass
 public class SessionEventUtil {
 
-    public EventFactory createEventFactory(GameSession session, Event event) {
+    public static EventFactory createEventFactory(GameSession session, Event event) {
         SessionEventValidation validation = validateEvent(event);
 
         if (validation.isValid()) {
@@ -33,7 +33,7 @@ public class SessionEventUtil {
         return null;
     }
 
-    public void update(GameSession session) {
+    public static void update(GameSession session) {
         EventFactory eventFactory = session.getEventFactory();
         if (eventFactory == null) {
             throw new RuntimeException("No event started!");
@@ -42,7 +42,7 @@ public class SessionEventUtil {
         processCurrentScene(session);
     }
 
-    public void update(GameSession session, @NotNull Integer selectedOption) {
+    public static void update(GameSession session, @NotNull Integer selectedOption) {
         EventFactory eventFactory = session.getEventFactory();
         if (eventFactory == null) {
             throw new RuntimeException("No event started!");
@@ -59,7 +59,7 @@ public class SessionEventUtil {
         }
     }
 
-    private void processCurrentScene(GameSession session) {
+    private static void processCurrentScene(GameSession session) {
         SceneBase currentScene = session.getEventFactory().getCurrentScene();
         if (currentScene == null) {
             session.setEventFactory(null);

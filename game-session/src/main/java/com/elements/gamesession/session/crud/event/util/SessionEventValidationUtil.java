@@ -11,7 +11,7 @@ import java.util.List;
 @UtilityClass
 public class SessionEventValidationUtil {
 
-    SessionEventValidation validateEvent(Event event) {
+    static SessionEventValidation validateEvent(Event event) {
         SessionEventValidation validation = new SessionEventValidation();
         if (event == null) {
             validation.unAccept("event", "Value is null");
@@ -28,7 +28,7 @@ public class SessionEventValidationUtil {
         return validation;
     }
 
-    public SessionEventValidation validateOption(List<SceneStateOptionDTO> options, Integer option) {
+    static public SessionEventValidation validateOption(List<SceneStateOptionDTO> options, Integer option) {
         SessionEventValidation validation = new SessionEventValidation();
         if (option == null) {
             validation.unAccept("option", "Value is null");
