@@ -3,6 +3,7 @@ package com.elements.elementsdomain.shared.character;
 import com.elements.elementsdomain.shared.property.NumericProperty;
 import com.elements.elementsdomain.shared.property.Property;
 import com.elements.elementsdomain.shared.property.StringProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toMap;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class CharacterProperties implements Serializable {
     private static final long serialVersionUID = -433581898583303823L;
 

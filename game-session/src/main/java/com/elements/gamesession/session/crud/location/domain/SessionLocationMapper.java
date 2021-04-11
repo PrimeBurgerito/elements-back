@@ -12,13 +12,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptySet;
-import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @UtilityClass
 public class SessionLocationMapper {
 
     public static LocationStateDTO map(Location location, CharacterProperties statistics) {
-        Set<Image> images = isEmpty(location.getImages()) ? emptySet() : filterImages(location.getImages(), statistics);
+        Set<Image> images = location.getImages() == null ? emptySet() : filterImages(location.getImages(), statistics);
         return new LocationStateDTO(location.getName(), location.getNearbyLocations(), images);
     }
 

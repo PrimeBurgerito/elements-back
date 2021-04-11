@@ -5,6 +5,7 @@ import com.elements.elementsdomain.document.event.scene.SceneType;
 import com.elements.elementsdomain.document.event.scene.option.SceneOption;
 import com.elements.elementsdomain.shared.character.CharacterProperties;
 import com.elements.elementsdomain.shared.image.Image;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Getter
+@AllArgsConstructor
 public class SceneStateDTO {
     private final String text;
     private final Image image;

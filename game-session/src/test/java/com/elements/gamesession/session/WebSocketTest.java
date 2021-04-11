@@ -1,6 +1,10 @@
 package com.elements.gamesession.session;
 
+import com.elements.gamesession.helper.AuthenticatedUserTestHelper;
+import com.elements.gamesession.session.resource.GameStateDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +25,24 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Slf4j
 @Import(AuthenticatedUserTestHelper.class)
 public abstract class WebSocketTest {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String WEBSOCKET_URI = "ws://localhost:7778/start-session";
-    private static final String WEBSOCKET_TOPIC = "/state";
+    private static final String WEBSOCKET_TOPIC = "/user/state/game";
 
     private WebSocketStompClient webSocketStompClient;
-    protected BlockingQueue<String> blockingQueue;
-    protected StompSession session;
+    protected BlockingQueue<String> testBlockingQueue;
+    protected BlockingQueue<GameStateDTO> gameStateBlockingQueue;
 
     @Autowired
-    private AuthenticatedUserTestHelper authenticatedUserTestHelper;
+    protected AuthenticatedUserTestHelper authenticatedUserTestHelper;
 
     @BeforeEach
     public void setup() {
-        blockingQueue = new LinkedBlockingDeque<>();
+        testBlockingQueue = new LinkedBlockingDeque<>();
+        gameStateBlockingQueue = new LinkedBlockingDeque<>();
         var transport = new WebSocketTransport(new StandardWebSocketClient());
         var sockJsClient = new SockJsClient(List.of(transport));
         webSocketStompClient = new WebSocketStompClient(sockJsClient);
@@ -43,19 +50,30 @@ public abstract class WebSocketTest {
 
     @SneakyThrows
     protected void connect() {
-        session = webSocketStompClient.connect(WEBSOCKET_URI, new StompSessionHandlerAdapter() {
+        webSocketStompClient.connect(WEBSOCKET_URI, new StompSessionHandlerAdapter() {
         }).get(1, SECONDS);
     }
 
     @SneakyThrows
-    protected void authenticatedConnect() {
+    protected StompSession authenticatedConnect() {
         String uri = WEBSOCKET_URI + "?access_token=" + authenticatedUserTestHelper.getJwt();
-        session = webSocketStompClient.connect(uri, new StompSessionHandlerAdapter() {
+        return webSocketStompClient.connect(uri, new StompSessionHandlerAdapter() {
         }).get(1, SECONDS);
     }
 
-    protected void subscribe() {
+    @SneakyThrows
+    protected StompSession authenticatedConnect(String username) {
+        String uri = WEBSOCKET_URI + "?access_token=" + authenticatedUserTestHelper.getJwtFor(username);
+        return webSocketStompClient.connect(uri, new StompSessionHandlerAdapter() {
+        }).get(1, SECONDS);
+    }
+
+    protected void testSubscribe(StompSession session) {
         session.subscribe(WEBSOCKET_TOPIC, new DefaultStompFrameHandler());
+    }
+
+    protected void setGameStateSubscribe(StompSession session) {
+        session.subscribe(WEBSOCKET_TOPIC, new GameStateFrameHandler());
     }
 
 
@@ -68,7 +86,25 @@ public abstract class WebSocketTest {
 
         @Override
         public void handleFrame(@NotNull StompHeaders stompHeaders, Object o) {
-            blockingQueue.offer(new String((byte[]) o));
+            String offering = new String((byte[]) o);
+            log.info("Offering to blocking queue: {}", offering);
+            testBlockingQueue.offer(offering);
+        }
+    }
+
+    private class GameStateFrameHandler implements StompFrameHandler {
+        @NotNull
+        @Override
+        public Type getPayloadType(@NotNull StompHeaders stompHeaders) {
+            return byte[].class;
+        }
+
+        @Override
+        @SneakyThrows
+        public void handleFrame(@NotNull StompHeaders stompHeaders, Object o) {
+            GameStateDTO offer = objectMapper.readValue((byte[]) o, GameStateDTO.class);
+            log.info("Offering to blocking queue: {}", offer);
+            gameStateBlockingQueue.offer(offer);
         }
     }
 }

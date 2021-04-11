@@ -5,12 +5,14 @@ import com.elements.elementsdomain.shared.character.Character;
 import com.elements.elementsdomain.shared.character.CharacterEquipment;
 import com.elements.elementsdomain.shared.character.CharacterProperties;
 import com.elements.elementsdomain.shared.image.Image;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
 @Getter
+@AllArgsConstructor
 public class CharacterDTO {
     private final String name;
     private final String templateId;
