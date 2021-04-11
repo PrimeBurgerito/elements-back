@@ -8,8 +8,8 @@ import org.springframework.messaging.simp.stomp.StompSession;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.elements.gamesession.helper.AuthenticatedUserTestHelper.LOCATION_NAME;
-import static com.elements.gamesession.helper.AuthenticatedUserTestHelper.USERNAME;
+import static com.elements.gamesession.helper.AuthenticatedUserTestHelper.TEST_USERNAME;
+import static com.elements.gamesession.helper.GameDataTestHelper.LOCATION_NAME;
 import static java.text.MessageFormat.format;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +39,7 @@ class SessionControllerTest extends WebSocketTest {
         session1.send("/session/test", testText.getBytes());
         session2.send("/session/test", testText.getBytes());
 
-        assertEquals(format("Hello {0} [user: {1}]", testText, USERNAME), testBlockingQueue.poll(1, SECONDS));
+        assertEquals(format("Hello {0} [user: {1}]", testText, TEST_USERNAME), testBlockingQueue.poll(1, SECONDS));
         assertEquals(format("Hello {0} [user: {1}]", testText, testUser2), testBlockingQueue.poll(1, SECONDS));
     }
 

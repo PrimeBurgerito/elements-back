@@ -15,9 +15,13 @@ import static org.springframework.data.querydsl.QuerydslUtils.toDotPath;
 @UtilityClass
 class StringPropertyCriteriaBuilder {
     private final String PROPERTIES_KEY = toDotPath(QEvent.event.requirement.properties.stringProperties);
+    private final Criteria IS_NULL = where(PROPERTIES_KEY).is(null);
 
     Criteria build(Map<String, List<String>> properties) {
-        return new Criteria().orOperator(where(PROPERTIES_KEY).is(null), buildPropertiesCriteria(properties));
+        if (properties == null || properties.isEmpty()) {
+            return IS_NULL;
+        }
+        return new Criteria().orOperator(IS_NULL, buildPropertiesCriteria(properties));
     }
 
     private Criteria buildPropertiesCriteria(Map<String, List<String>> properties) {

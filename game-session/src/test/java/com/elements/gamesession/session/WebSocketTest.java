@@ -1,6 +1,7 @@
 package com.elements.gamesession.session;
 
 import com.elements.gamesession.helper.AuthenticatedUserTestHelper;
+import com.elements.gamesession.helper.GameDataTestHelper;
 import com.elements.gamesession.session.resource.GameStateDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -26,7 +27,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 @Slf4j
-@Import(AuthenticatedUserTestHelper.class)
+@Import({AuthenticatedUserTestHelper.class, GameDataTestHelper.class})
 public abstract class WebSocketTest {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String WEBSOCKET_URI = "ws://localhost:7778/start-session";

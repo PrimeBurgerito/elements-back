@@ -15,9 +15,13 @@ import static org.springframework.data.querydsl.QuerydslUtils.toDotPath;
 @UtilityClass
 class NumericPropertyCriteriaBuilder {
     private final String ATTRIBUTES = toDotPath(QEvent.event.requirement.properties.numericProperties);
+    private final Criteria IS_NULL = where(ATTRIBUTES).is(null);
 
     Criteria build(Map<String, Float> numericProperties) {
-        return new Criteria().orOperator(where(ATTRIBUTES).is(null), buildAttributesCriteria(numericProperties));
+        if (numericProperties == null || numericProperties.isEmpty()) {
+            return IS_NULL;
+        }
+        return new Criteria().orOperator(IS_NULL, buildAttributesCriteria(numericProperties));
     }
 
     private Criteria buildAttributesCriteria(Map<String, Float> attributes) {
