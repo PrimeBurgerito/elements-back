@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.document.event;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import com.elements.elementsdomain.document.event.scene.SceneBase;
 import com.elements.elementsdomain.shared.requirement.Requirement;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Event extends DocumentBase implements Serializable {
+public class Event extends RealmDocument implements Serializable {
     private static final long serialVersionUID = -540853532575176084L;
     private String name;
     private Requirement requirement;

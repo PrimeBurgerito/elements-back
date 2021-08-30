@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.document.container;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import com.elements.elementsdomain.shared.image.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import java.util.Set;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ImageContainer extends DocumentBase {
+public class ImageContainer extends RealmDocument {
     @Indexed(unique = true)
     private String key;
     private Set<Image> images;

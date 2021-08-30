@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import static com.elements.elementsdomain.document.item.ItemType.CONSUMABLE;
+
 @Data
 @Document
 @SuperBuilder
@@ -16,6 +18,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Consumable extends Item {
     @Override
     public ItemType getType() {
-        return ItemType.CONSUMABLE;
+        return CONSUMABLE;
     }
 }

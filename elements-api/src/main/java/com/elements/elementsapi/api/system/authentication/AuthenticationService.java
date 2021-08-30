@@ -3,7 +3,6 @@ package com.elements.elementsapi.api.system.authentication;
 import com.elements.elementscommon.config.security.JwtUtils;
 import com.elements.elementscommon.domain.authentication.JwtResponse;
 import com.elements.elementscommon.domain.user.User;
-import com.nimbusds.jwt.JWTClaimsSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +23,6 @@ public class AuthenticationService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-        new JWTClaimsSet.Builder().build();
         User userDetails = (User) authentication.getPrincipal();
         return JwtResponse.builder()
                 .token(jwt)

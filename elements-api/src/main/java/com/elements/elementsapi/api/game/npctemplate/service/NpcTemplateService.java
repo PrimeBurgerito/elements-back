@@ -1,10 +1,7 @@
 package com.elements.elementsapi.api.game.npctemplate.service;
 
-import com.elements.elementsapi.api.game.fileupload.service.FileStorageService;
-import com.elements.elementsapi.api.game.npctemplate.repository.NpcTemplateRepository;
-import com.elements.elementsapi.api.game.npctemplate.service.mapper.NpcTemplateMapper;
 import com.elements.elementsapi.api.game.npctemplate.service.resource.NpcTemplateDto;
-import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
+import com.elements.elementsapi.api.realm.service.RealmDocumentConditionalImageService;
 import com.elements.elementsdomain.document.npc.NpcTemplate;
 import com.elements.elementsdomain.shared.image.ConditionalImage;
 import org.springframework.stereotype.Service;
@@ -14,30 +11,7 @@ import java.util.HashSet;
 
 @Service
 @Transactional
-public class NpcTemplateService extends ConditionalImageEntityService<NpcTemplateDto, NpcTemplate> {
-
-    private final NpcTemplateRepository repository;
-    private final NpcTemplateMapper mapper;
-
-    public NpcTemplateService(
-            FileStorageService fileStorageService,
-            NpcTemplateRepository repository,
-            NpcTemplateMapper mapper
-    ) {
-        super(fileStorageService);
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-
-    @Override
-    public NpcTemplateRepository getRepository() {
-        return repository;
-    }
-
-    @Override
-    protected NpcTemplateMapper getMapper() {
-        return mapper;
-    }
+public class NpcTemplateService extends RealmDocumentConditionalImageService<NpcTemplateDto, NpcTemplate> {
 
     @Override
     protected void addImageToEntity(NpcTemplate entity, ConditionalImage conditionalImage) {

@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.document.item;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "items")
 @EqualsAndHashCode(callSuper = true)
-public abstract class Item extends DocumentBase {
+public abstract class Item extends RealmDocument {
     private String name;
 
     public abstract ItemType getType();

@@ -1,22 +1,12 @@
 package com.elements.elementsapi.api.game.property.controller;
 
-import com.elements.elementsapi.api.shared.controller.BaseController;
-import com.elements.elementsapi.api.game.property.service.StringPropertyService;
 import com.elements.elementsapi.api.game.property.service.resource.StringPropertyDto;
+import com.elements.elementsapi.api.realm.controller.RealmDocumentController;
 import com.elements.elementsdomain.document.propertytemplate.StringPropertyTemplate;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(value = "/property")
-public class StringPropertyController extends BaseController<StringPropertyDto, StringPropertyTemplate> {
-
-    private final StringPropertyService service;
-
-    @Override
-    protected StringPropertyService getService() {
-        return service;
-    }
+public class StringPropertyController extends RealmDocumentController<StringPropertyDto, StringPropertyTemplate> {
 }

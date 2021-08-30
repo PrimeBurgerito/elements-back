@@ -1,8 +1,8 @@
 package com.elements.elementsdomain.document.npc;
 
-import com.elements.elementscommon.domain.DocumentBase;
-import com.elements.elementsdomain.shared.image.ConditionalImage;
 import com.elements.elementsdomain.composite.npc.NpcStatistics;
+import com.elements.elementsdomain.document.RealmDocument;
+import com.elements.elementsdomain.shared.image.ConditionalImage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.Set;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class FixedNpc extends DocumentBase {
+public class FixedNpc extends RealmDocument {
     private String name;
     private NpcStatistics statistics;
     private Set<ConditionalImage> images;

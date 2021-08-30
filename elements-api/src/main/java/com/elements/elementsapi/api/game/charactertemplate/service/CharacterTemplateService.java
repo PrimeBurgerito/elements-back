@@ -1,14 +1,9 @@
 package com.elements.elementsapi.api.game.charactertemplate.service;
 
-import com.elements.elementsapi.api.game.charactertemplate.repository.CharacterTemplateRepository;
-import com.elements.elementsapi.api.game.charactertemplate.service.mapper.CharacterTemplateMapper;
 import com.elements.elementsapi.api.game.charactertemplate.service.resource.CharacterTemplateDto;
-import com.elements.elementsapi.api.game.fileupload.service.FileStorageService;
-import com.elements.elementsapi.api.shared.service.ImageEntityService;
-import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
+import com.elements.elementsapi.api.realm.service.RealmDocumentImageService;
 import com.elements.elementsdomain.document.charactertemplate.CharacterTemplate;
 import com.elements.elementsdomain.shared.image.Image;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,30 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CharacterTemplateService extends ImageEntityService<CharacterTemplateDto, CharacterTemplate> {
-
-    private final CharacterTemplateRepository repository;
-    private final CharacterTemplateMapper mapper;
-
-    public CharacterTemplateService(
-            FileStorageService fileStorageService,
-            CharacterTemplateRepository repository,
-            CharacterTemplateMapper characterTemplateMapper
-    ) {
-        super(fileStorageService);
-        this.repository = repository;
-        this.mapper = characterTemplateMapper;
-    }
-
-    @Override
-    public MongoRepository<CharacterTemplate, String> getRepository() {
-        return this.repository;
-    }
-
-    @Override
-    protected BaseMapper<CharacterTemplateDto, CharacterTemplate> getMapper() {
-        return this.mapper;
-    }
+public class CharacterTemplateService extends RealmDocumentImageService<CharacterTemplateDto, CharacterTemplate> {
 
     @Override
     protected void addImageToEntity(CharacterTemplate entity, String imageKey, Image image) {
@@ -59,7 +31,7 @@ public class CharacterTemplateService extends ImageEntityService<CharacterTempla
         return false;
     }
 
-    public List<CharacterTemplate> findTemplates() {
-        return repository.findAll();
+    public List<CharacterTemplate> findTemplates(String realmId) {
+        return realmId != null ? repository.findAllByRealmId(realmId) : repository.findAll();
     }
 }

@@ -1,14 +1,10 @@
 package com.elements.elementsapi.api.game.location.service;
 
-import com.elements.elementsapi.api.game.fileupload.service.FileStorageService;
 import com.elements.elementsapi.api.game.location.repository.LocationRepository;
-import com.elements.elementsapi.api.game.location.service.mapper.LocationMapper;
 import com.elements.elementsapi.api.game.location.service.resource.LocationDto;
-import com.elements.elementsapi.api.shared.service.ConditionalImageEntityService;
-import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
-import com.elements.elementsdomain.shared.image.ConditionalImage;
+import com.elements.elementsapi.api.realm.service.RealmDocumentConditionalImageService;
 import com.elements.elementsdomain.document.location.Location;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.elements.elementsdomain.shared.image.ConditionalImage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,31 +15,7 @@ import static org.apache.commons.collections4.CollectionUtils.*;
 
 @Service
 @Transactional
-public class LocationService extends ConditionalImageEntityService<LocationDto, Location> {
-
-    private final LocationRepository repository;
-    private final LocationMapper mapper;
-
-    public LocationService(
-            FileStorageService fileStorageService,
-            LocationRepository repository,
-            LocationMapper mapper
-    ) {
-        super(fileStorageService);
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-
-    @Override
-    public MongoRepository<Location, String> getRepository() {
-        return repository;
-    }
-
-    @Override
-    protected BaseMapper<LocationDto, Location> getMapper() {
-        return mapper;
-    }
-
+public class LocationService extends RealmDocumentConditionalImageService<LocationDto, Location> {
     @Override
     public Location create(LocationDto locationDto) {
         if (isNotEmpty(locationDto.getNearbyLocations())) {
@@ -65,7 +37,7 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
         if (!removedNearbyLocations.isEmpty()) {
             removeFromNearbyLocations(location.getName(), removedNearbyLocations);
         }
-        return mapper.map(getRepository().save(mapper.map(update)));
+        return mapper.map(repository.save(mapper.map(update)));
     }
 
     @Override
@@ -101,7 +73,7 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
     }
 
     private void addToNearbyLocations(String locationName, Set<String> nearbyLocationNames) {
-        Set<Location> nearbyLocations = repository.findByNameIn(nearbyLocationNames);
+        Set<Location> nearbyLocations = ((LocationRepository) repository).findByNameIn(nearbyLocationNames);
         nearbyLocations.forEach((Location location) -> {
             if (location.getNearbyLocations() == null) {
                 location.setNearbyLocations(Set.of(locationName));
@@ -113,7 +85,7 @@ public class LocationService extends ConditionalImageEntityService<LocationDto, 
     }
 
     private void removeFromNearbyLocations(String locationName, Set<String> nearbyLocationNames) {
-        Set<Location> nearbyLocations = repository.findByNameIn(nearbyLocationNames);
+        Set<Location> nearbyLocations = ((LocationRepository) repository).findByNameIn(nearbyLocationNames);
         nearbyLocations.stream()
                 .filter(location -> isNotEmpty(location.getNearbyLocations()))
                 .forEach(location -> location.getNearbyLocations().remove(locationName));

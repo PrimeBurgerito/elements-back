@@ -2,6 +2,7 @@ package com.elements.elementsdomain.document.event.scene;
 
 import com.elements.elementsdomain.document.event.scene.option.SceneOption;
 import com.elements.elementsdomain.document.event.scene.reward.SceneReward;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -18,8 +19,11 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
         @Type(value = SceneReward.class, name = "REWARD")
 })
 public interface SceneBase extends Serializable {
+
+    @JsonIgnore
     void configureNextSceneIndex(EventProcessor processor);
 
+    @JsonIgnore
     void setSceneState(EventProcessor processor);
 
     SceneType getType();

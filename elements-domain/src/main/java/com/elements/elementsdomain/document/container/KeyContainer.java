@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.document.container;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.Set;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class KeyContainer extends DocumentBase {
+public class KeyContainer extends RealmDocument {
     @Indexed(unique = true)
     private String key;
     @NotEmpty

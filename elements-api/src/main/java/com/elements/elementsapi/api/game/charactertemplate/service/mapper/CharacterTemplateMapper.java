@@ -3,7 +3,7 @@ package com.elements.elementsapi.api.game.charactertemplate.service.mapper;
 import com.elements.elementsapi.api.game.charactertemplate.service.resource.CharacterTemplateDto;
 import com.elements.elementsapi.api.game.property.repository.NumericPropertyRepository;
 import com.elements.elementsapi.api.game.property.repository.StringPropertyRepository;
-import com.elements.elementsapi.api.shared.service.mapper.BaseMapper;
+import com.elements.elementsapi.api.realm.resource.RealmDocumentMapper;
 import com.elements.elementsdomain.document.charactertemplate.CharacterTemplate;
 import com.elements.elementsdomain.document.propertytemplate.NumericPropertyTemplate;
 import com.elements.elementsdomain.document.propertytemplate.StringPropertyTemplate;
@@ -20,17 +20,19 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
-public class CharacterTemplateMapper implements BaseMapper<CharacterTemplateDto, CharacterTemplate> {
+public class CharacterTemplateMapper implements RealmDocumentMapper<CharacterTemplateDto, CharacterTemplate> {
 
     private final StringPropertyRepository stringPropertyService;
     private final NumericPropertyRepository numericPropertyRepository;
 
     @Override
     public CharacterTemplateDto map(CharacterTemplate template) {
-        return CharacterTemplateDto.builder()
+        CharacterTemplateDto dto = CharacterTemplateDto.builder()
                 .numericProperties(template.getProperties().getNumericPropertyKeyToValue())
                 .stringProperties(template.getProperties().getStringPropertyKeyToValue())
                 .build();
+        dto.setRealmId(template.getRealmId());
+        return dto;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class CharacterTemplateMapper implements BaseMapper<CharacterTemplateDto,
                 .stringProperties(stringProperties)
                 .build();
 
-        return CharacterTemplate.builder().properties(properties).build();
+        return CharacterTemplate.builder().properties(properties).realmId(templateDto.getRealmId()).build();
     }
 
     @Override

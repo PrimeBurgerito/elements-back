@@ -8,6 +8,8 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import static com.elements.elementsdomain.document.item.ItemType.WEAPON;
+
 @Data
 @Document
 @SuperBuilder
@@ -19,7 +21,7 @@ public class Weapon extends Item {
 
     @Override
     public ItemType getType() {
-        return ItemType.WEAPON;
+        return WEAPON;
     }
 
     public enum WeaponType {

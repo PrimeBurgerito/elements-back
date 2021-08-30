@@ -2,10 +2,8 @@ package com.elements.elementsapi.api.game.property.service;
 
 import com.elements.elementsapi.api.game.charactertemplate.repository.CharacterTemplateRepository;
 import com.elements.elementsapi.api.game.gamestate.repository.GameStateRepository;
-import com.elements.elementsapi.api.game.property.repository.NumericPropertyRepository;
-import com.elements.elementsapi.api.game.property.service.mapper.NumericPropertyMapper;
 import com.elements.elementsapi.api.game.property.service.resource.NumericPropertyDto;
-import com.elements.elementsapi.api.shared.service.BaseService;
+import com.elements.elementsapi.api.realm.service.RealmDocumentService;
 import com.elements.elementsdomain.document.charactertemplate.CharacterTemplate;
 import com.elements.elementsdomain.document.propertytemplate.NumericPropertyTemplate;
 import com.elements.elementsdomain.gamestate.GameState;
@@ -18,22 +16,9 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class NumericPropertyService extends BaseService<NumericPropertyDto, NumericPropertyTemplate> {
-
-    private final NumericPropertyRepository repository;
-    private final NumericPropertyMapper mapper;
+public class NumericPropertyService extends RealmDocumentService<NumericPropertyDto, NumericPropertyTemplate> {
     private final CharacterTemplateRepository characterTemplateRepository;
     private final GameStateRepository gameStateRepository;
-
-    @Override
-    public NumericPropertyRepository getRepository() {
-        return repository;
-    }
-
-    @Override
-    protected NumericPropertyMapper getMapper() {
-        return mapper;
-    }
 
     @Override
     public NumericPropertyTemplate create(NumericPropertyDto entityDto) {

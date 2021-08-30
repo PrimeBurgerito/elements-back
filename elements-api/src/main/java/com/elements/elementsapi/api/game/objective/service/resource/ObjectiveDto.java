@@ -1,11 +1,14 @@
 package com.elements.elementsapi.api.game.objective.service.resource;
 
+import com.elements.elementsapi.api.realm.resource.RealmDocumentDto;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
 
 @Data
-public class ObjectiveDto {
+@EqualsAndHashCode(callSuper = true)
+public class ObjectiveDto extends RealmDocumentDto {
     private String value;
 
     @JsonSetter

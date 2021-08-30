@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.document.npc;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import com.elements.elementsdomain.shared.image.ConditionalImage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import java.util.Set;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class NpcTemplate extends DocumentBase {
+public class NpcTemplate extends RealmDocument {
     private long rank;
     private Set<ConditionalImage> images;
 }

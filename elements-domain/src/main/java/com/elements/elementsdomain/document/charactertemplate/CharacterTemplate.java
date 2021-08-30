@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.document.charactertemplate;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import com.elements.elementsdomain.shared.character.CharacterProperties;
 import com.elements.elementsdomain.shared.image.Image;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.Map;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CharacterTemplate extends DocumentBase {
+public class CharacterTemplate extends RealmDocument {
     private Map<String, Image> images;
     private CharacterProperties properties;
 }

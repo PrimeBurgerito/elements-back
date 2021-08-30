@@ -1,9 +1,9 @@
 package com.elements.elementsapi;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@SpringBootTest
 public class ElementsApiApplicationTests {
 
     @Test

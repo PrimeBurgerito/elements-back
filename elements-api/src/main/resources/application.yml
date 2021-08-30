@@ -29,7 +29,7 @@ springdoc:
 
 elements:
   jwt:
-    secret: elements-client
+    secret: ZWxlbWVudHMtY2xpZW50
     expiration-ms: 86400000
   file:
     use-google: false

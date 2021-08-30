@@ -6,7 +6,7 @@ services:
     image: mongo-start
     build: ./mongo1
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongo1_db:/data
     depends_on:
@@ -16,20 +16,20 @@ services:
       - mongo
 
   mongo2:
-    image: mongo:4.4.3-bionic
+    image: mongo:5.0.2
     command: mongod --replSet rs0 --oplogSize 128
     ports:
-      - 27018:27017
+      - "27018:27017"
     volumes:
       - mongo2_db:/data
     networks:
       - mongo
 
   mongo3:
-    image: mongo:4.4.3-bionic
+    image: mongo:5.0.2
     command: mongod --replSet rs0 --oplogSize 128
     ports:
-      - 27019:27017
+      - "27019:27017"
     volumes:
       - mongo3_db:/data
     networks:

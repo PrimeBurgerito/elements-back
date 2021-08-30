@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import static com.elements.elementsdomain.document.item.ItemType.CLOTHING;
+
 @Data
 @Document
 @SuperBuilder
@@ -18,7 +20,7 @@ public class Clothing extends Item {
 
     @Override
     public ItemType getType() {
-        return ItemType.CLOTHING;
+        return CLOTHING;
     }
 
     public enum ClothingType {

@@ -1,8 +1,10 @@
 package com.elements.elementsapi.api.game.property.service.resource;
 
 
+import com.elements.elementsapi.api.realm.resource.RealmDocumentDto;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +13,8 @@ import static java.text.MessageFormat.format;
 import static org.springframework.util.StringUtils.capitalize;
 
 @Data
-abstract class PropertyDto<T> {
+@EqualsAndHashCode(callSuper = true)
+abstract class PropertyDto<T> extends RealmDocumentDto {
     @NotBlank
     private String name;
     @NotBlank
