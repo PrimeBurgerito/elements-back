@@ -47,6 +47,7 @@ public class GameStateService {
                 .userId(user.getId())
                 .locationId(location.getId())
                 .character(character)
+                .realmId(gameStateDto.getRealmId())
                 .build());
         return true;
     }

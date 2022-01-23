@@ -29,4 +29,9 @@ public class RealmController {
     public List<Realm> getMine() {
         return service.getMine();
     }
+
+    @GetMapping
+    public List<Realm> find() {
+        return service.getMine();
+    }
 }

@@ -35,6 +35,11 @@ public class RealmService {
     }
 
     @Transactional(readOnly = true)
+    public List<Realm> find() {
+        return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Realm> getMine() {
         String username = getUserName();
         return repository.findAllByCreatedBy(username);

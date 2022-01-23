@@ -1,0 +1,36 @@
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/dev
+      database: dev
+      repositories:
+        type: auto
+  #      host: 127.0.0.1
+  #      port: 27017
+  #      username: root
+  #      password: example
+  #      authentication-database: admin
+
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6379
+
+server:
+  port: 7778
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
+logging:
+  level:
+    org.springframework: debug
+    ee.elements: debug
+
+elements:
+  jwt:
+    secret: elements-client
+    expiration-ms: 86400000

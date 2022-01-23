@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "elements.jwt.private-key-location",
+      "type": "org.springframework.core.io.Resource",
+      "description": "Description for elements.jwt.private-key-location."
+    }
+  ]
+}

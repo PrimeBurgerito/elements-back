@@ -1,0 +1,36 @@
+server:
+  port: ${PORT:7777}
+  servlet:
+    context-path: /api
+  forward-headers-strategy: framework
+
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/dev
+      database: dev
+      repositories:
+        type: auto
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+springdoc:
+  packages-to-scan: com.elements.elementsapi.api
+  swagger-ui:
+    doc-expansion: none
+  #    disable-swagger-default-url: true
+  show-actuator: true
+
+elements:
+  jwt:
+    secret: ZWxlbWVudHMtY2xpZW50
+    expiration-ms: 86400000
+  file:
+    use-google: false
+    upload-dir: /uploads

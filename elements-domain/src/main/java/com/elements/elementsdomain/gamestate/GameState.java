@@ -1,6 +1,6 @@
 package com.elements.elementsdomain.gamestate;
 
-import com.elements.elementscommon.domain.DocumentBase;
+import com.elements.elementsdomain.document.RealmDocument;
 import com.elements.elementsdomain.shared.character.Character;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class GameState extends DocumentBase {
+public class GameState extends RealmDocument {
     private String userId;
     private String locationId;
     private Character character;

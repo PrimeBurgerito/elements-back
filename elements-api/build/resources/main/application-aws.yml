@@ -1,0 +1,25 @@
+server:
+  port: 5000
+
+spring:
+  data:
+    mongodb:
+      host: 13.49.107.220
+      port: 27017
+      username: admin
+      password: admin
+      database: dev
+      repositories:
+        type: auto
+
+  security:
+    token-service:
+      server-uri: http://elementsback-env.eba-pizv7jpm.eu-north-1.elasticbeanstalk.com/auth/oauth
+      client-id: elements-client
+      client-secret: elements-secret
+      client-id-swagger: elements-swagger
+      client-secret-swagger: elements-swagger
+      check-token-endpoint: ${spring.security.token-service.server-uri}/check_token
+
+file:
+  upload-dir: /uploads

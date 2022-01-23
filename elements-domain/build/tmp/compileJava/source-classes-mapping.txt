@@ -1,0 +1,203 @@
+com/elements/elementsdomain/document/item/Consumable.java
+ com.elements.elementsdomain.document.item.Consumable
+ com.elements.elementsdomain.document.item.Consumable$ConsumableBuilder
+ com.elements.elementsdomain.document.item.Consumable$ConsumableBuilderImpl
+com/elements/elementsdomain/shared/reward/PropertyReward.java
+ com.elements.elementsdomain.shared.reward.PropertyReward
+com/elements/elementsdomain/document/event/scene/Scene.java
+ com.elements.elementsdomain.document.event.scene.Scene
+com/elements/elementsdomain/shared/property/Property.java
+ com.elements.elementsdomain.shared.property.Property
+com/elements/elementsdomain/document/event/scene/EventProcessor.java
+ com.elements.elementsdomain.document.event.scene.EventProcessor
+com/elements/elementsdomain/document/location/area/LocationInfo.java
+ com.elements.elementsdomain.document.location.area.LocationInfo
+com/elements/elementsdomain/document/objective/QObjective.java
+ com.elements.elementsdomain.document.objective.QObjective
+com/elements/elementsdomain/shared/image/ConditionalImage.java
+ com.elements.elementsdomain.shared.image.ConditionalImage
+ com.elements.elementsdomain.shared.image.ConditionalImage$ConditionalImageBuilder
+com/elements/elementsdomain/document/event/scene/reward/SceneReward.java
+ com.elements.elementsdomain.document.event.scene.reward.SceneReward
+com/elements/elementsdomain/document/location/QLocation.java
+ com.elements.elementsdomain.document.location.QLocation
+com/elements/elementsdomain/document/container/QKeyContainer.java
+ com.elements.elementsdomain.document.container.QKeyContainer
+com/elements/elementsdomain/document/item/Item.java
+ com.elements.elementsdomain.document.item.Item
+ com.elements.elementsdomain.document.item.Item$ItemBuilder
+com/elements/elementsdomain/gamestate/QGameState.java
+ com.elements.elementsdomain.gamestate.QGameState
+com/elements/elementsdomain/shared/character/QCharacter.java
+ com.elements.elementsdomain.shared.character.QCharacter
+com/elements/elementsdomain/gamestate/GameState.java
+ com.elements.elementsdomain.gamestate.GameState
+ com.elements.elementsdomain.gamestate.GameState$GameStateBuilder
+ com.elements.elementsdomain.gamestate.GameState$GameStateBuilderImpl
+com/elements/elementsdomain/document/propertytemplate/NumericPropertyTemplate.java
+ com.elements.elementsdomain.document.propertytemplate.NumericPropertyTemplate
+com/elements/elementsdomain/shared/image/ImageCrop.java
+ com.elements.elementsdomain.shared.image.ImageCrop
+ com.elements.elementsdomain.shared.image.ImageCrop$ImageCropBuilder
+com/elements/elementsdomain/document/charactertemplate/CharacterTemplate.java
+ com.elements.elementsdomain.document.charactertemplate.CharacterTemplate
+ com.elements.elementsdomain.document.charactertemplate.CharacterTemplate$CharacterTemplateBuilder
+ com.elements.elementsdomain.document.charactertemplate.CharacterTemplate$CharacterTemplateBuilderImpl
+com/elements/elementsdomain/document/item/QWeapon.java
+ com.elements.elementsdomain.document.item.QWeapon
+com/elements/elementsdomain/shared/requirement/QPropertiesRequirement.java
+ com.elements.elementsdomain.shared.requirement.QPropertiesRequirement
+com/elements/elementsdomain/composite/npc/QNpcStatistics.java
+ com.elements.elementsdomain.composite.npc.QNpcStatistics
+com/elements/elementsdomain/shared/requirement/Timing.java
+ com.elements.elementsdomain.shared.requirement.Timing
+com/elements/elementsdomain/document/objective/Objective.java
+ com.elements.elementsdomain.document.objective.Objective
+ com.elements.elementsdomain.document.objective.Objective$ObjectiveBuilder
+ com.elements.elementsdomain.document.objective.Objective$ObjectiveBuilderImpl
+com/elements/elementsdomain/shared/image/QConditionalImage.java
+ com.elements.elementsdomain.shared.image.QConditionalImage
+com/elements/elementsdomain/shared/property/StringProperty.java
+ com.elements.elementsdomain.shared.property.StringProperty
+ com.elements.elementsdomain.shared.property.StringProperty$StringPropertyType
+com/elements/elementsdomain/composite/npc/NpcStatistics.java
+ com.elements.elementsdomain.composite.npc.NpcStatistics
+com/elements/elementsdomain/shared/character/CharacterProperties.java
+ com.elements.elementsdomain.shared.character.CharacterProperties
+ com.elements.elementsdomain.shared.character.CharacterProperties$CharacterPropertiesBuilder
+com/elements/elementsdomain/shared/requirement/QRequirement.java
+ com.elements.elementsdomain.shared.requirement.QRequirement
+com/elements/elementsdomain/shared/reward/RewardType.java
+ com.elements.elementsdomain.shared.reward.RewardType
+com/elements/elementsdomain/document/event/scene/SceneBase.java
+ com.elements.elementsdomain.document.event.scene.SceneBase
+com/elements/elementsdomain/document/container/KeyContainer.java
+ com.elements.elementsdomain.document.container.KeyContainer
+ com.elements.elementsdomain.document.container.KeyContainer$KeyContainerBuilder
+ com.elements.elementsdomain.document.container.KeyContainer$KeyContainerBuilderImpl
+com/elements/elementsdomain/shared/character/Character.java
+ com.elements.elementsdomain.shared.character.Character
+ com.elements.elementsdomain.shared.character.Character$CharacterBuilder
+com/elements/elementsdomain/document/npc/QNpcTemplate.java
+ com.elements.elementsdomain.document.npc.QNpcTemplate
+com/elements/elementsdomain/document/event/scene/option/Option.java
+ com.elements.elementsdomain.document.event.scene.option.Option
+com/elements/elementsdomain/document/container/ImageContainer.java
+ com.elements.elementsdomain.document.container.ImageContainer
+ com.elements.elementsdomain.document.container.ImageContainer$ImageContainerBuilder
+ com.elements.elementsdomain.document.container.ImageContainer$ImageContainerBuilderImpl
+com/elements/elementsdomain/document/event/QEvent.java
+ com.elements.elementsdomain.document.event.QEvent
+com/elements/elementsdomain/document/event/Event.java
+ com.elements.elementsdomain.document.event.Event
+ com.elements.elementsdomain.document.event.Event$EventBuilder
+ com.elements.elementsdomain.document.event.Event$EventBuilderImpl
+com/elements/elementsdomain/document/item/QConsumable.java
+ com.elements.elementsdomain.document.item.QConsumable
+com/elements/elementsdomain/document/propertytemplate/QNumericPropertyTemplate.java
+ com.elements.elementsdomain.document.propertytemplate.QNumericPropertyTemplate
+com/elements/elementsdomain/document/npc/NpcTemplate.java
+ com.elements.elementsdomain.document.npc.NpcTemplate
+ com.elements.elementsdomain.document.npc.NpcTemplate$NpcTemplateBuilder
+ com.elements.elementsdomain.document.npc.NpcTemplate$NpcTemplateBuilderImpl
+com/elements/elementsdomain/shared/requirement/TimeRange.java
+ com.elements.elementsdomain.shared.requirement.TimeRange
+com/elements/elementsdomain/document/npc/QFixedNpc.java
+ com.elements.elementsdomain.document.npc.QFixedNpc
+com/elements/elementsdomain/shared/reward/Reward.java
+ com.elements.elementsdomain.shared.reward.Reward
+com/elements/elementsdomain/document/propertytemplate/QStringPropertyTemplate.java
+ com.elements.elementsdomain.document.propertytemplate.QStringPropertyTemplate
+com/elements/elementsdomain/shared/property/NumericProperty.java
+ com.elements.elementsdomain.shared.property.NumericProperty
+com/elements/elementsdomain/document/event/scene/SceneType.java
+ com.elements.elementsdomain.document.event.scene.SceneType
+com/elements/elementsdomain/composite/npc/RandomNpc.java
+ com.elements.elementsdomain.composite.npc.RandomNpc
+com/elements/elementsdomain/document/Realm.java
+ com.elements.elementsdomain.document.Realm
+ com.elements.elementsdomain.document.Realm$RealmBuilder
+ com.elements.elementsdomain.document.Realm$RealmBuilderImpl
+com/elements/elementsdomain/document/propertytemplate/QPropertyTemplate.java
+ com.elements.elementsdomain.document.propertytemplate.QPropertyTemplate
+com/elements/elementsdomain/document/propertytemplate/StringPropertyTemplate.java
+ com.elements.elementsdomain.document.propertytemplate.StringPropertyTemplate
+com/elements/elementsdomain/document/container/Key.java
+ com.elements.elementsdomain.document.container.Key
+com/elements/elementsdomain/document/item/Clothing.java
+ com.elements.elementsdomain.document.item.Clothing
+ com.elements.elementsdomain.document.item.Clothing$ClothingBuilder
+ com.elements.elementsdomain.document.item.Clothing$ClothingBuilderImpl
+ com.elements.elementsdomain.document.item.Clothing$ClothingType
+com/elements/elementsdomain/document/item/QClothing.java
+ com.elements.elementsdomain.document.item.QClothing
+com/elements/elementsdomain/document/QRealmDocument.java
+ com.elements.elementsdomain.document.QRealmDocument
+com/elements/elementsdomain/document/item/QItem.java
+ com.elements.elementsdomain.document.item.QItem
+com/elements/elementsdomain/shared/image/Image.java
+ com.elements.elementsdomain.shared.image.Image
+ com.elements.elementsdomain.shared.image.Image$ImageBuilder
+com/elements/elementsdomain/document/event/scene/option/SceneOption.java
+ com.elements.elementsdomain.document.event.scene.option.SceneOption
+com/elements/elementsdomain/document/event/scene/SceneImage.java
+ com.elements.elementsdomain.document.event.scene.SceneImage
+com/elements/elementsdomain/document/RealmDocument.java
+ com.elements.elementsdomain.document.RealmDocument
+ com.elements.elementsdomain.document.RealmDocument$RealmDocumentBuilder
+com/elements/elementsdomain/document/location/area/QLocationArea.java
+ com.elements.elementsdomain.document.location.area.QLocationArea
+com/elements/elementsdomain/shared/requirement/Requirement.java
+ com.elements.elementsdomain.shared.requirement.Requirement
+ com.elements.elementsdomain.shared.requirement.Requirement$RequirementBuilder
+com/elements/elementsdomain/document/propertytemplate/PropertyTemplate.java
+ com.elements.elementsdomain.document.propertytemplate.PropertyTemplate
+com/elements/elementsdomain/document/npc/FixedNpc.java
+ com.elements.elementsdomain.document.npc.FixedNpc
+ com.elements.elementsdomain.document.npc.FixedNpc$FixedNpcBuilder
+ com.elements.elementsdomain.document.npc.FixedNpc$FixedNpcBuilderImpl
+com/elements/elementsdomain/shared/character/CharacterEquipment.java
+ com.elements.elementsdomain.shared.character.CharacterEquipment
+com/elements/elementsdomain/shared/reward/StringPropertyReward.java
+ com.elements.elementsdomain.shared.reward.StringPropertyReward
+com/elements/elementsdomain/shared/image/QImage.java
+ com.elements.elementsdomain.shared.image.QImage
+com/elements/elementsdomain/document/event/scene/QSceneBase.java
+ com.elements.elementsdomain.document.event.scene.QSceneBase
+org/springframework/data/util/QPair.java
+ org.springframework.data.util.QPair
+com/elements/elementsdomain/document/container/QImageContainer.java
+ com.elements.elementsdomain.document.container.QImageContainer
+com/elements/elementsdomain/document/location/Location.java
+ com.elements.elementsdomain.document.location.Location
+ com.elements.elementsdomain.document.location.Location$LocationBuilder
+ com.elements.elementsdomain.document.location.Location$LocationBuilderImpl
+com/elements/elementsdomain/document/location/area/QLocationInfo.java
+ com.elements.elementsdomain.document.location.area.QLocationInfo
+com/elements/elementsdomain/shared/requirement/PropertiesRequirement.java
+ com.elements.elementsdomain.shared.requirement.PropertiesRequirement
+ com.elements.elementsdomain.shared.requirement.PropertiesRequirement$PropertiesRequirementBuilder
+com/elements/elementsdomain/document/container/QKey.java
+ com.elements.elementsdomain.document.container.QKey
+com/elements/elementsdomain/shared/reward/ObjectiveReward.java
+ com.elements.elementsdomain.shared.reward.ObjectiveReward
+com/elements/elementsdomain/document/item/ItemType.java
+ com.elements.elementsdomain.document.item.ItemType
+com/elements/elementscommon/domain/QDocumentBase.java
+ com.elements.elementscommon.domain.QDocumentBase
+com/elements/elementsdomain/document/location/area/LocationArea.java
+ com.elements.elementsdomain.document.location.area.LocationArea
+ com.elements.elementsdomain.document.location.area.LocationArea$LocationAreaBuilder
+ com.elements.elementsdomain.document.location.area.LocationArea$LocationAreaBuilderImpl
+ com.elements.elementsdomain.document.location.area.LocationArea$Type
+com/elements/elementsdomain/document/item/Weapon.java
+ com.elements.elementsdomain.document.item.Weapon
+ com.elements.elementsdomain.document.item.Weapon$WeaponBuilder
+ com.elements.elementsdomain.document.item.Weapon$WeaponBuilderImpl
+ com.elements.elementsdomain.document.item.Weapon$WeaponType
+com/elements/elementsdomain/shared/reward/NumericPropertyReward.java
+ com.elements.elementsdomain.shared.reward.NumericPropertyReward
+com/elements/elementsdomain/shared/character/QCharacterProperties.java
+ com.elements.elementsdomain.shared.character.QCharacterProperties
+com/elements/elementsdomain/document/charactertemplate/QCharacterTemplate.java
+ com.elements.elementsdomain.document.charactertemplate.QCharacterTemplate

@@ -1,0 +1,19 @@
+{
+  "groups": [
+    {
+      "name": "spring.security",
+      "type": "com.elements.elementscommon.config.properties.SecurityProperties",
+      "sourceType": "com.elements.elementscommon.config.properties.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.allowed-patterns",
+      "type": "java.lang.String[]",
+      "sourceType": "com.elements.elementscommon.config.properties.SecurityProperties",
+      "deprecated": true,
+      "deprecation": {}
+    }
+  ],
+  "hints": []
+}
